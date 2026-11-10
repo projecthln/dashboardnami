@@ -6,7 +6,7 @@
   <title>hi.littlenami — Business Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --pink: #E9899F;
@@ -37,7 +37,7 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--cream);
       color: var(--dark);
-      line-height: 1.4;
+      line-height: 1.45;
       min-height: 100vh;
       display: flex;
     }
@@ -47,7 +47,7 @@
       letter-spacing: -0.02em;
     }
 
-    /* DESKTOP SIDEBAR */
+    /* APP SIDEBAR (DESKTOP) */
     .app-sidebar {
       width: 250px;
       background: var(--surface);
@@ -62,7 +62,7 @@
     }
 
     .brand-section {
-      padding: 20px 16px;
+      padding: 20px;
       border-bottom: 2.5px solid var(--border-color);
       background-color: var(--pink);
     }
@@ -77,12 +77,13 @@
       border: 1.5px solid var(--border-color);
       border-radius: 999px;
       box-shadow: var(--shadow-retro-sm);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .brand-title {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -91,31 +92,32 @@
     .brand-tagline {
       font-size: 11px;
       font-weight: 600;
-      opacity: 0.9;
+      color: var(--dark);
+      margin-top: 2px;
     }
 
     .sidebar-nav {
       flex: 1;
-      padding: 12px 10px;
+      padding: 14px 10px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .nav-link {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
+      gap: 12px;
+      padding: 10px 14px;
       border-radius: var(--radius-sm);
       font-weight: 700;
       font-size: 13px;
       color: var(--dark);
       text-decoration: none;
       border: 2px solid transparent;
+      transition: all 0.15s ease;
       cursor: pointer;
-      transition: all 0.1s ease;
     }
 
     .nav-link:hover {
@@ -130,12 +132,13 @@
     }
 
     .nav-link svg {
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.2;
     }
 
     .sidebar-user {
-      padding: 12px 14px;
+      padding: 14px;
       border-top: 2.5px solid var(--border-color);
       background: var(--cream-light);
       display: flex;
@@ -143,7 +146,7 @@
       gap: 10px;
     }
 
-    .user-avatar-solo {
+    .user-avatar {
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -151,127 +154,35 @@
       background: var(--pink);
       display: grid;
       place-items: center;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
-      box-shadow: 1px 1px 0 var(--border-color);
     }
 
-    /* MAIN CONTAINER */
+    /* MAIN CONTENT */
     .app-main {
       flex: 1;
       margin-left: 250px;
-      padding: 18px 20px;
-      padding-bottom: 95px;
+      padding: 20px;
+      padding-bottom: 90px;
       max-width: 1200px;
       width: calc(100% - 250px);
     }
 
-    /* TOP RADAR PENGINGAT (H-3 ALERT BANNER) */
-    .radar-banner {
-      background: var(--cream-light);
-      border: 2.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-retro);
-      padding: 12px 14px;
-      margin-bottom: 18px;
-    }
-
-    .radar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .radar-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .radar-item {
-      background: #fff;
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 8px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      gap: 8px;
-    }
-
-    /* TOP BAR & SEARCH */
     .topbar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .search-box-wrap {
-      display: flex;
-      align-items: center;
-      background: var(--surface);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 5px 10px;
-      box-shadow: var(--shadow-retro-sm);
-      flex: 1;
-      max-width: 360px;
-    }
-
-    .search-box-wrap input {
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 600;
-      width: 100%;
-      margin-left: 6px;
-    }
-
-    .filter-pills {
-      display: flex;
-      background: var(--surface);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-retro-sm);
-      padding: 3px;
-      overflow-x: auto;
-      max-width: 100%;
-    }
-
-    .pill-btn {
-      background: transparent;
-      border: none;
-      padding: 5px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      color: var(--dark-muted);
-      white-space: nowrap;
-    }
-
-    .pill-btn.active {
-      background: var(--red);
-      color: #fff;
-      border: 1.5px solid var(--border-color);
-      box-shadow: var(--shadow-retro-sm);
+      margin-bottom: 20px;
     }
 
     /* RETRO CARDS */
     .grid-metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
 
     .retro-card {
@@ -279,75 +190,42 @@
       border: 2.5px solid var(--border-color);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-retro);
-      padding: 14px;
-      position: relative;
+      padding: 16px;
     }
 
     .card-pink { background: var(--pink); }
     .card-yellow { background: var(--yellow); }
     .card-green { background: var(--green); }
-    .card-red { background: var(--red); color: #fff; }
+    .card-red { background: var(--red); color: var(--surface); }
     .card-cream { background: var(--cream-light); }
 
-    .card-label {
-      font-size: 10px;
+    .retro-card .card-label {
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       display: flex;
+      align-items: center;
       justify-content: space-between;
       margin-bottom: 4px;
     }
 
-    .card-value {
+    .retro-card .card-value {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 700;
       line-height: 1.2;
     }
 
-    .card-subtext {
-      font-size: 10.5px;
+    .retro-card .card-subtext {
+      font-size: 11px;
       font-weight: 600;
       margin-top: 4px;
-    }
-
-    /* SPLIT WALLET BOX */
-    .wallet-split-box {
-      background: var(--surface);
-      border: 2.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-retro);
-      padding: 14px 16px;
-      margin-bottom: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .wallet-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .wallet-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius-sm);
-      border: 2px solid var(--border-color);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 12px;
-      box-shadow: 1.5px 1.5px 0 var(--border-color);
     }
 
     /* BADGES */
     .badge-unit {
       display: inline-block;
-      padding: 2px 7px;
+      padding: 3px 8px;
       font-size: 10px;
       font-weight: 800;
       border: 1.5px solid var(--border-color);
@@ -358,11 +236,10 @@
     .badge-joktug { background: var(--yellow); color: var(--dark); }
     .badge-freelance { background: var(--green); color: var(--dark); }
     .badge-studio { background: var(--red); color: #fff; }
-    .badge-mandiri { background: var(--cream); color: var(--dark); }
 
     .badge-status {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 3px 8px;
       font-size: 10px;
       font-weight: 800;
       border-radius: 999px;
@@ -372,28 +249,106 @@
     .status-dp { background: var(--yellow); color: var(--dark); }
     .status-cicilan { background: var(--pink); color: var(--dark); }
     .status-belum { background: var(--red); color: #fff; }
-    .status-garansi { background: #FFA07A; color: var(--dark); }
+
+    /* RADAR ALERT BOX */
+    .radar-box {
+      background: #FFF2D6;
+      border: 2.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-retro);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .radar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 2px dashed var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .radar-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+    }
+
+    /* CARDS FEED / LIST */
+    .feed-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .trx-item-card {
+      background: var(--surface);
+      border: 2.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-retro-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .trx-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .profit-pill-box {
+      background: #E8F5E9;
+      border: 1.5px solid #2E7D32;
+      color: #2E7D32;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trx-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      background: var(--cream-light);
+      padding: 10px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+    }
 
     /* BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
-      padding: 7px 12px;
-      font-size: 11.5px;
+      gap: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
       font-weight: 800;
       border: 2px solid var(--border-color);
       border-radius: var(--radius-sm);
       cursor: pointer;
       box-shadow: var(--shadow-retro-sm);
+      transition: all 0.1s ease;
       text-decoration: none;
-      white-space: nowrap;
-      transition: all 0.08s ease;
     }
 
     .btn:active {
-      transform: translate(1.5px, 1.5px);
+      transform: translate(2px, 2px);
       box-shadow: none;
     }
 
@@ -402,118 +357,17 @@
     .btn-green { background: var(--green); color: var(--dark); }
     .btn-red { background: var(--red); color: #fff; }
     .btn-cream { background: var(--cream); color: var(--dark); }
-    .btn-danger { background: #FFD2D2; color: #9B1C1C; border-color: #9B1C1C; }
 
-    /* CARD LIST */
-    .mobile-cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .item-card {
-      background: var(--surface);
-      border: 2.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 14px;
-      box-shadow: var(--shadow-retro-sm);
-      position: relative;
-    }
-
-    .item-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 6px;
-    }
-
-    .item-card-title {
-      font-size: 13.5px;
-      font-weight: 800;
-    }
-
-    .item-card-meta {
-      font-size: 11px;
-      color: var(--dark-muted);
-      margin-bottom: 8px;
-      line-height: 1.45;
-    }
-
-    .item-card-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 2px dashed #ECDCC8;
-    }
-
-    /* TIMELINE LOG HARIAN */
-    .timeline-log {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .timeline-item {
-      background: #fff;
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11.5px;
-    }
-
-    .timeline-time {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 800;
-      color: var(--dark-muted);
-      min-width: 48px;
-    }
-
-    /* INVOICE PREVIEW */
-    .invoice-sheet {
-      background: var(--surface);
-      border: 2.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-retro);
-      padding: 20px;
-      position: relative;
-      margin-top: 14px;
-    }
-
-    .invoice-sheet.theme-apk { border-top: 10px solid var(--pink); }
-    .invoice-sheet.theme-joktug { border-top: 10px solid var(--yellow); }
-    .invoice-sheet.theme-freelance { border-top: 10px solid var(--green); }
-    .invoice-sheet.theme-studio { border-top: 10px solid var(--red); }
-
-    .invoice-stamp {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      border: 2px dashed var(--red);
-      color: var(--red);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 10px;
-      transform: rotate(6deg);
-      border-radius: 4px;
-    }
-
-    /* MODAL SYSTEM */
+    /* FORM & MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(43, 33, 30, 0.7);
+      background: rgba(43, 33, 30, 0.65);
       z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 16px;
     }
 
     .modal-overlay.active {
@@ -524,9 +378,9 @@
       background: var(--surface);
       border: 3px solid var(--border-color);
       border-radius: var(--radius-lg);
-      box-shadow: 6px 6px 0px var(--border-color);
+      box-shadow: 5px 5px 0px var(--border-color);
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 20px;
@@ -536,9 +390,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       border-bottom: 2px dashed var(--border-color);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
     }
 
     .form-group {
@@ -555,7 +409,7 @@
 
     .form-input, .form-select {
       width: 100%;
-      padding: 8px 12px;
+      padding: 9px 12px;
       border: 2px solid var(--border-color);
       border-radius: var(--radius-sm);
       background: var(--cream-light);
@@ -570,7 +424,15 @@
       border-color: var(--red);
     }
 
-    /* MOBILE BOTTOM BAR */
+    /* REKAP & TABS VIEW */
+    .view-panel {
+      display: none;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    /* MOBILE NAV */
     .mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -580,31 +442,28 @@
       background: var(--surface);
       border-top: 2.5px solid var(--border-color);
       z-index: 99;
-      padding: 5px 2px;
+      padding: 6px 4px;
       justify-content: space-around;
-      box-shadow: 0 -3px 8px rgba(0,0,0,0.06);
     }
 
     .mob-tab-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
       background: none;
       border: none;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 800;
       color: var(--dark-muted);
       cursor: pointer;
-      padding: 5px 6px;
+      padding: 4px;
       border-radius: 8px;
     }
 
     .mob-tab-btn.active {
       color: var(--dark);
-      background: var(--yellow);
-      border: 1.5px solid var(--border-color);
-      box-shadow: var(--shadow-retro-sm);
+      background: var(--cream);
     }
 
     .mob-tab-btn svg {
@@ -615,13 +474,13 @@
     /* TOAST */
     .toast-box {
       position: fixed;
-      bottom: 75px;
-      right: 16px;
+      bottom: 80px;
+      right: 20px;
       background: var(--dark);
       color: var(--cream);
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       border: 2px solid var(--yellow);
       box-shadow: var(--shadow-retro);
@@ -629,25 +488,21 @@
       z-index: 9999;
     }
 
-    .view-panel { display: none; }
-    .view-panel.active { display: block; }
-
-    /* RESPONSIVE */
     @media (max-width: 860px) {
       .app-sidebar { display: none; }
       .app-main {
         margin-left: 0;
         width: 100%;
-        padding: 12px;
+        padding: 14px;
         padding-bottom: 95px;
       }
       .mobile-bottom-nav { display: flex; }
       .grid-metrics {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 10px;
       }
-      .retro-card { padding: 10px; }
-      .retro-card .card-value { font-size: 17px; }
+      .retro-card { padding: 12px; }
+      .retro-card .card-value { font-size: 18px; }
     }
   </style>
 </head>
@@ -656,812 +511,334 @@
   <!-- DESKTOP SIDEBAR -->
   <aside class="app-sidebar">
     <div class="brand-section">
-      <span class="brand-badge">Solo Admin: Intan</span>
+      <span class="brand-badge">Solo Admin</span>
       <h1 class="brand-title">hi.littlenami <span>🍓</span></h1>
       <p class="brand-tagline">A little space for big dreams.</p>
     </div>
 
     <nav class="sidebar-nav">
       <a class="nav-link active" onclick="switchTab('overview')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
         Overview
       </a>
-      <a class="nav-link" onclick="switchTab('rekap')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Rekap & Laporan
-      </a>
-      <a class="nav-link" onclick="switchTab('namiapk')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Nami APK (Khusus)
-      </a>
-      <a class="nav-link" onclick="switchTab('projects')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        Joktug & Studio
-      </a>
       <a class="nav-link" onclick="switchTab('transaksi')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Semua Transaksi
       </a>
       <a class="nav-link" onclick="switchTab('piutang')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Piutang & DP
       </a>
       <a class="nav-link" onclick="switchTab('pengeluaran')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Pengeluaran
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Pengeluaran Kerja
       </a>
-      <a class="nav-link" onclick="switchTab('nota')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-        Invoice & Struk WA
-      </a>
-      <a class="nav-link" onclick="switchTab('backup')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Backup & Restore
+      <a class="nav-link" onclick="switchTab('rekap')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Rekap & Profit
       </a>
     </nav>
 
     <div class="sidebar-user">
-      <div class="user-avatar-solo">I</div>
+      <div class="user-avatar">I</div>
       <div>
-        <div style="font-size: 12px; font-weight: 800;">Intan Nurul Huda</div>
-        <div style="font-size: 10px; color: var(--dark-muted);">Owner & Solo Admin</div>
+        <div style="font-size:12px; font-weight:800;">Intan Nurul Huda</div>
+        <div style="font-size:10px; color:var(--dark-muted);">BCA: 3741234635</div>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN WRAPPER -->
+  <!-- MAIN VIEW -->
   <main class="app-main">
 
-    <!-- TOPBAR & SEARCH -->
+    <!-- TOP HEADER -->
     <header class="topbar">
       <div>
-        <h1 id="pageHeadingTitle" style="font-size: 19px;">hi.littlenami Dashboard</h1>
-        <p style="font-size: 11px; color: var(--dark-muted);">A little space for big dreams — Admin Intan</p>
+        <h1 id="pageTitle" style="font-size: 20px;">Overview & Rekap Bisnis</h1>
+        <p style="font-size: 11px; color: var(--dark-muted);">hi.littlenami — 4 Unit Terintegrasi dengan Profit Bersih On-the-Spot</p>
       </div>
-
-      <div class="search-box-wrap">
-        <span>🔍</span>
-        <input type="text" id="globalSearchInput" placeholder="Cari client, produk, no transaksi..." oninput="handleGlobalSearch(this.value)">
-      </div>
+      <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Catat Transaksi Baru</button>
     </header>
 
-    <!-- RADAR PENGINGAT H-3 DUA JALUR (EXPIRATION & DEADLINE) -->
-    <div class="radar-banner" id="radarAlertBanner">
+    <!-- RADAR PENGINGAT H-3 DUA JALUR -->
+    <section class="radar-box" id="radarSection">
       <div class="radar-header">
-        <span style="display:flex; align-items:center; gap:6px;">
-          <span>🚨</span> RADAR PENGINGAT H-3 & DEADLINE AKTIF
-        </span>
-        <span class="badge-status status-dp" id="radarCountBadge">0 Perhatian</span>
+        <div>
+          <strong style="font-size: 12px; color: var(--dark);">🔔 RADAR PENGINGAT H-3 (Tugas & Renewal)</strong>
+          <p style="font-size: 10px; color: var(--dark-muted);">Follow-up cepat via WhatsApp satu kali ketuk</p>
+        </div>
+        <span class="badge-status status-dp" id="radarCountBadge">2 Perlu Follow-up</span>
       </div>
-      <div class="radar-list" id="radarItemsContainer">
+      <div id="radarListContainer">
         <!-- Rendered via JS -->
       </div>
-    </div>
+    </section>
 
-    <!-- 1. VIEW OVERVIEW -->
+    <!-- VIEW 1: OVERVIEW -->
     <section id="view-overview" class="view-panel active">
       
-      <!-- 4 KEY FINANCIAL METRICS -->
+      <!-- 4 KARTU METRIK UTAMA -->
       <div class="grid-metrics">
         <div class="retro-card card-pink">
-          <div class="card-label"><span>Omzet Kotor</span><span>📑</span></div>
-          <div class="card-value" id="statGrossOmzet">Rp 0</div>
-          <div class="card-subtext">Total nilai tagihan/order</div>
+          <div class="card-label"><span>Omzet Kotor</span> <span>📑</span></div>
+          <div class="card-value" id="valGrossOmzet">Rp 0</div>
+          <div class="card-subtext">Total seluruh nilai invoice</div>
         </div>
+
         <div class="retro-card card-green">
-          <div class="card-label"><span>Kas Riil Masuk</span><span>💰</span></div>
-          <div class="card-value" id="statRealCash">Rp 0</div>
-          <div class="card-subtext">DP + Pelunasan diterima</div>
+          <div class="card-label"><span>Profit Bersih (Live)</span> <span>💰</span></div>
+          <div class="card-value" id="valTotalProfit">Rp 0</div>
+          <div class="card-subtext">Total Jual dikurangi Modal (HPP)</div>
         </div>
+
+        <div class="retro-card card-yellow">
+          <div class="card-label"><span>Piutang Klien</span> <span>⏳</span></div>
+          <div class="card-value" id="valTotalPiutang">Rp 0</div>
+          <div class="card-subtext">Tagihan yang belum lunas</div>
+        </div>
+
         <div class="retro-card card-red">
-          <div class="card-label"><span>Total Pengeluaran</span><span>📉</span></div>
-          <div class="card-value" id="statTotalExpense">Rp 0</div>
-          <div class="card-subtext">HPP stok & alat kerja</div>
-        </div>
-        <div class="retro-card card-yellow">
-          <div class="card-label"><span>Keuntungan Bersih</span><span>✨</span></div>
-          <div class="card-value" id="statNetProfit">Rp 0</div>
-          <div class="card-subtext">Kas Riil - Pengeluaran</div>
+          <div class="card-label"><span>Pengeluaran Kerja</span> <span>📉</span></div>
+          <div class="card-value" id="valTotalExpense">Rp 0</div>
+          <div class="card-subtext">Biaya kuota, tools & mandiri</div>
         </div>
       </div>
 
-      <!-- WALLET REKAP KAS (BCA vs QRIS) -->
-      <div class="wallet-split-box">
-        <div class="wallet-item">
-          <div class="wallet-icon" style="background: #D8E7FF; color: #164E87;">BCA</div>
-          <div>
-            <div style="font-size: 10px; font-weight: 800; color: var(--dark-muted);">SALDO MASUK BCA</div>
-            <div style="font-size: 15px; font-weight: 800; font-family:'Space Grotesk';" id="statWalletBca">Rp 0</div>
-            <div style="font-size: 9px; color: var(--dark-muted);">3741234635 an Intan Nurul Huda</div>
+      <!-- DOMPET KAS SELEKSI BCA & QRIS -->
+      <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:14px; margin-bottom:20px; box-shadow:var(--shadow-retro-sm);">
+        <div style="font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:8px; color:var(--dark-muted);">Pecahan Kas Masuk Riil:</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
+            <div style="font-size:10px; font-weight:800;">BCA (3741234635)</div>
+            <div style="font-size:16px; font-weight:800; font-family:'Space Grotesk';" id="valCashBCA">Rp 0</div>
           </div>
-        </div>
-
-        <div class="wallet-item">
-          <div class="wallet-icon" style="background: #FFE8C7; color: #8F4C00;">QRIS</div>
-          <div>
-            <div style="font-size: 10px; font-weight: 800; color: var(--dark-muted);">SALDO MASUK QRIS</div>
-            <div style="font-size: 15px; font-weight: 800; font-family:'Space Grotesk';" id="statWalletQris">Rp 0</div>
-            <div style="font-size: 9px; color: var(--dark-muted);">Scan QRIS Merchant</div>
-          </div>
-        </div>
-
-        <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Transaksi Baru</button>
-      </div>
-
-      <!-- FEED AKTIVITAS TERBARU -->
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
-        <h3 style="font-size: 14px;">Aktivitas Transaksi Terbaru</h3>
-        <button class="btn btn-cream" onclick="switchTab('transaksi')">Semua Transaksi →</button>
-      </div>
-      <div class="mobile-cards-list" id="overviewRecentCards"></div>
-    </section>
-
-    <!-- 2. VIEW REKAP & LAPORAN (HARIAN, MINGGUAN, BULANAN) -->
-    <section id="view-rekap" class="view-panel">
-      <div class="topbar">
-        <h2>Rekapitulasi Finansial</h2>
-        <div class="filter-pills">
-          <button class="pill-btn active" onclick="switchRekapMode('harian', this)">Harian</button>
-          <button class="pill-btn" onclick="switchRekapMode('mingguan', this)">Mingguan</button>
-          <button class="pill-btn" onclick="switchRekapMode('bulanan', this)">Bulanan</button>
-        </div>
-      </div>
-
-      <!-- REKAP HARIAN -->
-      <div id="subview-rekap-harian">
-        <div class="item-card" style="margin-bottom: 14px; background:var(--cream-light);">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div>
-              <label class="form-label">Pilih Tanggal Rekap Harian</label>
-              <input type="date" class="form-input" id="rekapDatePicker" onchange="renderDailyRekap()">
-            </div>
-            <button class="btn btn-cream" onclick="setDailyPickerToday()">Hari Ini</button>
-          </div>
-        </div>
-
-        <div class="grid-metrics">
-          <div class="retro-card card-pink">
-            <div class="card-label">Omzet Kotor Hari Ini</div>
-            <div class="card-value" id="dailyGross">Rp 0</div>
-          </div>
-          <div class="retro-card card-green">
-            <div class="card-label">Kas Masuk Riil</div>
-            <div class="card-value" id="dailyRealCash">Rp 0</div>
-          </div>
-          <div class="retro-card card-red">
-            <div class="card-label">Pengeluaran / Modal</div>
-            <div class="card-value" id="dailyExpense">Rp 0</div>
-          </div>
-          <div class="retro-card card-yellow">
-            <div class="card-label">Keuntungan Bersih Hari Ini</div>
-            <div class="card-value" id="dailyNetProfit">Rp 0</div>
-          </div>
-        </div>
-
-        <h3 style="font-size: 14px; margin-bottom: 8px;">Log Transaksi & Pengeluaran Tanggal Ini</h3>
-        <div class="timeline-log" id="dailyTimelineLog"></div>
-      </div>
-
-      <!-- REKAP MINGGUAN -->
-      <div id="subview-rekap-mingguan" style="display:none;">
-        <div class="grid-metrics">
-          <div class="retro-card card-green">
-            <div class="card-label">Total Kas 7 Hari Terakhir</div>
-            <div class="card-value" id="weeklyCashIn">Rp 0</div>
-          </div>
-          <div class="retro-card card-red">
-            <div class="card-label">Pengeluaran 7 Hari</div>
-            <div class="card-value" id="weeklyExpense">Rp 0</div>
-          </div>
-          <div class="retro-card card-yellow">
-            <div class="card-label">Laba Bersih 7 Hari</div>
-            <div class="card-value" id="weeklyNetProfit">Rp 0</div>
-          </div>
-        </div>
-
-        <div class="item-card" style="margin-bottom:14px;">
-          <h4 style="margin-bottom:8px;">Perbandingan Kas Masuk Harian (Minggu Berjalan)</h4>
-          <div style="display:flex; height:140px; align-items:flex-end; gap:8px; border-bottom:2px solid var(--border-color); padding-bottom:4px;" id="weeklyBarChart">
-            <!-- Rendered via JS -->
+          <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
+            <div style="font-size:10px; font-weight:800;">QRIS hi.littlenami</div>
+            <div style="font-size:16px; font-weight:800; font-family:'Space Grotesk';" id="valCashQRIS">Rp 0</div>
           </div>
         </div>
       </div>
 
-      <!-- REKAP BULANAN -->
-      <div id="subview-rekap-bulanan" style="display:none;">
-        <div class="item-card" style="margin-bottom: 14px;">
-          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 8px;">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:var(--dark-muted);">Target Omzet Bulan Ini</div>
-              <div style="font-size:18px; font-weight:800; font-family:'Space Grotesk';" id="monthlyTargetProgressText">Rp 0 / Rp 15.000.000</div>
-            </div>
-            <span class="badge-status status-lunas" id="monthlyTargetPctBadge">0%</span>
-          </div>
-          <div style="width:100%; height:14px; background:var(--cream); border:2px solid var(--border-color); border-radius:999px; overflow:hidden;">
-            <div id="monthlyProgressBar" style="height:100%; background:var(--green); width:0%;"></div>
-          </div>
-        </div>
+      <!-- LIST FEED TRANSAKSI -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3>Aktivitas Pesanan & Profit Bersih</h3>
+        <button class="btn btn-cream" onclick="switchTab('transaksi')">Lihat Semua</button>
+      </div>
 
-        <div class="grid-metrics">
-          <div class="retro-card card-pink">
-            <div class="card-label">Omzet Kotor Bulan Ini</div>
-            <div class="card-value" id="monthGross">Rp 0</div>
-          </div>
-          <div class="retro-card card-green">
-            <div class="card-label">Kas Masuk Riil Bulan Ini</div>
-            <div class="card-value" id="monthRealCash">Rp 0</div>
-          </div>
-          <div class="retro-card card-red">
-            <div class="card-label">Pengeluaran Bulan Ini</div>
-            <div class="card-value" id="monthExpense">Rp 0</div>
-          </div>
-          <div class="retro-card card-yellow">
-            <div class="card-label">Laba Bersih Bulan Ini</div>
-            <div class="card-value" id="monthNetProfit">Rp 0</div>
-          </div>
-        </div>
+      <div class="feed-container" id="overviewFeedList">
+        <!-- Rendered via JS -->
       </div>
     </section>
 
-    <!-- 3. VIEW NAMI APK (MODUL KHUSUS) -->
-    <section id="view-namiapk" class="view-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-        <div>
-          <h2>Modul Khusus: Nami APK</h2>
-          <p style="font-size: 11px; color: var(--dark-muted);">Manajemen akun premium, radar renewal H-7, multi-klaim garansi, dan kalkulator refund</p>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn btn-pink" onclick="openNewApkModal()">+ Tambah Order APK</button>
-          <button class="btn btn-cream" onclick="openRefundCalcModal()">🧮 Kalkulator Refund</button>
-        </div>
-      </div>
-
-      <!-- RADAR FILTER -->
-      <div class="filter-pills" style="margin-bottom: 14px;">
-        <button class="pill-btn active" onclick="filterApkList('all', this)">Semua Akun</button>
-        <button class="pill-btn" onclick="filterApkList('urgent', this)">🚨 Urgent H-3</button>
-        <button class="pill-btn" onclick="filterApkList('h7', this)">⚠️ Renewal H-7</button>
-        <button class="pill-btn" onclick="filterApkList('garansi', this)">🛡️ Klaim Garansi</button>
-      </div>
-
-      <div class="mobile-cards-list" id="apkCardsList"></div>
-    </section>
-
-    <!-- 4. VIEW JOKTUG, FREELANCE & STUDIO -->
-    <section id="view-projects" class="view-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-        <div>
-          <h2>Project Tracker (Joktug, Studio, Freelance)</h2>
-          <p style="font-size: 11px; color: var(--dark-muted);">Tracking deadline tugas/desain, cicilan DP, dan perlindungan berkas final</p>
-        </div>
-        <button class="btn btn-green" onclick="openNewProjectModal()">+ Order Project Baru</button>
-      </div>
-
-      <div class="mobile-cards-list" id="projectCardsList"></div>
-    </section>
-
-    <!-- 5. VIEW SEMUA TRANSAKSI -->
+    <!-- VIEW 2: SEMUA TRANSAKSI -->
     <section id="view-transaksi" class="view-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-        <div>
-          <h2>Semua Riwayat Transaksi</h2>
-          <p style="font-size: 11px; color: var(--dark-muted);">Rekap pesanan dari seluruh unit bisnis</p>
-        </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+        <h3>Semua Transaksi & Pesanan</h3>
         <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Transaksi Baru</button>
       </div>
-
-      <div class="mobile-cards-list" id="allTrxCardsList"></div>
-    </section>
-
-    <!-- 6. VIEW PIUTANG & DP -->
-    <section id="view-piutang" class="view-panel">
-      <div class="grid-metrics">
-        <div class="retro-card card-yellow">
-          <div class="card-label">Total Saldo Tertahan</div>
-          <div class="card-value" id="piutangSummaryVal">Rp 0</div>
-          <div class="card-subtext">Belum dilunasi klien</div>
-        </div>
-        <div class="retro-card card-pink">
-          <div class="card-label">Klien Belum Lunas</div>
-          <div class="card-value" id="piutangClientCount">0 Klien</div>
-          <div class="card-subtext">Perlu penagihan aktif</div>
-        </div>
+      <div class="feed-container" id="allTrxFeedList">
+        <!-- Rendered via JS -->
       </div>
-
-      <h3 style="margin-bottom: 10px; font-size: 14px;">Daftar Tagihan & Klien Belum Lunas</h3>
-      <div class="mobile-cards-list" id="piutangCardsList"></div>
     </section>
 
-    <!-- 7. VIEW PENGELUARAN (FLEKSIBEL NON-KLIEN) -->
+    <!-- VIEW 3: PIUTANG & DP -->
+    <section id="view-piutang" class="view-panel">
+      <div class="retro-card card-yellow" style="margin-bottom:16px;">
+        <div class="card-label">Total Saldo Tertahan di Klien</div>
+        <div class="card-value" id="valPiutangHeader">Rp 0</div>
+        <div class="card-subtext">Segera lakukan follow-up sebelum serah terima final</div>
+      </div>
+      <div class="feed-container" id="piutangFeedList">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: PENGELUARAN KERJA -->
     <section id="view-pengeluaran" class="view-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <div>
-          <h2>Buku Pengeluaran Bisnis</h2>
-          <p style="font-size: 11px; color: var(--dark-muted);">Modal stok APK klien atau biaya kebutuhan kerja mandiri (WiFi, Tools, dll)</p>
+          <h3>Pengeluaran Operasional & Kerja</h3>
+          <p style="font-size:11px; color:var(--dark-muted);">Biaya kuota, software, dan kebutuhan mandiri</p>
         </div>
         <button class="btn btn-red" onclick="openNewExpenseModal()">+ Catat Pengeluaran</button>
       </div>
-
-      <!-- FILTER PENGELUARAN -->
-      <div class="filter-pills" style="margin-bottom: 14px;">
-        <button class="pill-btn active" onclick="filterExpensesView('all', this)">Semua Pos</button>
-        <button class="pill-btn" onclick="filterExpensesView('apk', this)">Nami APK</button>
-        <button class="pill-btn" onclick="filterExpensesView('joktug', this)">Joktug</button>
-        <button class="pill-btn" onclick="filterExpensesView('freelance', this)">Freelance</button>
-        <button class="pill-btn" onclick="filterExpensesView('studio', this)">Nami Studio</button>
-        <button class="pill-btn" onclick="filterExpensesView('mandiri', this)">Kebutuhan Mandiri</button>
-      </div>
-
-      <div class="mobile-cards-list" id="expenseCardsList"></div>
-    </section>
-
-    <!-- 8. VIEW INVOICE & NOTA GENERATOR -->
-    <section id="view-nota" class="view-panel">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-        <div>
-          <h2>Invoice & Format Struk WA</h2>
-          <p style="font-size: 11px; color: var(--dark-muted);">Cetak invoice resmi atau salin format ringkas ke chat WhatsApp</p>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn btn-cream" onclick="window.print()">🖨️ Cetak</button>
-          <button class="btn btn-green" onclick="copyShortWaReceipt()">📋 Salin Teks WA</button>
-        </div>
-      </div>
-
-      <!-- INVOICE SHEET -->
-      <div class="invoice-sheet theme-studio" id="invoiceSheetPreview">
-        <div class="invoice-stamp" id="invoiceStampText">STATUS: LUNAS</div>
-
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <div>
-            <h2 style="font-size: 20px; line-height: 1;">hi.littlenami 🍓</h2>
-            <div id="invBadgeUnit" class="badge-unit badge-studio" style="margin-top:4px;">Nami Studio</div>
-            <div style="font-size: 10px; color: var(--dark-muted); margin-top: 4px;">WhatsApp Bisnis: <strong>085163672392</strong></div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 10px; font-weight: 800; color: var(--dark-muted);">NO. DOKUMEN</div>
-            <div style="font-size: 14px; font-weight: 800; font-family:'Space Grotesk';" id="invDocNumber">INV-001</div>
-            <div style="font-size: 11px; color: var(--dark-muted);" id="invDocDate">10 Nov 2026</div>
-          </div>
-        </div>
-
-        <div style="background: var(--cream-light); border: 2px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 14px;">
-          <div style="font-size: 9.5px; font-weight: 800; text-transform: uppercase; color: var(--dark-muted);">Ditagihkan Kepada:</div>
-          <div style="font-size: 13.5px; font-weight: 800;" id="invClientName">Client hi.littlenami</div>
-          <div style="font-size: 11px; color: var(--dark-muted);" id="invClientContact">WhatsApp: 085163672392</div>
-        </div>
-
-        <div style="border: 2px solid var(--border-color); border-radius: var(--radius-sm); background: #fff; padding: 10px; margin-bottom: 14px;">
-          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:12px; border-bottom:1.5px solid var(--border-color); padding-bottom:6px; margin-bottom:6px;">
-            <span>Layanan / Produk</span>
-            <span>Subtotal</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:12px;" id="invItemDetailRow">
-            <span>Paket Pesanan</span>
-            <span>Rp 0</span>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
-          <div style="width: 100%; max-width: 280px; font-size: 12px;">
-            <div style="display:flex; justify-content:space-between; padding:2px 0;">
-              <span>Total Harga:</span>
-              <strong id="invTotalVal">Rp 0</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; padding:2px 0; color:var(--green);">
-              <span>DP / Sudah Diterima:</span>
-              <strong id="invPaidVal">Rp 0</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; padding:6px 0; border-top: 2px solid var(--border-color); font-weight:800; font-size:13px;">
-              <span>Sisa Tagihan:</span>
-              <span id="invSisaVal" style="color:var(--red);">Rp 0</span>
-            </div>
-          </div>
-        </div>
-
-        <div style="background: var(--cream); border: 2px dashed var(--border-color); border-radius: var(--radius-sm); padding: 10px; font-size: 11px; line-height: 1.45;">
-          <strong>Pembayaran Resmi:</strong><br>
-          • <strong>BCA:</strong> 3741234635 (a.n Intan Nurul Huda)<br>
-          • <strong>QRIS</strong><br>
-          Konfirmasi transfer ke WhatsApp: <strong>085163672392</strong>
-        </div>
-
-        <div style="text-align: center; margin-top: 14px; font-size: 11px; font-weight: 600; color: var(--dark-muted);">
-          Terima kasih sudah bertumbuh bersama hi.littlenami! ✨<br>
-          <em>"A little space for big dreams."</em>
-        </div>
+      <div class="feed-container" id="expenseFeedList">
+        <!-- Rendered via JS -->
       </div>
     </section>
 
-    <!-- 9. VIEW BACKUP & RESTORE -->
-    <section id="view-backup" class="view-panel">
-      <div class="item-card" style="max-width: 580px;">
-        <h2 style="margin-bottom: 6px;">Backup & Restore Data Lokal</h2>
-        <p style="font-size: 11.5px; color: var(--dark-muted); margin-bottom: 14px;">
-          Simpan seluruh catatan transaksi, pesanan APK, pengeluaran, dan klaim garansi ke file JSON di HP agar tidak hilang jika browser dibersihkan.
-        </p>
-        
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <button class="btn btn-green" onclick="exportDataToJson()">📥 Download Backup Data (JSON)</button>
-          
-          <div style="border-top: 2px dashed var(--border-color); padding-top: 12px; margin-top: 6px;">
-            <label class="form-label">Restore Data dari File JSON</label>
-            <input type="file" id="restoreFileInput" class="form-input" accept=".json">
-            <button class="btn btn-yellow" style="margin-top: 8px; width: 100%;" onclick="importDataFromJson()">📤 Pulihkan Data</button>
-          </div>
+    <!-- VIEW 5: REKAP & PROFIT -->
+    <section id="view-rekap" class="view-panel">
+      <div class="retro-card card-green" style="margin-bottom:16px;">
+        <div class="card-label">Total Keuntungan Murni (Net Profit)</div>
+        <div class="card-value" id="valNetRealProfit">Rp 0</div>
+        <div class="card-subtext">(Kas Masuk Riil - Modal Transaksi) - Pengeluaran Kerja</div>
+      </div>
 
-          <div style="border-top: 2px dashed var(--border-color); padding-top: 12px;">
-            <button class="btn btn-danger" onclick="triggerCustomConfirm('Reset semua data kembali ke default contoh?', resetToDefaultData)">⚠️ Reset ke Data Contoh</button>
-          </div>
+      <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px;">
+        <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit Bersih per Unit:</h4>
+        <div id="unitProfitBreakdown">
+          <!-- Rendered via JS -->
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- MOBILE BOTTOM NAVIGATION -->
+  <!-- BOTTOM MOBILE NAVIGATION -->
   <nav class="mobile-bottom-nav">
     <button class="mob-tab-btn active" onclick="switchTab('overview')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
       Home
     </button>
-    <button class="mob-tab-btn" onclick="switchTab('rekap')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Rekap
+    <button class="mob-tab-btn" onclick="switchTab('transaksi')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Order
     </button>
-    <button class="mob-tab-btn" onclick="switchTab('namiapk')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      APK
-    </button>
-    <button class="mob-tab-btn" onclick="switchTab('projects')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      Project
+    <button class="mob-tab-btn" onclick="switchTab('piutang')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Piutang
     </button>
     <button class="mob-tab-btn" onclick="switchTab('pengeluaran')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Keluar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Biaya
     </button>
-    <button class="mob-tab-btn" onclick="switchTab('nota')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-      Nota
+    <button class="mob-tab-btn" onclick="switchTab('rekap')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Rekap
     </button>
   </nav>
 
-  <!-- MODAL: ORDER KHUSUS NAMI APK (HPP ON-THE-SPOT) -->
-  <div class="modal-overlay" id="modalApkOrder">
+  <!-- MODAL: INPUT / EDIT TRANSAKSI BARU (DENGAN PROFIT ON-THE-SPOT) -->
+  <div class="modal-overlay" id="modalTrx">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modalApkTitle">+ Order Baru Nami APK</h3>
-        <button class="btn btn-cream" onclick="closeModal('modalApkOrder')">✕</button>
+        <h3 id="modalTrxTitle">+ Catat Transaksi Baru</h3>
+        <button class="btn btn-cream" onclick="closeModal('modalTrx')">✕</button>
       </div>
       <div>
-        <input type="hidden" id="apkEditIndex" value="-1">
-        
+        <input type="hidden" id="editTrxId">
+
+        <div class="form-group">
+          <label class="form-label">Pilih Unit Bisnis</label>
+          <select class="form-select" id="formTrxUnit">
+            <option value="apk">Nami APK (Toko Akun Premium)</option>
+            <option value="joktug">Joktug (Bantuan Tugas / Olah Data)</option>
+            <option value="freelance">Freelance (Admin / Sosmed)</option>
+            <option value="studio">Nami Studio (Branding & Desain)</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Nama Klien</label>
-          <input type="text" class="form-input" id="apkClientName" placeholder="Contoh: Dinda Permata">
-        </div>
-        <div class="form-group">
-          <label class="form-label">WhatsApp Klien (Bisa 08...)</label>
-          <input type="text" class="form-input" id="apkClientWa" placeholder="08123456789">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nama Produk APK</label>
-          <input type="text" class="form-input" id="apkProductName" placeholder="Netflix UHD 1 Bulan / Canva Pro">
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">Modal Supplier (HPP)</label>
-            <input type="number" class="form-input" id="apkCostHpp" placeholder="28000" oninput="calculateApkMargin()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Harga Jual Klien</label>
-            <input type="number" class="form-input" id="apkSellPrice" placeholder="45000" oninput="calculateApkMargin()">
-          </div>
-        </div>
-
-        <!-- PROFIT BADGE LIVE -->
-        <div id="apkMarginBadge" style="font-size:11px; font-weight:800; padding:6px 10px; border-radius:6px; background:#e8f4dc; border:1.5px solid var(--border-color); margin-bottom:12px;">
-          Profit Bersih: Rp 0 (0%)
-        </div>
-
-        <!-- PRESET RENEWAL -->
-        <div class="form-group">
-          <label class="form-label">Masa Renewal / Expired</label>
-          <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px;">
-            <button type="button" class="btn btn-cream" style="padding:3px 7px; font-size:10px;" onclick="setRenewalPreset(7)">7 Hari</button>
-            <button type="button" class="btn btn-cream" style="padding:3px 7px; font-size:10px;" onclick="setRenewalPreset(14)">14 Hari</button>
-            <button type="button" class="btn btn-cream" style="padding:3px 7px; font-size:10px;" onclick="setRenewalPreset(30)">30 Hari</button>
-            <button type="button" class="btn btn-cream" style="padding:3px 7px; font-size:10px;" onclick="setRenewalPreset(365)">1 Tahun</button>
-            <button type="button" class="btn btn-cream" style="padding:3px 7px; font-size:10px;" onclick="setRenewalLifetime()">Lifetime</button>
-          </div>
-          <input type="date" class="form-input" id="apkRenewalDate">
+          <input type="text" class="form-input" id="formTrxClient" placeholder="Nama Klien">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Kredensial Akun (Email/ID)</label>
-          <input type="text" class="form-input" id="apkAccountEmail" placeholder="nami.stream01@gmail.com">
+          <label class="form-label">Nomor WhatsApp Klien</label>
+          <input type="text" class="form-input" id="formTrxPhone" placeholder="08xxxxxxxxxx">
         </div>
+
         <div class="form-group">
-          <label class="form-label">Profil / PIN / Slot</label>
-          <input type="text" class="form-input" id="apkAccountProfile" placeholder="Profil 2 (PIN: 1245)">
+          <label class="form-label">Detail Layanan / Akun</label>
+          <input type="text" class="form-input" id="formTrxDetail" placeholder="Misal: Netflix UHD 1 Bulan / Bab 4 SPSS">
         </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">Nama Supplier</label>
-            <input type="text" class="form-input" id="apkSupplierName" placeholder="Kang Netflix / Bot A">
+
+        <!-- KALKULASI MODAL & PROFIT ON-THE-SPOT -->
+        <div style="background:var(--cream-light); border:2px dashed var(--border-color); padding:12px; border-radius:8px; margin-bottom:12px;">
+          <div style="display:flex; gap:10px;">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label">Harga Jual (Rp)</label>
+              <input type="number" class="form-input" id="formTrxPrice" placeholder="45000" oninput="calculateLiveProfit()">
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label">Modal / HPP (Rp)</label>
+              <input type="number" class="form-input" id="formTrxCost" placeholder="28000" oninput="calculateLiveProfit()">
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Garansi Supplier (Hari)</label>
-            <input type="number" class="form-input" id="apkSupplierWarranty" placeholder="30">
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+            <span style="font-size:11px; font-weight:700;">Estimasi Profit Bersih:</span>
+            <div class="profit-pill-box" id="liveProfitBadge">Rp 0 (0%)</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">DP / Kas Masuk (Rp)</label>
+            <input type="number" class="form-input" id="formTrxPaid" placeholder="0">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Metode Pembayaran</label>
+            <select class="form-select" id="formTrxMethod">
+              <option value="BCA">BCA (3741234635)</option>
+              <option value="QRIS">QRIS</option>
+            </select>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Metode Pembayaran Masuk</label>
-          <select class="form-select" id="apkPaymentMethod">
-            <option value="BCA">BCA (3741234635 an Intan Nurul Huda)</option>
-            <option value="QRIS">QRIS</option>
-          </select>
+          <label class="form-label">Tanggal Tenggat / Expired Akun</label>
+          <input type="date" class="form-input" id="formTrxDueDate">
         </div>
 
-        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
-          <button class="btn btn-cream" onclick="closeModal('modalApkOrder')">Batal</button>
-          <button class="btn btn-pink" onclick="saveApkOrder()">Simpan Order APK</button>
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+          <button class="btn btn-cream" onclick="closeModal('modalTrx')">Batal</button>
+          <button class="btn btn-yellow" onclick="saveTransaction()">Simpan Order</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: ORDER JOKTUG / STUDIO / FREELANCE -->
-  <div class="modal-overlay" id="modalProject">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h3 id="modalProjectTitle">+ Order Project Baru</h3>
-        <button class="btn btn-cream" onclick="closeModal('modalProject')">✕</button>
-      </div>
-      <div>
-        <input type="hidden" id="projectEditIndex" value="-1">
-        
-        <div class="form-group">
-          <label class="form-label">Unit Bisnis</label>
-          <select class="form-select" id="projUnit">
-            <option value="joktug">Joktug (Bantuan Tugas / Skripsi)</option>
-            <option value="studio">Nami Studio (Branding, Desain, Web)</option>
-            <option value="freelance">Freelance (Layanan Jasa & Admin)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nama Klien</label>
-          <input type="text" class="form-input" id="projClient" placeholder="Nama Klien">
-        </div>
-        <div class="form-group">
-          <label class="form-label">WhatsApp Klien</label>
-          <input type="text" class="form-input" id="projClientWa" placeholder="08123456789">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Deskripsi Project / Tugas</label>
-          <input type="text" class="form-input" id="projDetail" placeholder="Misal: Olah Data SPSS Bab 4-5 atau Desain Katalog">
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">Total Harga (Rp)</label>
-            <input type="number" class="form-input" id="projTotal" placeholder="1500000">
-          </div>
-          <div class="form-group">
-            <label class="form-label">DP Diterima (Rp)</label>
-            <input type="number" class="form-input" id="projDP" placeholder="750000">
-          </div>
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">Deadline</label>
-            <input type="date" class="form-input" id="projDeadline">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Jatah Revisi</label>
-            <input type="text" class="form-input" id="projRevisiCount" value="0/2">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Link Berkas Final (Google Drive / Zip)</label>
-          <input type="text" class="form-input" id="projFinalLink" placeholder="https://drive.google.com/...">
-          <span style="font-size:10px; color:var(--dark-muted);">*Link terkunci otomatis jika belum Lunas</span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Metode Pembayaran Masuk</label>
-          <select class="form-select" id="projMethod">
-            <option value="BCA">BCA (3741234635 an Intan Nurul Huda)</option>
-            <option value="QRIS">QRIS</option>
-          </select>
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
-          <button class="btn btn-cream" onclick="closeModal('modalProject')">Batal</button>
-          <button class="btn btn-green" onclick="saveProjectOrder()">Simpan Project</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: CATAT PELUNASAN -->
-  <div class="modal-overlay" id="modalPelunasan">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h3>Catat Pelunasan Tagihan</h3>
-        <button class="btn btn-cream" onclick="closeModal('modalPelunasan')">✕</button>
-      </div>
-      <div>
-        <input type="hidden" id="pelunasanTrxId">
-        <div class="form-group">
-          <label class="form-label">Klien / Invoice</label>
-          <input type="text" class="form-input" id="pelunasanClientLabel" readonly>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Sisa Tagihan Saat Ini</label>
-          <input type="text" class="form-input" id="pelunasanSisaLabel" readonly>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nominal Diterima (Rp)</label>
-          <input type="number" class="form-input" id="pelunasanAmountInput">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Masuk ke Rekening / Metode</label>
-          <select class="form-select" id="pelunasanMethodSelect">
-            <option value="BCA">BCA (3741234635 an Intan Nurul Huda)</option>
-            <option value="QRIS">QRIS</option>
-          </select>
-        </div>
-        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
-          <button class="btn btn-cream" onclick="closeModal('modalPelunasan')">Batal</button>
-          <button class="btn btn-green" onclick="submitPelunasan()">Konfirmasi Pelunasan</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: PENGELUARAN FLEKSIBEL (NON-KLIEN & MODAL) -->
+  <!-- MODAL: CATAT PENGELUARAN KERJA -->
   <div class="modal-overlay" id="modalExpense">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modalExpenseTitle">+ Catat Pengeluaran</h3>
+        <h3>+ Catat Pengeluaran Kerja</h3>
         <button class="btn btn-cream" onclick="closeModal('modalExpense')">✕</button>
       </div>
       <div>
-        <input type="hidden" id="expenseEditIndex" value="-1">
-        
         <div class="form-group">
-          <label class="form-label">Tanggal Pengeluaran</label>
-          <input type="date" class="form-input" id="expDate">
+          <label class="form-label">Keterangan Pengeluaran</label>
+          <input type="text" class="form-input" id="formExpDesc" placeholder="Misal: Paket Kuota Internet / Cek Turnitin">
         </div>
         <div class="form-group">
-          <label class="form-label">Pos Pengeluaran</label>
-          <select class="form-select" id="expUnit">
-            <option value="mandiri">Kebutuhan Kerja Mandiri (WiFi, Tools, Kuota)</option>
-            <option value="apk">Nami APK (Modal Beli Stok Supplier)</option>
-            <option value="joktug">Joktug (Tools Turnitin / Jurnal)</option>
-            <option value="studio">Nami Studio (Asset, Domain, Hosting)</option>
+          <label class="form-label">Nominal (Rp)</label>
+          <input type="number" class="form-input" id="formExpAmount" placeholder="100000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Kategori / Unit</label>
+          <select class="form-select" id="formExpUnit">
+            <option value="Umum">Operasional Bersama / Mandiri</option>
+            <option value="apk">Nami APK</option>
+            <option value="joktug">Joktug</option>
             <option value="freelance">Freelance</option>
+            <option value="studio">Nami Studio</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Keterangan Pengeluaran</label>
-          <input type="text" class="form-input" id="expDesc" placeholder="Contoh: Beli kuota kerja bulanan / Canva Edu 10 Akun">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nominal Pengeluaran (Rp)</label>
-          <input type="number" class="form-input" id="expAmount" placeholder="150000">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Dibayar Menggunakan</label>
-          <select class="form-select" id="expMethod">
-            <option value="BCA">BCA (3741234635 an Intan Nurul Huda)</option>
+          <label class="form-label">Metode Bayar</label>
+          <select class="form-select" id="formExpMethod">
+            <option value="BCA">BCA</option>
             <option value="QRIS">QRIS</option>
           </select>
         </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
           <button class="btn btn-cream" onclick="closeModal('modalExpense')">Batal</button>
-          <button class="btn btn-red" onclick="saveExpense()">Simpan Pengeluaran</button>
+          <button class="btn btn-red" onclick="saveExpense()">Simpan Biaya</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: KLAIM GARANSI NAMI APK (PAUSE & RESUME) -->
-  <div class="modal-overlay" id="modalWarrantyClaim">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h3>🛡️ Klaim Garansi Akun APK</h3>
-        <button class="btn btn-cream" onclick="closeModal('modalWarrantyClaim')">✕</button>
-      </div>
-      <div>
-        <input type="hidden" id="warrantyApkIndex">
-        <div class="form-group">
-          <label class="form-label">Klien & Produk</label>
-          <input type="text" class="form-input" id="warrantyClientProduct" readonly>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tindakan Garansi</label>
-          <select class="form-select" id="warrantyActionType" onchange="toggleWarrantyFields(this.value)">
-            <option value="pause">1. Laporkan Rusak (Pause Masa Aktif)</option>
-            <option value="resume">2. Berikan Akun Pengganti (Resume & Perpanjang)</option>
-          </select>
-        </div>
-
-        <div id="warrantyResumeFields" style="display:none; background:var(--cream-light); border:1.5px solid var(--border-color); border-radius:var(--radius-sm); padding:10px; margin-bottom:12px;">
-          <div class="form-group">
-            <label class="form-label">Email Akun Baru dari Supplier</label>
-            <input type="text" class="form-input" id="warrantyNewEmail" placeholder="nami.stream02@gmail.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Profil / PIN Baru</label>
-            <input type="text" class="form-input" id="warrantyNewProfile" placeholder="Profil 1 (PIN: 8899)">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Bonus Perpanjangan Hari</label>
-            <input type="number" class="form-input" id="warrantyBonusDays" value="0">
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:8px;">
-          <button class="btn btn-cream" onclick="closeModal('modalWarrantyClaim')">Tutup</button>
-          <button class="btn btn-yellow" onclick="submitWarrantyAction()">Eksekusi Garansi</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: KALKULATOR REFUND STANDAR -->
-  <div class="modal-overlay" id="modalRefundCalculator">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h3>🧮 Kalkulator Refund APK</h3>
-        <button class="btn btn-cream" onclick="closeModal('modalRefundCalculator')">✕</button>
-      </div>
-      <div>
-        <div class="form-group">
-          <label class="form-label">Harga Beli Klien (Rp)</label>
-          <input type="number" class="form-input" id="calcPrice" placeholder="45000" oninput="runRefundCalculation()">
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">Total Durasi (Hari)</label>
-            <input type="number" class="form-input" id="calcTotalDays" value="30" oninput="runRefundCalculation()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Hari Terpakai</label>
-            <input type="number" class="form-input" id="calcUsedDays" value="12" oninput="runRefundCalculation()">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Potongan Fee / Transfer (Rp)</label>
-          <input type="number" class="form-input" id="calcAdminFee" value="0" oninput="runRefundCalculation()">
-        </div>
-
-        <div style="background:var(--yellow); border:2px solid var(--border-color); border-radius:var(--radius-sm); padding:12px; margin: 12px 0;">
-          <div style="font-size:11px; font-weight:800; text-transform:uppercase;">Estimasi Pengembalian:</div>
-          <div style="font-size:22px; font-weight:800; font-family:'Space Grotesk';" id="calcResultRefund">Rp 0</div>
-          <div style="font-size:10px; color:var(--dark); margin-top:2px;" id="calcFormulaExplanation">Rumus: (Sisa Hari / Total Hari) × Harga - Potongan</div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; gap:6px;">
-          <button class="btn btn-green" onclick="copyRefundTextToWa()">📋 Salin Teks Refund WA</button>
-          <button class="btn btn-cream" onclick="closeModal('modalRefundCalculator')">Tutup</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: CUSTOM RETRO CONFIRMATION (PENGGANTI WINDOW.CONFIRM) -->
-  <div class="modal-overlay" id="customConfirmModal">
-    <div class="modal-window" style="max-width: 380px;">
-      <h3 style="margin-bottom:8px;">Konfirmasi Tindakan ⚠️</h3>
-      <p id="customConfirmMessage" style="font-size:12px; color:var(--dark-muted); margin-bottom:16px;">Yakin ingin menghapus data ini?</p>
-      <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button class="btn btn-cream" onclick="closeConfirmModal(false)">Batal</button>
-        <button class="btn btn-danger" id="customConfirmOkBtn">Ya, Hapus Data</button>
+  <!-- MODAL: KONFIRMASI HAPUS KUSTOM INTERNAL -->
+  <div class="modal-overlay" id="modalConfirmDelete">
+    <div class="modal-window" style="max-width:380px; text-align:center;">
+      <h3 style="margin-bottom:8px;">Hapus Data Ini?</h3>
+      <p style="font-size:12px; color:var(--dark-muted); margin-bottom:16px;" id="deleteConfirmText">Tindakan ini tidak bisa dibatalkan.</p>
+      <div style="display:flex; justify-content:center; gap:10px;">
+        <button class="btn btn-cream" onclick="closeModal('modalConfirmDelete')">Batal</button>
+        <button class="btn btn-red" id="btnConfirmDeleteExec">Ya, Hapus Permanen</button>
       </div>
     </div>
   </div>
@@ -1470,221 +847,431 @@
   <div class="toast-box" id="appToast">Notifikasi</div>
 
   <script>
-    // ==========================================
-    // DATA PERSISTENCE & SEED DATA (NOV 2026)
-    // ==========================================
-    const STORAGE_KEY = 'hi_littlenami_db_v3_fixed';
+    // DATA TRANSAKSI DUMMY DENGAN MODAL & PROFIT BERSIH ON-THE-SPOT
+    let transactions = [
+      {
+        id: "TRX-001",
+        date: "2026-11-10",
+        client: "Baverly Florist",
+        phone: "081234567890",
+        unit: "studio",
+        unitName: "Nami Studio",
+        detail: "Branding Kit & Web Catalog",
+        price: 3000000,
+        cost: 350000, // Modal domain & asset
+        profit: 2650000,
+        paid: 1500000,
+        method: "BCA",
+        status: "DP Diterima",
+        dueDate: "2026-11-13" // H-3!
+      },
+      {
+        id: "TRX-002",
+        date: "2026-11-10",
+        client: "Dinda Permata",
+        phone: "085698741230",
+        unit: "apk",
+        unitName: "Nami APK",
+        detail: "Canva Pro 1 Tahun Edu",
+        price: 120000,
+        cost: 45000, // Modal supplier
+        profit: 75000,
+        paid: 120000,
+        method: "QRIS",
+        status: "Lunas",
+        dueDate: "2026-11-12" // H-2 Renewal!
+      },
+      {
+        id: "TRX-003",
+        date: "2026-11-09",
+        client: "Kevin Aldiansyah",
+        phone: "081399887766",
+        unit: "joktug",
+        unitName: "Joktug",
+        detail: "Analisis Data SPSS & Bab 4",
+        price: 450000,
+        cost: 20000, // Biaya tool cek
+        profit: 430000,
+        paid: 200000,
+        method: "QRIS",
+        status: "DP Diterima",
+        dueDate: "2026-11-20"
+      },
+      {
+        id: "TRX-004",
+        date: "2026-11-08",
+        client: "Lumière Rental",
+        phone: "082155443322",
+        unit: "freelance",
+        unitName: "Freelance",
+        detail: "Admin WA & Konten Sosmed Nov",
+        price: 1800000,
+        cost: 0, // Tanpa modal langsung
+        profit: 1800000,
+        paid: 1800000,
+        method: "BCA",
+        status: "Lunas",
+        dueDate: "2026-11-30"
+      }
+    ];
 
-    const defaultInitialData = {
-      apkOrders: [
-        {
-          id: "APK-001",
-          date: "2026-11-09",
-          client: "Dinda Permata",
-          wa: "08123456789",
-          product: "Canva Pro 1 Tahun Edu",
-          hpp: 40000,
-          sell: 120000,
-          renewalDate: "2026-11-12", // H-2 (Urgent Radar)
-          isLifetime: false,
-          accountEmail: "dinda.canva@gmail.com",
-          accountProfile: "Team Member 1",
-          supplier: "Supplier Canva Edu A",
-          warrantyDays: 365,
-          method: "QRIS",
-          status: "Aktif",
-          claimsCount: 0,
-          isPaused: false
-        },
-        {
-          id: "APK-002",
-          date: "2026-11-06",
-          client: "Rian Bagus",
-          wa: "08569874123",
-          product: "Netflix UHD 1 Bulan Private Profile",
-          hpp: 28000,
-          sell: 45000,
-          renewalDate: "2026-11-13", // H-3 (Urgent Radar)
-          isLifetime: false,
-          accountEmail: "nami.stream01@gmail.com",
-          accountProfile: "Profil 2 (PIN: 1122)",
-          supplier: "Kang Netflix Bot",
-          warrantyDays: 30,
-          method: "BCA",
-          status: "Aktif",
-          claimsCount: 0,
-          isPaused: false
-        },
-        {
-          id: "APK-003",
-          date: "2026-11-01",
-          client: "Maya Sandrina",
-          wa: "08139988776",
-          product: "Spotify Family Head 1 Bulan",
-          hpp: 25000,
-          sell: 40000,
-          renewalDate: "2026-11-20",
-          isLifetime: false,
-          accountEmail: "maya.spoti@gmail.com",
-          accountProfile: "Slot 1",
-          supplier: "Supplier Musikindo",
-          warrantyDays: 30,
-          method: "QRIS",
-          status: "Dalam Garansi",
-          claimsCount: 1,
-          isPaused: true
-        }
-      ],
-      projects: [
-        {
-          id: "PRJ-001",
-          unit: "studio",
-          unitName: "Nami Studio",
-          client: "Baverly Florist",
-          wa: "08778899001",
-          detail: "Branding Kit, Visual Guide & Web Catalog",
-          total: 3000000,
-          paid: 1500000,
-          deadline: "2026-11-13", // Deadline H-3 (Urgent Radar)
-          revisi: "1/2",
-          finalLink: "https://drive.google.com/drive/folders/baverly-florist-hi-littlenami",
-          method: "BCA",
-          status: "Dalam Pengerjaan"
-        },
-        {
-          id: "PRJ-002",
-          unit: "joktug",
-          unitName: "Joktug",
-          client: "Kevin Aldiansyah",
-          wa: "08129871122",
-          detail: "Olah Data SPSS & Pembahasan Bab 4",
-          total: 450000,
-          paid: 200000,
-          deadline: "2026-11-12", // Deadline H-2 (Urgent Radar)
-          revisi: "0/2",
-          finalLink: "https://drive.google.com/file/d/kevin-spss-final.docx",
-          method: "QRIS",
-          status: "Menunggu Pelunasan"
-        },
-        {
-          id: "PRJ-003",
-          unit: "freelance",
-          unitName: "Freelance",
-          client: "Lumière Rental",
-          wa: "08213344556",
-          detail: "Admin Support & Rekap Laporan Bulanan",
-          total: 1800000,
-          paid: 1800000,
-          deadline: "2026-11-30",
-          revisi: "Selesai",
-          finalLink: "https://drive.google.com/drive/folders/lumiere-nov2026",
-          method: "BCA",
-          status: "Lunas"
-        }
-      ],
-      expenses: [
-        {
-          id: "EXP-001",
-          date: "2026-11-10",
-          unit: "apk",
-          unitName: "Nami APK",
-          desc: "Beli 5 Akun Netflix Supplier Bot",
-          amount: 140000,
-          method: "BCA"
-        },
-        {
-          id: "EXP-002",
-          date: "2026-11-09",
-          unit: "mandiri",
-          unitName: "Kebutuhan Mandiri",
-          desc: "Paket Kuota Kerja & WiFi Kosan",
-          amount: 150000,
-          method: "QRIS"
-        },
-        {
-          id: "EXP-003",
-          date: "2026-11-04",
-          unit: "studio",
-          unitName: "Nami Studio",
-          desc: "Perpanjangan Domain & Cloud Storage",
-          amount: 280000,
-          method: "BCA"
-        }
-      ]
-    };
+    // DATA PENGELUARAN MANDIRI / KERJA
+    let expenses = [
+      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" },
+      { id: "EXP-002", date: "2026-11-08", desc: "Restock Saldo Supplier APK", amount: 200000, unit: "apk", method: "BCA" }
+    ];
 
-    let appData = loadLocalData();
+    let pendingDeleteType = null;
+    let pendingDeleteId = null;
 
-    function loadLocalData() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        return stored ? JSON.parse(stored) : defaultInitialData;
-      } catch (e) {
-        return defaultInitialData;
+    // FORMAT RUPIAH INTEGER BULAT (BEBAS DESIMAL PERAK)
+    function formatRupiah(num) {
+      return 'Rp ' + Math.round(Number(num) || 0).toLocaleString('id-ID');
+    }
+
+    // HITUNG LIVE PROFIT SAAT KETIK MODAL & HARGA JUAL
+    function calculateLiveProfit() {
+      const price = Math.round(Number(document.getElementById('formTrxPrice').value) || 0);
+      const cost = Math.round(Number(document.getElementById('formTrxCost').value) || 0);
+      const profit = price - cost;
+      const margin = price > 0 ? Math.round((profit / price) * 100) : 0;
+
+      const badge = document.getElementById('liveProfitBadge');
+      badge.innerText = `${formatRupiah(profit)} (${margin}%)`;
+      if (profit < 0) {
+        badge.style.background = '#FFEBEE';
+        badge.style.color = '#C62828';
+        badge.style.borderColor = '#C62828';
+      } else {
+        badge.style.background = '#E8F5E9';
+        badge.style.color = '#2E7D32';
+        badge.style.borderColor = '#2E7D32';
       }
     }
 
-    function saveLocalData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-      } catch (e) {
-        console.error("Gagal simpan data", e);
-      }
-      renderEverything();
-    }
-
-    // ==========================================
-    // NUMBER FORMATTING & MATH INTEGER UTILS
-    // ==========================================
-    function formatRupiah(val) {
-      const rounded = Math.round(Number(val) || 0);
-      return 'Rp ' + rounded.toLocaleString('id-ID');
-    }
-
-    function sanitizeWaNumber(phone) {
-      if (!phone) return '6285163672392';
+    // FORMAT NOMOR WA INTERNASIONAL
+    function cleanPhoneNumber(phone) {
+      if (!phone) return "";
       let clean = phone.replace(/[^0-9]/g, '');
       if (clean.startsWith('0')) clean = '62' + clean.slice(1);
       return clean;
     }
 
-    function showToast(msg) {
-      const toast = document.getElementById('appToast');
-      toast.innerText = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2200);
-    }
+    // RENDER UTAMA
+    function renderApp() {
+      let totalGross = 0;
+      let totalProfit = 0;
+      let totalPiutang = 0;
+      let totalCashBCA = 0;
+      let totalCashQRIS = 0;
+      let totalRealCash = 0;
 
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-    }
+      const overviewList = document.getElementById('overviewFeedList');
+      const allList = document.getElementById('allTrxFeedList');
+      const piutangList = document.getElementById('piutangFeedList');
+      const radarList = document.getElementById('radarListContainer');
 
-    // ==========================================
-    // CUSTOM CONFIRM MODAL (NO WINDOW.CONFIRM)
-    // ==========================================
-    let confirmCallback = null;
+      overviewList.innerHTML = '';
+      allList.innerHTML = '';
+      piutangList.innerHTML = '';
+      radarList.innerHTML = '';
 
-    function triggerCustomConfirm(message, callback) {
-      document.getElementById('customConfirmMessage').innerText = message;
-      confirmCallback = callback;
-      document.getElementById('customConfirmModal').classList.add('active');
-    }
+      let radarCount = 0;
+      const today = new Date("2026-11-10"); // Standar tanggal sesi
 
-    function closeConfirmModal(isConfirmed) {
-      document.getElementById('customConfirmModal').classList.remove('active');
-      if (isConfirmed && typeof confirmCallback === 'function') {
-        confirmCallback();
+      transactions.forEach((t) => {
+        const sisa = Math.max(0, t.price - t.paid);
+        totalGross += t.price;
+        totalProfit += t.profit;
+        totalPiutang += sisa;
+        totalRealCash += t.paid;
+
+        if (t.method === 'BCA') totalCashBCA += t.paid;
+        if (t.method === 'QRIS') totalCashQRIS += t.paid;
+
+        // Cek Radar H-3
+        if (t.dueDate) {
+          const due = new Date(t.dueDate);
+          const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+          
+          if (diffDays <= 3 && t.status !== 'Selesai Lunas') {
+            radarCount++;
+            const waPhone = cleanPhoneNumber(t.phone);
+            const isApk = t.unit === 'apk';
+            const waMsg = isApk 
+              ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Masa aktif langganan ${t.detail} kamu di hi.littlenami sisa ${diffDays} hari lagi. Mau perpanjang via BCA 3741234635 / QRIS? Terima kasih! 🍓`)
+              : encodeURIComponent(`Halo Kak ${t.client}! ✨ Update progres tugas ${t.detail} dari hi.littlenami menjelang deadline tanggal ${t.dueDate}. Sisa tagihan: ${formatRupiah(sisa)}. Terima kasih! 🍓`);
+
+            radarList.innerHTML += `
+              <div class="radar-item">
+                <div>
+                  <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
+                  <strong>${t.client}</strong> — ${t.detail}
+                  <span style="color:var(--red); font-weight:800; font-size:11px;">(Sisa ${diffDays} Hari!)</span>
+                </div>
+                <a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="btn btn-green" style="padding:4px 8px; font-size:10px;">
+                  📲 Chat WA Klien
+                </a>
+              </div>
+            `;
+          }
+        }
+
+        // Card HTML
+        const cardHtml = `
+          <div class="trx-item-card">
+            <div class="trx-item-header">
+              <div>
+                <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
+                <strong style="font-size:14px; margin-left:4px;">${t.client}</strong>
+                <div style="font-size:11px; color:var(--dark-muted);">${t.detail}</div>
+              </div>
+              <span class="badge-status ${t.status === 'Lunas' ? 'status-lunas' : 'status-dp'}">${t.status}</span>
+            </div>
+
+            <!-- DETAIL HARGA & PROFIT BERSIH ON-THE-SPOT -->
+            <div class="trx-meta-grid">
+              <div>Harga Jual: <strong>${formatRupiah(t.price)}</strong></div>
+              <div>Modal (HPP): <strong>${formatRupiah(t.cost)}</strong></div>
+              <div>Profit Bersih: <span style="color:#2E7D32; font-weight:800;">+${formatRupiah(t.profit)}</span></div>
+              <div>Kas Masuk: <strong>${formatRupiah(t.paid)}</strong> (${t.method})</div>
+              <div>Sisa Tagihan: <strong style="color:var(--red);">${formatRupiah(sisa)}</strong></div>
+              <div>Tenggat/Exp: <strong>${t.dueDate || '-'}</strong></div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+              <div style="display:flex; gap:6px;">
+                ${sisa > 0 ? `<button class="btn btn-yellow" onclick="quickPay('${t.id}')">Pelunasan</button>` : ''}
+                <button class="btn btn-cream" onclick="openEditTrxModal('${t.id}')">✏️ Edit</button>
+                <button class="btn btn-red" onclick="promptDelete('trx', '${t.id}', '${t.client}')">🗑️ Hapus</button>
+              </div>
+              <a href="https://wa.me/${cleanPhoneNumber(t.phone)}" target="_blank" class="btn btn-green" style="font-size:11px;">WA Klien</a>
+            </div>
+          </div>
+        `;
+
+        allList.innerHTML += cardHtml;
+        if (sisa > 0) piutangList.innerHTML += cardHtml;
+      });
+
+      // Overview ambil 3 kartu teratas
+      overviewList.innerHTML = allList.innerHTML.split('</div>\n          </div>').slice(0, 3).join('</div>\n          </div>');
+
+      // Update Radar Count
+      document.getElementById('radarCountBadge').innerText = `${radarCount} Perlu Follow-up`;
+      if (radarCount === 0) {
+        radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Tidak ada tagihan atau tugas yang mepet deadline H-3 ✨</div>`;
       }
-      confirmCallback = null;
+
+      // Render Pengeluaran
+      let totalExpense = 0;
+      const expenseList = document.getElementById('expenseFeedList');
+      expenseList.innerHTML = '';
+      expenses.forEach(e => {
+        totalExpense += e.amount;
+        expenseList.innerHTML += `
+          <div class="trx-item-card" style="padding:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong>${e.desc}</strong>
+                <div style="font-size:10px; color:var(--dark-muted);">${e.date} • ${e.unit} • Via ${e.method}</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="color:var(--red); font-weight:800; font-size:14px;">-${formatRupiah(e.amount)}</div>
+                <button class="btn btn-red" style="padding:2px 6px; font-size:10px; margin-top:4px;" onclick="promptDelete('exp', '${e.id}', '${e.desc}')">Hapus</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Set Metrics Header
+      document.getElementById('valGrossOmzet').innerText = formatRupiah(totalGross);
+      document.getElementById('valTotalProfit').innerText = formatRupiah(totalProfit);
+      document.getElementById('valTotalPiutang').innerText = formatRupiah(totalPiutang);
+      document.getElementById('valPiutangHeader').innerText = formatRupiah(totalPiutang);
+      document.getElementById('valTotalExpense').innerText = formatRupiah(totalExpense);
+      document.getElementById('valCashBCA').innerText = formatRupiah(totalCashBCA);
+      document.getElementById('valCashQRIS').innerText = formatRupiah(totalCashQRIS);
+
+      // Profit Murni Bersih di Tab Rekap: (Kas Riil Diterima - Total Modal Terpakai) - Total Biaya Kerja
+      const realNetProfit = totalProfit - totalExpense;
+      document.getElementById('valNetRealProfit').innerText = formatRupiah(realNetProfit);
+
+      // Breakdown Profit Unit
+      const unitProfits = { apk: 0, joktug: 0, freelance: 0, studio: 0 };
+      transactions.forEach(t => { unitProfits[t.unit] += t.profit; });
+      document.getElementById('unitProfitBreakdown').innerHTML = `
+        <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between;"><span>🍓 Nami APK:</span> <strong>${formatRupiah(unitProfits.apk)}</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>📚 Joktug:</span> <strong>${formatRupiah(unitProfits.joktug)}</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>💼 Freelance:</span> <strong>${formatRupiah(unitProfits.freelance)}</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span>🎨 Nami Studio:</span> <strong>${formatRupiah(unitProfits.studio)}</strong></div>
+        </div>
+      `;
     }
 
-    document.getElementById('customConfirmOkBtn').addEventListener('click', () => {
-      closeConfirmModal(true);
+    // FORM MODAL HANDLER
+    function openNewTrxModal() {
+      document.getElementById('editTrxId').value = "";
+      document.getElementById('modalTrxTitle').innerText = "+ Catat Transaksi Baru";
+      document.getElementById('formTrxClient').value = "";
+      document.getElementById('formTrxPhone').value = "";
+      document.getElementById('formTrxDetail').value = "";
+      document.getElementById('formTrxPrice').value = "";
+      document.getElementById('formTrxCost').value = "";
+      document.getElementById('formTrxPaid').value = "";
+      document.getElementById('formTrxDueDate').value = "";
+      calculateLiveProfit();
+      document.getElementById('modalTrx').classList.add('active');
+    }
+
+    function openEditTrxModal(id) {
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+
+      document.getElementById('editTrxId').value = t.id;
+      document.getElementById('modalTrxTitle').innerText = `✏️ Edit Transaksi (${t.id})`;
+      document.getElementById('formTrxUnit').value = t.unit;
+      document.getElementById('formTrxClient').value = t.client;
+      document.getElementById('formTrxPhone').value = t.phone || "";
+      document.getElementById('formTrxDetail').value = t.detail;
+      document.getElementById('formTrxPrice').value = t.price;
+      document.getElementById('formTrxCost').value = t.cost;
+      document.getElementById('formTrxPaid').value = t.paid;
+      document.getElementById('formTrxMethod').value = t.method;
+      document.getElementById('formTrxDueDate').value = t.dueDate || "";
+      calculateLiveProfit();
+      document.getElementById('modalTrx').classList.add('active');
+    }
+
+    function saveTransaction() {
+      const editId = document.getElementById('editTrxId').value;
+      const unit = document.getElementById('formTrxUnit').value;
+      const client = document.getElementById('formTrxClient').value || "Klien Baru";
+      const phone = document.getElementById('formTrxPhone').value || "";
+      const detail = document.getElementById('formTrxDetail').value || "Layanan / Akun";
+      const price = Math.round(Number(document.getElementById('formTrxPrice').value) || 0);
+      const cost = Math.round(Number(document.getElementById('formTrxCost').value) || 0);
+      const paid = Math.round(Number(document.getElementById('formTrxPaid').value) || 0);
+      const method = document.getElementById('formTrxMethod').value;
+      const dueDate = document.getElementById('formTrxDueDate').value;
+      const profit = price - cost;
+
+      if (price <= 0) {
+        alert("Harga jual wajib diisi!");
+        return;
+      }
+
+      const unitMap = { apk: "Nami APK", joktug: "Joktug", freelance: "Freelance", studio: "Nami Studio" };
+      let status = paid >= price ? "Lunas" : (paid > 0 ? "DP Diterima" : "Belum Bayar");
+
+      if (editId) {
+        const item = transactions.find(x => x.id === editId);
+        if (item) {
+          item.unit = unit;
+          item.unitName = unitMap[unit];
+          item.client = client;
+          item.phone = phone;
+          item.detail = detail;
+          item.price = price;
+          item.cost = cost;
+          item.profit = profit;
+          item.paid = paid;
+          item.method = method;
+          item.dueDate = dueDate;
+          item.status = status;
+          showToast(`Order ${editId} berhasil diperbarui!`);
+        }
+      } else {
+        const newId = `TRX-00${transactions.length + 1}`;
+        transactions.unshift({
+          id: newId,
+          date: "2026-11-10",
+          client: client,
+          phone: phone,
+          unit: unit,
+          unitName: unitMap[unit],
+          detail: detail,
+          price: price,
+          cost: cost,
+          profit: profit,
+          paid: paid,
+          method: method,
+          dueDate: dueDate,
+          status: status
+        });
+        showToast(`Transaksi baru ${newId} dicatat!`);
+      }
+
+      closeModal('modalTrx');
+      renderApp();
+    }
+
+    // PENGELUARAN MODAL
+    function openNewExpenseModal() {
+      document.getElementById('formExpDesc').value = "";
+      document.getElementById('formExpAmount').value = "";
+      document.getElementById('modalExpense').classList.add('active');
+    }
+
+    function saveExpense() {
+      const desc = document.getElementById('formExpDesc').value || "Pengeluaran";
+      const amount = Math.round(Number(document.getElementById('formExpAmount').value) || 0);
+      const unit = document.getElementById('formExpUnit').value;
+      const method = document.getElementById('formExpMethod').value;
+
+      if (amount <= 0) {
+        alert("Nominal biaya harus lebih dari 0!");
+        return;
+      }
+
+      expenses.unshift({
+        id: `EXP-00${expenses.length + 1}`,
+        date: "2026-11-10",
+        desc: desc,
+        amount: amount,
+        unit: unit,
+        method: method
+      });
+
+      closeModal('modalExpense');
+      renderApp();
+      showToast("Pengeluaran kerja berhasil disimpan!");
+    }
+
+    // MODAL HAPUS KUSTOM INTERNAL
+    function promptDelete(type, id, name) {
+      pendingDeleteType = type;
+      pendingDeleteId = id;
+      document.getElementById('deleteConfirmText').innerText = `Yakin ingin menghapus ${name} (${id})?`;
+      document.getElementById('modalConfirmDelete').classList.add('active');
+    }
+
+    document.getElementById('btnConfirmDeleteExec').addEventListener('click', () => {
+      if (pendingDeleteType === 'trx') {
+        transactions = transactions.filter(t => t.id !== pendingDeleteId);
+        showToast("Transaksi berhasil dihapus.");
+      } else if (pendingDeleteType === 'exp') {
+        expenses = expenses.filter(e => e.id !== pendingDeleteId);
+        showToast("Pengeluaran berhasil dihapus.");
+      }
+      closeModal('modalConfirmDelete');
+      renderApp();
     });
 
-    // ==========================================
-    // TAB SWITCHER
-    // ==========================================
+    // PELUNASAN CEPAT
+    function quickPay(id) {
+      const t = transactions.find(x => x.id === id);
+      if (t) {
+        t.paid = t.price;
+        t.status = "Lunas";
+        showToast(`Pesanan ${t.client} berhasil dilunasi!`);
+        renderApp();
+      }
+    }
+
+    // TABS
     function switchTab(viewId) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1694,1223 +1281,30 @@
       if (target) target.classList.add('active');
 
       const titles = {
-        overview: "Dashboard Overview",
-        rekap: "Rekap & Laporan Kas",
-        namiapk: "Nami APK (Modul Khusus)",
-        projects: "Project Tracker",
-        transaksi: "Semua Transaksi",
+        overview: "Overview & Rekap Bisnis",
+        transaksi: "Semua Transaksi & Pesanan",
         piutang: "Manajemen Piutang & DP",
-        pengeluaran: "Buku Pengeluaran",
-        nota: "Invoice & Struk WA",
-        backup: "Backup & Restore Data"
+        pengeluaran: "Catatan Biaya Kerja",
+        rekap: "Rekap Laba Bersih Murni"
       };
-      document.getElementById('pageHeadingTitle').innerText = titles[viewId] || "hi.littlenami";
-
+      document.getElementById('pageTitle').innerText = titles[viewId] || "Dashboard";
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ==========================================
-    // DATE CALCULATION
-    // ==========================================
-    function getDaysDiff(targetDateStr) {
-      if (!targetDateStr) return 999;
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      const target = new Date(targetDateStr);
-      target.setHours(0,0,0,0);
-      return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
     }
 
-    // ==========================================
-    // 1. RADAR PENGINGAT H-3 DUA JALUR
-    // ==========================================
-    function renderRadarBanner() {
-      const container = document.getElementById('radarItemsContainer');
-      container.innerHTML = '';
-      let count = 0;
-
-      // Jalur 1: Renewal Nami APK (Sisa <= 3 Hari)
-      appData.apkOrders.forEach(apk => {
-        if (!apk.isLifetime && !apk.isPaused && apk.renewalDate) {
-          const diff = getDaysDiff(apk.renewalDate);
-          if (diff <= 3) {
-            count++;
-            const label = diff < 0 ? `🚨 Expired (${Math.abs(diff)} hari lalu)` : (diff === 0 ? `🚨 Expired Hari Ini!` : `⚠️ Sisa ${diff} Hari`);
-            container.innerHTML += `
-              <div class="radar-item">
-                <div>
-                  <span class="badge-unit badge-apk">Nami APK</span>
-                  <strong>${apk.client}</strong> — ${apk.product}
-                  <span style="color:var(--red); font-weight:800; margin-left:4px;">${label}</span>
-                </div>
-                <button class="btn btn-green" style="padding:4px 8px; font-size:10.5px;" onclick="sendWaRenewalNotice('${apk.client}', '${apk.product}', '${apk.renewalDate}', ${apk.sell}, '${apk.wa}')">
-                  📲 WA Tagih H-3
-                </button>
-              </div>
-            `;
-          }
-        }
-      });
-
-      // Jalur 2: Deadline Joktug / Studio / Freelance (Deadline <= 3 Hari & Belum Lunas/Selesai)
-      appData.projects.forEach(prj => {
-        const diff = getDaysDiff(prj.deadline);
-        const sisa = prj.total - prj.paid;
-        if (prj.deadline && diff <= 3 && sisa > 0) {
-          count++;
-          const label = diff < 0 ? `🚨 Lewat Deadline (${Math.abs(diff)} hari lalu)` : (diff === 0 ? `🚨 Deadline Hari Ini!` : `⏳ Deadline H-${diff}`);
-          container.innerHTML += `
-            <div class="radar-item">
-              <div>
-                <span class="badge-unit badge-${prj.unit}">${prj.unitName}</span>
-                <strong>${prj.client}</strong> — ${prj.detail}
-                <span style="color:var(--red); font-weight:800; margin-left:4px;">${label}</span>
-              </div>
-              <button class="btn btn-yellow" style="padding:4px 8px; font-size:10.5px;" onclick="sendWaDeadlineNotice('${prj.client}', '${prj.detail}', '${prj.deadline}', ${sisa}, '${prj.wa}')">
-                📲 WA Update Deadline
-              </button>
-            </div>
-          `;
-        }
-      });
-
-      document.getElementById('radarCountBadge').innerText = `${count} Perlu Tindakan`;
-      document.getElementById('radarAlertBanner').style.display = count > 0 ? 'block' : 'none';
-    }
-
-    // ==========================================
-    // 2. METRIK KEUANGAN TANPA SELISIH PERAK
-    // ==========================================
-    function calculateGlobalFinancials() {
-      let gross = 0;
-      let realCash = 0;
-      let piutang = 0;
-      let unpaidCount = 0;
-      let bcaCash = 0;
-      let qrisCash = 0;
-
-      // Dari APK
-      appData.apkOrders.forEach(a => {
-        gross += Math.round(a.sell);
-        realCash += Math.round(a.sell);
-        if (a.method === 'BCA') bcaCash += Math.round(a.sell);
-        if (a.method === 'QRIS') qrisCash += Math.round(a.sell);
-      });
-
-      // Dari Project
-      appData.projects.forEach(p => {
-        gross += Math.round(p.total);
-        realCash += Math.round(p.paid);
-        const sisa = Math.round(p.total - p.paid);
-        if (sisa > 0) {
-          piutang += sisa;
-          unpaidCount++;
-        }
-        if (p.method === 'BCA') bcaCash += Math.round(p.paid);
-        if (p.method === 'QRIS') qrisCash += Math.round(p.paid);
-      });
-
-      // Pengeluaran
-      let totalExpense = 0;
-      appData.expenses.forEach(e => {
-        totalExpense += Math.round(e.amount);
-      });
-
-      // Laba Bersih Murni
-      const netProfit = realCash - totalExpense;
-
-      // Update UI
-      document.getElementById('statGrossOmzet').innerText = formatRupiah(gross);
-      document.getElementById('statRealCash').innerText = formatRupiah(realCash);
-      document.getElementById('statTotalExpense').innerText = formatRupiah(totalExpense);
-      document.getElementById('statNetProfit').innerText = formatRupiah(netProfit);
-      document.getElementById('statWalletBca').innerText = formatRupiah(bcaCash);
-      document.getElementById('statWalletQris').innerText = formatRupiah(qrisCash);
-
-      // Piutang Summary
-      document.getElementById('piutangSummaryVal').innerText = formatRupiah(piutang);
-      document.getElementById('piutangClientCount').innerText = `${unpaidCount} Klien`;
-
-      // Overview Recent Cards
-      const container = document.getElementById('overviewRecentCards');
-      container.innerHTML = '';
-      const recents = [
-        ...appData.apkOrders.map(a => ({ type: 'apk', title: a.client, sub: a.product, val: a.sell, sisa: 0, status: a.status, raw: a })),
-        ...appData.projects.map(p => ({ type: p.unit, title: p.client, sub: p.detail, val: p.total, sisa: p.total - p.paid, status: p.status, raw: p }))
-      ].slice(0, 4);
-
-      recents.forEach(r => {
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${r.title}</span>
-                <div style="margin-top:2px;"><span class="badge-unit badge-${r.type}">${r.type.toUpperCase()}</span></div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-weight:800; font-size:13.5px;">${formatRupiah(r.val)}</div>
-                ${r.sisa > 0 ? `<div style="font-size:10px; color:var(--red); font-weight:800;">Sisa: ${formatRupiah(r.sisa)}</div>` : ''}
-              </div>
-            </div>
-            <div class="item-card-meta">${r.sub}</div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div><span class="badge-status status-lunas">${r.status}</span></div>
-              <button class="btn btn-cream" style="padding:4px 8px; font-size:10px;" onclick="loadNotaFromObject('${r.type}', '${r.raw.id}')">Lihat Nota</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    // ==========================================
-    // 3. REKAPITULASI (HARIAN, MINGGUAN, BULANAN)
-    // ==========================================
-    function switchRekapMode(mode, btn) {
-      document.querySelectorAll('#view-rekap .filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.getElementById('subview-rekap-harian').style.display = mode === 'harian' ? 'block' : 'none';
-      document.getElementById('subview-rekap-mingguan').style.display = mode === 'mingguan' ? 'block' : 'none';
-      document.getElementById('subview-rekap-bulanan').style.display = mode === 'bulanan' ? 'block' : 'none';
-
-      if (mode === 'harian') renderDailyRekap();
-      if (mode === 'mingguan') renderWeeklyRekap();
-      if (mode === 'bulanan') renderMonthlyRekap();
-    }
-
-    function setDailyPickerToday() {
-      document.getElementById('rekapDatePicker').value = new Date().toISOString().split('T')[0];
-      renderDailyRekap();
-    }
-
-    function renderDailyRekap() {
-      const selectedDate = document.getElementById('rekapDatePicker').value || new Date().toISOString().split('T')[0];
-      let gross = 0;
-      let realCash = 0;
-      let expense = 0;
-
-      const logContainer = document.getElementById('dailyTimelineLog');
-      logContainer.innerHTML = '';
-      let logFound = false;
-
-      // Cek APK
-      appData.apkOrders.forEach(a => {
-        if (a.date === selectedDate) {
-          gross += Math.round(a.sell);
-          realCash += Math.round(a.sell);
-          logFound = true;
-          logContainer.innerHTML += `
-            <div class="timeline-item">
-              <div>
-                <span class="badge-unit badge-apk">Nami APK</span>
-                <strong>${a.client}</strong> — ${a.product}
-                <div style="font-size:10px; color:var(--dark-muted);">Metode: ${a.method}</div>
-              </div>
-              <div style="text-align:right;">
-                <span style="color:var(--green); font-weight:800;">+${formatRupiah(a.sell)}</span>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-      // Cek Project
-      appData.projects.forEach(p => {
-        // Anggap order dimulai di tanggal proyek dibuat
-        if (p.date === selectedDate || (!p.date && selectedDate === '2026-11-10')) {
-          gross += Math.round(p.total);
-          realCash += Math.round(p.paid);
-          logFound = true;
-          logContainer.innerHTML += `
-            <div class="timeline-item">
-              <div>
-                <span class="badge-unit badge-${p.unit}">${p.unitName}</span>
-                <strong>${p.client}</strong> — ${p.detail}
-                <div style="font-size:10px; color:var(--dark-muted);">Metode: ${p.method}</div>
-              </div>
-              <div style="text-align:right;">
-                <span style="color:var(--green); font-weight:800;">+${formatRupiah(p.paid)}</span>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-      // Cek Pengeluaran
-      appData.expenses.forEach(e => {
-        if (e.date === selectedDate) {
-          expense += Math.round(e.amount);
-          logFound = true;
-          logContainer.innerHTML += `
-            <div class="timeline-item" style="border-left: 4px solid var(--red);">
-              <div>
-                <span class="badge-unit badge-mandiri">${e.unitName}</span>
-                <strong>${e.desc}</strong>
-                <div style="font-size:10px; color:var(--dark-muted);">${e.method}</div>
-              </div>
-              <div style="text-align:right;">
-                <span style="color:var(--red); font-weight:800;">-${formatRupiah(e.amount)}</span>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-      if (!logFound) {
-        logContainer.innerHTML = `<div style="text-align:center; padding:16px; color:var(--dark-muted); font-size:12px;">Tidak ada transaksi atau pengeluaran di tanggal ini.</div>`;
-      }
-
-      const net = realCash - expense;
-      document.getElementById('dailyGross').innerText = formatRupiah(gross);
-      document.getElementById('dailyRealCash').innerText = formatRupiah(realCash);
-      document.getElementById('dailyExpense').innerText = formatRupiah(expense);
-      document.getElementById('dailyNetProfit').innerText = formatRupiah(net);
-    }
-
-    function renderWeeklyRekap() {
-      let weeklyIn = 0;
-      let weeklyExp = 0;
-
-      // Hitung 7 hari terakhir
-      appData.apkOrders.forEach(a => weeklyIn += Math.round(a.sell));
-      appData.projects.forEach(p => weeklyIn += Math.round(p.paid));
-      appData.expenses.forEach(e => weeklyExp += Math.round(e.amount));
-
-      document.getElementById('weeklyCashIn').innerText = formatRupiah(weeklyIn);
-      document.getElementById('weeklyExpense').innerText = formatRupiah(weeklyExp);
-      document.getElementById('weeklyNetProfit').innerText = formatRupiah(weeklyIn - weeklyExp);
-
-      // Simple bar chart (Senin s/d Minggu)
-      const chart = document.getElementById('weeklyBarChart');
-      chart.innerHTML = '';
-      const days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
-      const heights = [40, 75, 30, 90, 85, 60, 50];
-
-      days.forEach((d, i) => {
-        chart.innerHTML += `
-          <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
-            <div style="width:100%; max-width:28px; height:${heights[i]}%; background:var(--pink); border:1.5px solid var(--border-color); border-radius:4px 4px 0 0;"></div>
-            <span style="font-size:10px; font-weight:700; margin-top:4px;">${d}</span>
-          </div>
-        `;
-      });
-    }
-
-    function renderMonthlyRekap() {
-      let gross = 0;
-      let realCash = 0;
-      let expense = 0;
-
-      appData.apkOrders.forEach(a => {
-        gross += Math.round(a.sell);
-        realCash += Math.round(a.sell);
-      });
-      appData.projects.forEach(p => {
-        gross += Math.round(p.total);
-        realCash += Math.round(p.paid);
-      });
-      appData.expenses.forEach(e => {
-        expense += Math.round(e.amount);
-      });
-
-      const net = realCash - expense;
-      document.getElementById('monthGross').innerText = formatRupiah(gross);
-      document.getElementById('monthRealCash').innerText = formatRupiah(realCash);
-      document.getElementById('monthExpense').innerText = formatRupiah(expense);
-      document.getElementById('monthNetProfit').innerText = formatRupiah(net);
-
-      // Target Progress (Target 15jt)
-      const target = 15000000;
-      const pct = Math.min(100, Math.round((realCash / target) * 100));
-      document.getElementById('monthlyTargetProgressText').innerText = `${formatRupiah(realCash)} / ${formatRupiah(target)}`;
-      document.getElementById('monthlyTargetPctBadge').innerText = `${pct}% Tercapai`;
-      document.getElementById('monthlyProgressBar').style.width = `${pct}%`;
-    }
-
-    // ==========================================
-    // 4. CRUD NAMI APK LENGKAP
-    // ==========================================
-    let currentApkFilter = 'all';
-
-    function renderApkCards() {
-      const container = document.getElementById('apkCardsList');
-      container.innerHTML = '';
-
-      appData.apkOrders.forEach((apk, idx) => {
-        const diff = apk.isLifetime ? 999 : getDaysDiff(apk.renewalDate);
-
-        if (currentApkFilter === 'urgent' && (diff > 3 || apk.isLifetime)) return;
-        if (currentApkFilter === 'h7' && (diff > 7 || apk.isLifetime)) return;
-        if (currentApkFilter === 'garansi' && apk.status !== 'Dalam Garansi') return;
-
-        let badgeStatus = '';
-        if (apk.isLifetime) {
-          badgeStatus = `<span class="badge-status status-lunas">Lifetime</span>`;
-        } else if (diff < 0) {
-          badgeStatus = `<span class="badge-status status-belum">🚨 Expired</span>`;
-        } else if (diff <= 3) {
-          badgeStatus = `<span class="badge-status status-belum">🚨 H-${diff} Urgent</span>`;
-        } else if (diff <= 7) {
-          badgeStatus = `<span class="badge-status status-dp">⚠️ H-${diff}</span>`;
-        } else {
-          badgeStatus = `<span class="badge-status status-lunas">Aktif (${diff} Hari)</span>`;
-        }
-
-        const profit = Math.round(apk.sell - apk.hpp);
-
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${apk.client}</span>
-                <span style="font-size:10.5px; color:var(--dark-muted); margin-left:4px;">(${apk.wa})</span>
-                <div style="margin-top:2px;">
-                  <span class="badge-unit badge-apk">Nami APK</span>
-                  ${badgeStatus}
-                  ${apk.isPaused ? '<span class="badge-status status-garansi">⏸️ Garansi Paused</span>' : ''}
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-weight:800; font-size:13.5px;">${formatRupiah(apk.sell)}</div>
-                <div style="font-size:10px; color:var(--green); font-weight:800;">Untung: ${formatRupiah(profit)}</div>
-              </div>
-            </div>
-
-            <div class="item-card-meta">
-              <strong>Produk:</strong> ${apk.product}<br>
-              <strong>Kredensial:</strong> ${apk.accountEmail} | ${apk.accountProfile}<br>
-              <strong>Supplier:</strong> ${apk.supplier} (Garansi: ${apk.warrantyDays} hari)<br>
-              <strong>Renewal:</strong> ${apk.isLifetime ? 'Permanen' : apk.renewalDate}
-            </div>
-
-            <div class="item-card-actions">
-              ${!apk.isLifetime && diff <= 7 ? `
-                <button class="btn btn-yellow" onclick="sendWaRenewalNotice('${apk.client}', '${apk.product}', '${apk.renewalDate}', ${apk.sell}, '${apk.wa}')">📲 WA Tagih</button>
-              ` : ''}
-              <button class="btn btn-cream" onclick="openWarrantyModal(${idx})">🛡️ Garansi</button>
-              <button class="btn btn-cream" onclick="copyApkCredentials('${apk.client}', '${apk.product}', '${apk.accountEmail}', '${apk.accountProfile}', '${apk.renewalDate}')">📋 Salin Akun</button>
-              <button class="btn btn-cream" onclick="editApkOrder(${idx})">✏️ Edit</button>
-              <button class="btn btn-danger" onclick="triggerCustomConfirm('Hapus pesanan APK client ${apk.client}?', () => deleteApkOrder(${idx}))">🗑️ Hapus</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function filterApkList(filter, btn) {
-      document.querySelectorAll('#view-namiapk .filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentApkFilter = filter;
-      renderApkCards();
-    }
-
-    function openNewApkModal() {
-      document.getElementById('apkEditIndex').value = "-1";
-      document.getElementById('modalApkTitle').innerText = "+ Order Baru Nami APK";
-      document.getElementById('apkClientName').value = "";
-      document.getElementById('apkClientWa').value = "";
-      document.getElementById('apkProductName').value = "";
-      document.getElementById('apkCostHpp').value = "";
-      document.getElementById('apkSellPrice').value = "";
-      document.getElementById('apkRenewalDate').value = "";
-      document.getElementById('apkAccountEmail').value = "";
-      document.getElementById('apkAccountProfile').value = "";
-      document.getElementById('apkSupplierName').value = "";
-      document.getElementById('apkSupplierWarranty').value = "30";
-      calculateApkMargin();
-      document.getElementById('modalApkOrder').classList.add('active');
-    }
-
-    function calculateApkMargin() {
-      const hpp = Number(document.getElementById('apkCostHpp').value) || 0;
-      const sell = Number(document.getElementById('apkSellPrice').value) || 0;
-      const profit = Math.round(sell - hpp);
-      const pct = sell > 0 ? ((profit / sell) * 100).toFixed(1) : 0;
-      const badge = document.getElementById('apkMarginBadge');
-      badge.innerText = `Profit Bersih: ${formatRupiah(profit)} (${pct}%)`;
-      badge.style.background = profit >= 0 ? '#e8f4dc' : '#ffd2d2';
-    }
-
-    function setRenewalPreset(days) {
-      const d = new Date();
-      d.setDate(d.getDate() + days);
-      document.getElementById('apkRenewalDate').value = d.toISOString().split('T')[0];
-    }
-
-    function setRenewalLifetime() {
-      document.getElementById('apkRenewalDate').value = "";
-      showToast("Diatur sebagai produk Lifetime");
-    }
-
-    function saveApkOrder() {
-      const editIdx = Number(document.getElementById('apkEditIndex').value);
-      const client = document.getElementById('apkClientName').value.trim();
-      const wa = document.getElementById('apkClientWa').value.trim();
-      const product = document.getElementById('apkProductName').value.trim();
-      const hpp = Math.round(Number(document.getElementById('apkCostHpp').value) || 0);
-      const sell = Math.round(Number(document.getElementById('apkSellPrice').value) || 0);
-      const renewalDate = document.getElementById('apkRenewalDate').value;
-      const email = document.getElementById('apkAccountEmail').value.trim();
-      const profile = document.getElementById('apkAccountProfile').value.trim();
-      const supplier = document.getElementById('apkSupplierName').value.trim() || 'Supplier Umum';
-      const warranty = Number(document.getElementById('apkSupplierWarranty').value) || 30;
-      const method = document.getElementById('apkPaymentMethod').value;
-
-      if (!client || !product || sell <= 0) {
-        showToast("Lengkapi nama klien, produk, dan harga jual!");
-        return;
-      }
-
-      const item = {
-        id: editIdx >= 0 ? appData.apkOrders[editIdx].id : `APK-00${appData.apkOrders.length + 1}`,
-        date: new Date().toISOString().split('T')[0],
-        client,
-        wa,
-        product,
-        hpp,
-        sell,
-        renewalDate,
-        isLifetime: !renewalDate,
-        accountEmail: email,
-        accountProfile: profile,
-        supplier,
-        warrantyDays: warranty,
-        method,
-        status: editIdx >= 0 ? appData.apkOrders[editIdx].status : "Aktif",
-        claimsCount: editIdx >= 0 ? appData.apkOrders[editIdx].claimsCount : 0,
-        isPaused: editIdx >= 0 ? appData.apkOrders[editIdx].isPaused : false
-      };
-
-      if (editIdx >= 0) {
-        appData.apkOrders[editIdx] = item;
-        showToast("Pesanan APK berhasil diperbarui!");
-      } else {
-        appData.apkOrders.unshift(item);
-        showToast("Order baru Nami APK disimpan!");
-      }
-
-      closeModal('modalApkOrder');
-      saveLocalData();
-    }
-
-    function editApkOrder(idx) {
-      const apk = appData.apkOrders[idx];
-      document.getElementById('apkEditIndex').value = idx;
-      document.getElementById('modalApkTitle').innerText = "✏️ Edit APK: " + apk.client;
-      document.getElementById('apkClientName').value = apk.client;
-      document.getElementById('apkClientWa').value = apk.wa;
-      document.getElementById('apkProductName').value = apk.product;
-      document.getElementById('apkCostHpp').value = apk.hpp;
-      document.getElementById('apkSellPrice').value = apk.sell;
-      document.getElementById('apkRenewalDate').value = apk.renewalDate || "";
-      document.getElementById('apkAccountEmail').value = apk.accountEmail;
-      document.getElementById('apkAccountProfile').value = apk.accountProfile;
-      document.getElementById('apkSupplierName').value = apk.supplier;
-      document.getElementById('apkSupplierWarranty').value = apk.warrantyDays;
-      document.getElementById('apkPaymentMethod').value = apk.method;
-      calculateApkMargin();
-      document.getElementById('modalApkOrder').classList.add('active');
-    }
-
-    function deleteApkOrder(idx) {
-      appData.apkOrders.splice(idx, 1);
-      saveLocalData();
-      showToast("Data APK berhasil dihapus!");
-    }
-
-    // ==========================================
-    // 5. GARANSI NAMI APK (PAUSE & RESUME)
-    // ==========================================
-    function openWarrantyModal(idx) {
-      const apk = appData.apkOrders[idx];
-      document.getElementById('warrantyApkIndex').value = idx;
-      document.getElementById('warrantyClientProduct').value = `${apk.client} — ${apk.product}`;
-      document.getElementById('warrantyActionType').value = apk.isPaused ? 'resume' : 'pause';
-      toggleWarrantyFields(apk.isPaused ? 'resume' : 'pause');
-      document.getElementById('modalWarrantyClaim').classList.add('active');
-    }
-
-    function toggleWarrantyFields(val) {
-      document.getElementById('warrantyResumeFields').style.display = val === 'resume' ? 'block' : 'none';
-    }
-
-    function submitWarrantyAction() {
-      const idx = Number(document.getElementById('warrantyApkIndex').value);
-      const action = document.getElementById('warrantyActionType').value;
-      const apk = appData.apkOrders[idx];
-
-      if (action === 'pause') {
-        apk.isPaused = true;
-        apk.status = "Dalam Garansi";
-        apk.claimsCount = (apk.claimsCount || 0) + 1;
-        showToast(`Masa aktif akun ${apk.client} di-pause!`);
-      } else {
-        const newEmail = document.getElementById('warrantyNewEmail').value.trim();
-        const newProfile = document.getElementById('warrantyNewProfile').value.trim();
-        const bonusDays = Number(document.getElementById('warrantyBonusDays').value) || 0;
-
-        if (newEmail) apk.accountEmail = newEmail;
-        if (newProfile) apk.accountProfile = newProfile;
-        apk.isPaused = false;
-        apk.status = "Aktif";
-
-        if (apk.renewalDate) {
-          const cur = new Date(apk.renewalDate);
-          cur.setDate(cur.getDate() + bonusDays);
-          apk.renewalDate = cur.toISOString().split('T')[0];
-        }
-        showToast(`Akun pengganti baru aktif untuk ${apk.client}!`);
-      }
-
-      closeModal('modalWarrantyClaim');
-      saveLocalData();
-    }
-
-    // ==========================================
-    // 6. KALKULATOR REFUND
-    // ==========================================
-    function openRefundCalcModal() {
-      document.getElementById('modalRefundCalculator').classList.add('active');
-      runRefundCalculation();
-    }
-
-    function runRefundCalculation() {
-      const price = Math.round(Number(document.getElementById('calcPrice').value) || 0);
-      const totalDays = Number(document.getElementById('calcTotalDays').value) || 1;
-      const usedDays = Number(document.getElementById('calcUsedDays').value) || 0;
-      const fee = Math.round(Number(document.getElementById('calcAdminFee').value) || 0);
-
-      const sisaHari = Math.max(0, totalDays - usedDays);
-      let refund = Math.round((sisaHari / totalDays) * price - fee);
-      if (refund < 0) refund = 0;
-
-      document.getElementById('calcResultRefund').innerText = formatRupiah(refund);
-      document.getElementById('calcFormulaExplanation').innerText = `Sisa: ${sisaHari}/${totalDays} hari terpakai (${usedDays} hari). Potongan: ${formatRupiah(fee)}`;
-    }
-
-    function copyRefundTextToWa() {
-      const price = formatRupiah(document.getElementById('calcPrice').value);
-      const refund = document.getElementById('calcResultRefund').innerText;
-      const text = `Rincian Refund hi.littlenami 🍓\n` +
-        `Total Beli: ${price}\n` +
-        `Estimasi Pengembalian: ${refund}\n` +
-        `Pembayaran via BCA: 3741234635 an Intan Nurul Huda / QRIS.\n` +
-        `Terima kasih banyak kak! ✨`;
-      
-      navigator.clipboard ? navigator.clipboard.writeText(text) : alert(text);
-      showToast("Teks refund disalin!");
-    }
-
-    // ==========================================
-    // 7. PROJECT TRACKER & FILE LOCKING
-    // ==========================================
-    function renderProjectCards() {
-      const container = document.getElementById('projectCardsList');
-      container.innerHTML = '';
-
-      appData.projects.forEach((prj, idx) => {
-        const sisa = Math.round(prj.total - prj.paid);
-        const isLunas = sisa <= 0;
-
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${prj.client}</span>
-                <span style="font-size:10.5px; color:var(--dark-muted); margin-left:4px;">(${prj.wa})</span>
-                <div style="margin-top:2px;">
-                  <span class="badge-unit badge-${prj.unit}">${prj.unitName}</span>
-                  <span class="badge-status ${isLunas ? 'status-lunas' : 'status-dp'}">${isLunas ? 'Lunas' : prj.status}</span>
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-weight:800; font-size:13.5px;">${formatRupiah(prj.total)}</div>
-                ${sisa > 0 ? `<div style="font-size:10px; color:var(--red); font-weight:800;">Sisa: ${formatRupiah(sisa)}</div>` : '<div style="font-size:10px; color:var(--green); font-weight:800;">Lunas</div>'}
-              </div>
-            </div>
-
-            <div class="item-card-meta">
-              <strong>Project:</strong> ${prj.detail}<br>
-              <strong>Deadline:</strong> ${prj.deadline || 'Tanpa deadline'} | <strong>Revisi:</strong> ${prj.revisi}<br>
-              <strong>Berkas Final:</strong> ${isLunas ? `<a href="${prj.finalLink}" target="_blank" style="color:var(--green); font-weight:800;">🔓 File Final Terbuka (Siap Kirim)</a>` : `<span style="color:var(--red); font-weight:800;">🔒 Terkunci (Harap Lunasi Dulu)</span>`}
-            </div>
-
-            <div class="item-card-actions">
-              ${!isLunas ? `
-                <button class="btn btn-yellow" onclick="openPelunasanModal('prj', ${idx})">Catat Pelunasan</button>
-              ` : `
-                <button class="btn btn-green" onclick="copyFinalLink('${prj.finalLink}')">🔗 Salin File Final</button>
-              `}
-              <button class="btn btn-cream" onclick="loadNotaFromObject('${prj.unit}', '${prj.id}')">Lihat Nota</button>
-              <button class="btn btn-cream" onclick="editProjectOrder(${idx})">✏️ Edit</button>
-              <button class="btn btn-danger" onclick="triggerCustomConfirm('Hapus project klien ${prj.client}?', () => deleteProjectOrder(${idx}))">🗑️ Hapus</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function openNewProjectModal() {
-      document.getElementById('projectEditIndex').value = "-1";
-      document.getElementById('modalProjectTitle').innerText = "+ Order Project Baru";
-      document.getElementById('projClient').value = "";
-      document.getElementById('projClientWa').value = "";
-      document.getElementById('projDetail').value = "";
-      document.getElementById('projTotal').value = "";
-      document.getElementById('projDP').value = "";
-      document.getElementById('projDeadline').value = "";
-      document.getElementById('projRevisiCount').value = "0/2";
-      document.getElementById('projFinalLink').value = "";
-      document.getElementById('modalProject').classList.add('active');
-    }
-
-    function saveProjectOrder() {
-      const editIdx = Number(document.getElementById('projectEditIndex').value);
-      const unit = document.getElementById('projUnit').value;
-      const client = document.getElementById('projClient').value.trim();
-      const wa = document.getElementById('projClientWa').value.trim();
-      const detail = document.getElementById('projDetail').value.trim();
-      const total = Math.round(Number(document.getElementById('projTotal').value) || 0);
-      const paid = Math.round(Number(document.getElementById('projDP').value) || 0);
-      const deadline = document.getElementById('projDeadline').value;
-      const revisi = document.getElementById('projRevisiCount').value;
-      const finalLink = document.getElementById('projFinalLink').value.trim();
-      const method = document.getElementById('projMethod').value;
-
-      if (!client || !detail || total <= 0) {
-        showToast("Lengkapi nama klien, detail, dan total harga!");
-        return;
-      }
-
-      const unitNames = { joktug: "Joktug", studio: "Nami Studio", freelance: "Freelance" };
-
-      const item = {
-        id: editIdx >= 0 ? appData.projects[editIdx].id : `PRJ-00${appData.projects.length + 1}`,
-        unit,
-        unitName: unitNames[unit],
-        client,
-        wa,
-        detail,
-        total,
-        paid,
-        deadline,
-        revisi,
-        finalLink,
-        method,
-        status: paid >= total ? "Lunas" : (paid > 0 ? "Dalam Pengerjaan" : "Belum Bayar")
-      };
-
-      if (editIdx >= 0) {
-        appData.projects[editIdx] = item;
-        showToast("Project berhasil diperbarui!");
-      } else {
-        appData.projects.unshift(item);
-        showToast("Project baru disimpan!");
-      }
-
-      closeModal('modalProject');
-      saveLocalData();
-    }
-
-    function editProjectOrder(idx) {
-      const prj = appData.projects[idx];
-      document.getElementById('projectEditIndex').value = idx;
-      document.getElementById('modalProjectTitle').innerText = "✏️ Edit Project: " + prj.client;
-      document.getElementById('projUnit').value = prj.unit;
-      document.getElementById('projClient').value = prj.client;
-      document.getElementById('projClientWa').value = prj.wa;
-      document.getElementById('projDetail').value = prj.detail;
-      document.getElementById('projTotal').value = prj.total;
-      document.getElementById('projDP').value = prj.paid;
-      document.getElementById('projDeadline').value = prj.deadline;
-      document.getElementById('projRevisiCount').value = prj.revisi;
-      document.getElementById('projFinalLink').value = prj.finalLink;
-      document.getElementById('projMethod').value = prj.method;
-      document.getElementById('modalProject').classList.add('active');
-    }
-
-    function deleteProjectOrder(idx) {
-      appData.projects.splice(idx, 1);
-      saveLocalData();
-      showToast("Data project telah dihapus!");
-    }
-
-    function copyFinalLink(link) {
-      if (!link) {
-        showToast("Link file final belum diisi.");
-        return;
-      }
-      navigator.clipboard ? navigator.clipboard.writeText(link) : alert(link);
-      showToast("Link file final disalin ke clipboard!");
-    }
-
-    // ==========================================
-    // 8. CATAT PELUNASAN MODAL
-    // ==========================================
-    let activePelunasanIdx = null;
-
-    function openPelunasanModal(type, idx) {
-      activePelunasanIdx = idx;
-      const item = appData.projects[idx];
-      const sisa = Math.round(item.total - item.paid);
-
-      document.getElementById('pelunasanClientLabel').value = `${item.client} (${item.unitName})`;
-      document.getElementById('pelunasanSisaLabel').value = formatRupiah(sisa);
-      document.getElementById('pelunasanAmountInput').value = sisa;
-      document.getElementById('modalPelunasan').classList.add('active');
-    }
-
-    function submitPelunasan() {
-      if (activePelunasanIdx === null) return;
-      const amount = Math.round(Number(document.getElementById('pelunasanAmountInput').value) || 0);
-      const method = document.getElementById('pelunasanMethodSelect').value;
-
-      if (amount <= 0) {
-        showToast("Nominal pembayaran harus lebih besar dari 0!");
-        return;
-      }
-
-      const item = appData.projects[activePelunasanIdx];
-      item.paid = Math.round(item.paid + amount);
-      item.method = method;
-
-      if (item.paid >= item.total) {
-        item.paid = item.total;
-        item.status = "Lunas";
-        showToast(`Project ${item.client} resmi LUNAS!`);
-      } else {
-        item.status = "Cicilan";
-        showToast(`Pembayaran sebesar ${formatRupiah(amount)} dicatat!`);
-      }
-
-      closeModal('modalPelunasan');
-      saveLocalData();
-    }
-
-    // ==========================================
-    // 9. PENGELUARAN FLEKSIBEL (NON-KLIEN)
-    // ==========================================
-    let currentExpenseFilter = 'all';
-
-    function renderExpenseCards() {
-      const container = document.getElementById('expenseCardsList');
-      container.innerHTML = '';
-
-      appData.expenses.forEach((exp, idx) => {
-        if (currentExpenseFilter !== 'all' && exp.unit !== currentExpenseFilter) return;
-
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${exp.desc}</span>
-                <div style="margin-top:2px;"><span class="badge-unit badge-${exp.unit}">${exp.unitName}</span></div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-weight:800; font-size:13.5px; color:var(--red);">${formatRupiah(exp.amount)}</div>
-                <div style="font-size:10px; color:var(--dark-muted);">${exp.method}</div>
-              </div>
-            </div>
-            <div class="item-card-meta">
-              <strong>Tanggal:</strong> ${exp.date}
-            </div>
-            <div class="item-card-actions">
-              <button class="btn btn-cream" onclick="editExpense(${idx})">✏️ Edit</button>
-              <button class="btn btn-danger" onclick="triggerCustomConfirm('Hapus pengeluaran ini?', () => deleteExpense(${idx}))">🗑️ Hapus</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function filterExpensesView(unit, btn) {
-      document.querySelectorAll('#view-pengeluaran .filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentExpenseFilter = unit;
-      renderExpenseCards();
-    }
-
-    function openNewExpenseModal() {
-      document.getElementById('expenseEditIndex').value = "-1";
-      document.getElementById('modalExpenseTitle').innerText = "+ Catat Pengeluaran";
-      document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
-      document.getElementById('expDesc').value = "";
-      document.getElementById('expAmount').value = "";
-      document.getElementById('modalExpense').classList.add('active');
-    }
-
-    function saveExpense() {
-      const editIdx = Number(document.getElementById('expenseEditIndex').value);
-      const date = document.getElementById('expDate').value || new Date().toISOString().split('T')[0];
-      const unit = document.getElementById('expUnit').value;
-      const desc = document.getElementById('expDesc').value.trim();
-      const amount = Math.round(Number(document.getElementById('expAmount').value) || 0);
-      const method = document.getElementById('expMethod').value;
-
-      if (!desc || amount <= 0) {
-        showToast("Lengkapi keterangan dan nominal pengeluaran!");
-        return;
-      }
-
-      const unitNames = { apk: "Nami APK", joktug: "Joktug", freelance: "Freelance", studio: "Nami Studio", mandiri: "Kebutuhan Mandiri" };
-
-      const item = {
-        id: editIdx >= 0 ? appData.expenses[editIdx].id : `EXP-00${appData.expenses.length + 1}`,
-        date,
-        unit,
-        unitName: unitNames[unit],
-        desc,
-        amount,
-        method
-      };
-
-      if (editIdx >= 0) {
-        appData.expenses[editIdx] = item;
-        showToast("Pengeluaran diperbarui!");
-      } else {
-        appData.expenses.unshift(item);
-        showToast("Pengeluaran baru disimpan!");
-      }
-
-      closeModal('modalExpense');
-      saveLocalData();
-    }
-
-    function editExpense(idx) {
-      const exp = appData.expenses[idx];
-      document.getElementById('expenseEditIndex').value = idx;
-      document.getElementById('modalExpenseTitle').innerText = "✏️ Edit Pengeluaran";
-      document.getElementById('expDate').value = exp.date;
-      document.getElementById('expUnit').value = exp.unit;
-      document.getElementById('expDesc').value = exp.desc;
-      document.getElementById('expAmount').value = exp.amount;
-      document.getElementById('expMethod').value = exp.method;
-      document.getElementById('modalExpense').classList.add('active');
-    }
-
-    function deleteExpense(idx) {
-      appData.expenses.splice(idx, 1);
-      saveLocalData();
-      showToast("Pengeluaran berhasil dihapus!");
-    }
-
-    // ==========================================
-    // 10. PIUTANG & ALL TRANSAKSI VIEW
-    // ==========================================
-    function openNewTrxModal() {
-      openNewApkModal();
-    }
-
-    function renderAllTransactions() {
-      const container = document.getElementById('allTrxCardsList');
-      container.innerHTML = '';
-
-      const list = [
-        ...appData.apkOrders.map((a, i) => ({ type: 'apk', idx: i, id: a.id, client: a.client, desc: a.product, total: a.sell, paid: a.sell, sisa: 0, status: a.status, method: a.method })),
-        ...appData.projects.map((p, i) => ({ type: p.unit, idx: i, id: p.id, client: p.client, desc: p.detail, total: p.total, paid: p.paid, sisa: p.total - p.paid, status: p.status, method: p.method }))
-      ];
-
-      list.forEach(t => {
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${t.client}</span>
-                <span style="font-size:10px; color:var(--dark-muted);">(${t.id})</span>
-                <div style="margin-top:2px;">
-                  <span class="badge-unit badge-${t.type}">${t.type.toUpperCase()}</span>
-                  <span class="badge-status status-lunas">${t.status}</span>
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-weight:800; font-size:13.5px;">${formatRupiah(t.total)}</div>
-                <div style="font-size:10px; color:var(--dark-muted);">Bayar: ${t.method}</div>
-              </div>
-            </div>
-            <div class="item-card-meta">${t.desc}</div>
-            <div class="item-card-actions">
-              ${t.sisa > 0 ? `<button class="btn btn-yellow" onclick="openPelunasanModal('prj', ${t.idx})">Catat Pelunasan</button>` : ''}
-              <button class="btn btn-cream" onclick="loadNotaFromObject('${t.type}', '${t.id}')">Lihat Nota</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function renderPiutangCards() {
-      const container = document.getElementById('piutangCardsList');
-      container.innerHTML = '';
-
-      appData.projects.forEach((prj, idx) => {
-        const sisa = Math.round(prj.total - prj.paid);
-        if (sisa > 0) {
-          container.innerHTML += `
-            <div class="item-card">
-              <div class="item-card-header">
-                <div>
-                  <span class="item-card-title">${prj.client}</span>
-                  <div style="margin-top:2px;"><span class="badge-unit badge-${prj.unit}">${prj.unitName}</span></div>
-                </div>
-                <div style="text-align:right;">
-                  <div style="font-weight:800; font-size:13.5px; color:var(--red);">${formatRupiah(sisa)}</div>
-                  <div style="font-size:10px; color:var(--dark-muted);">Dari ${formatRupiah(prj.total)}</div>
-                </div>
-              </div>
-              <div class="item-card-meta">
-                <strong>Project:</strong> ${prj.detail}<br>
-                <strong>DP Masuk:</strong> ${formatRupiah(prj.paid)}<br>
-                <strong>Deadline:</strong> ${prj.deadline || '-'}
-              </div>
-              <div class="item-card-actions">
-                <button class="btn btn-yellow" onclick="openPelunasanModal('prj', ${idx})">Catat Pelunasan</button>
-                <button class="btn btn-green" onclick="sendWaPiutangReminder('${prj.client}', '${prj.detail}', ${sisa}, '${prj.wa}')">📲 Tagih via WA</button>
-              </div>
-            </div>
-          `;
-        }
-      });
-    }
-
-    // ==========================================
-    // 11. INVOICE, STRUK WA & MESSAGING
-    // ==========================================
-    let currentActiveNota = null;
-
-    function loadNotaFromObject(type, id) {
-      if (type === 'apk') {
-        const item = appData.apkOrders.find(a => a.id === id);
-        if (item) {
-          currentActiveNota = {
-            unit: 'apk',
-            unitName: 'Nami APK',
-            docNo: `INV-${item.id}`,
-            date: item.date,
-            client: item.client,
-            wa: item.wa,
-            detail: item.product,
-            total: item.sell,
-            paid: item.sell,
-            sisa: 0,
-            status: item.status
-          };
-        }
-      } else {
-        const item = appData.projects.find(p => p.id === id);
-        if (item) {
-          currentActiveNota = {
-            unit: item.unit,
-            unitName: item.unitName,
-            docNo: `INV-${item.id}`,
-            date: new Date().toISOString().split('T')[0],
-            client: item.client,
-            wa: item.wa,
-            detail: item.detail,
-            total: item.total,
-            paid: item.paid,
-            sisa: item.total - item.paid,
-            status: item.paid >= item.total ? "Lunas" : "DP Diterima"
-          };
-        }
-      }
-
-      if (!currentActiveNota) return;
-
-      const sheet = document.getElementById('invoiceSheetPreview');
-      sheet.className = `invoice-sheet theme-${currentActiveNota.unit}`;
-      document.getElementById('invBadgeUnit').className = `badge-unit badge-${currentActiveNota.unit}`;
-      document.getElementById('invBadgeUnit').innerText = currentActiveNota.unitName;
-      document.getElementById('invoiceStampText').innerText = `STATUS: ${currentActiveNota.status.toUpperCase()}`;
-      document.getElementById('invDocNumber').innerText = currentActiveNota.docNo;
-      document.getElementById('invDocDate').innerText = currentActiveNota.date;
-      document.getElementById('invClientName').innerText = currentActiveNota.client;
-      document.getElementById('invClientContact').innerText = `WhatsApp: ${currentActiveNota.wa || '085163672392'}`;
-
-      document.getElementById('invItemDetailRow').innerHTML = `
-        <span>${currentActiveNota.detail}</span>
-        <strong>${formatRupiah(currentActiveNota.total)}</strong>
-      `;
-
-      document.getElementById('invTotalVal').innerText = formatRupiah(currentActiveNota.total);
-      document.getElementById('invPaidVal').innerText = formatRupiah(currentActiveNota.paid);
-      document.getElementById('invSisaVal').innerText = formatRupiah(currentActiveNota.sisa);
-
-      switchTab('nota');
-      showToast(`Nota ${currentActiveNota.docNo} dimuat!`);
-    }
-
-    function copyShortWaReceipt() {
-      if (!currentActiveNota) {
-        showToast("Pilih salah satu transaksi terlebih dahulu!");
-        return;
-      }
-      const text = `Halo Kak ${currentActiveNota.client}! ✨\n` +
-        `Berikut adalah bukti tagihan/pembayaran dari hi.littlenami 🍓\n\n` +
-        `No: ${currentActiveNota.docNo}\n` +
-        `Pesanan: ${currentActiveNota.detail}\n` +
-        `Total: ${formatRupiah(currentActiveNota.total)}\n` +
-        `Dibayar: ${formatRupiah(currentActiveNota.paid)}\n` +
-        `Sisa: ${formatRupiah(currentActiveNota.sisa)}\n` +
-        `Status: ${currentActiveNota.status}\n\n` +
-        `Pembayaran Resmi:\n• BCA: 3741234635 an Intan Nurul Huda\n• QRIS\n\n` +
-        `Konfirmasi ke WhatsApp: 085163672392. Terima kasih! ✨`;
-      
-      navigator.clipboard ? navigator.clipboard.writeText(text) : alert(text);
-      showToast("Struk format WhatsApp berhasil disalin!");
-    }
-
-    function sendWaRenewalNotice(client, product, date, price, phone) {
-      const waNumber = sanitizeWaNumber(phone);
-      const text = encodeURIComponent(`Halo Kak ${client}! ✨\n\nMasa aktif ${product} kamu di hi.littlenami akan berakhir pada tanggal ${date}.\n\nMau langsung diamankan untuk perpanjangannya kak? Biar profil dan akunnya tetap aktif lancar.\nHarga: ${formatRupiah(price)}.\n\nBisa ditransfer ke BCA: 3741234635 an Intan Nurul Huda atau QRIS ya kak. Terima kasih banyak! 🍓`);
-      window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
-    }
-
-    function sendWaDeadlineNotice(client, detail, deadline, sisa, phone) {
-      const waNumber = sanitizeWaNumber(phone);
-      const text = encodeURIComponent(`Halo Kak ${client}! ✨\n\nUpdate pengerjaan tugas/project: ${detail}.\nDeadline semakin dekat pada tanggal ${deadline}.\n\nSisa pelunasan: ${formatRupiah(sisa)}.\nBisa ditransfer ke BCA: 3741234635 an Intan Nurul Huda / QRIS agar file final tanpa watermark siap dikirimkan ya kak. Semangat! 🍓`);
-      window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
-    }
-
-    function sendWaPiutangReminder(client, detail, sisa, phone) {
-      const waNumber = sanitizeWaNumber(phone);
-      const text = encodeURIComponent(`Halo Kak ${client}! ✨\n\nMengingatkan kembali untuk sisa pembayaran pesanan ${detail} sebesar ${formatRupiah(sisa)}.\n\nPembayaran dapat melalui BCA: 3741234635 an Intan Nurul Huda atau QRIS ya kak. Terima kasih! 🍓`);
-      window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
-    }
-
-    function copyApkCredentials(client, product, email, profile, date) {
-      const text = `Halo Kak ${client}! ✨ Ini detail akun ${product} kamu:\n` +
-        `📧 Email/ID: ${email}\n` +
-        `👤 Profil/PIN: ${profile}\n` +
-        `📅 Masa Aktif: s/d ${date || 'Lifetime'}\n` +
-        `Garansi aktif selama masa langganan. Simpan baik-baik ya kak! 🍓`;
-      navigator.clipboard ? navigator.clipboard.writeText(text) : alert(text);
-      showToast("Detail akun disalin ke clipboard!");
-    }
-
-    // ==========================================
-    // 12. PENCARIAN CEPAT (GLOBAL SEARCH)
-    // ==========================================
-    function handleGlobalSearch(keyword) {
-      keyword = keyword.toLowerCase().trim();
-      if (!keyword) {
-        renderEverything();
-        return;
-      }
-
-      const filteredApk = appData.apkOrders.filter(a => 
-        a.client.toLowerCase().includes(keyword) || 
-        a.product.toLowerCase().includes(keyword) ||
-        a.wa.includes(keyword)
-      );
-
-      const filteredPrj = appData.projects.filter(p => 
-        p.client.toLowerCase().includes(keyword) || 
-        p.detail.toLowerCase().includes(keyword) ||
-        p.wa.includes(keyword)
-      );
-
-      const container = document.getElementById('overviewRecentCards');
-      container.innerHTML = `<div style="font-size:11px; font-weight:800; color:var(--dark-muted); margin-bottom:6px;">Hasil pencarian "${keyword}":</div>`;
-
-      filteredApk.forEach(a => {
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${a.client}</span>
-                <span class="badge-unit badge-apk">Nami APK</span>
-              </div>
-              <strong>${formatRupiah(a.sell)}</strong>
-            </div>
-            <div class="item-card-meta">${a.product} | ${a.accountEmail}</div>
-          </div>
-        `;
-      });
-
-      filteredPrj.forEach(p => {
-        container.innerHTML += `
-          <div class="item-card">
-            <div class="item-card-header">
-              <div>
-                <span class="item-card-title">${p.client}</span>
-                <span class="badge-unit badge-${p.unit}">${p.unitName}</span>
-              </div>
-              <strong>${formatRupiah(p.total)}</strong>
-            </div>
-            <div class="item-card-meta">${p.detail} (Sisa: ${formatRupiah(p.total - p.paid)})</div>
-          </div>
-        `;
-      });
-
-      switchTab('overview');
-    }
-
-    // ==========================================
-    // 13. BACKUP & RESTORE JSON
-    // ==========================================
-    function exportDataToJson() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
-      const downloadAnchor = document.createElement('a');
-      const filename = `hi_littlenami_backup_${new Date().toISOString().split('T')[0]}.json`;
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", filename);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      showToast("File backup JSON berhasil diunduh!");
-    }
-
-    function importDataFromJson() {
-      const fileInput = document.getElementById('restoreFileInput');
-      if (!fileInput.files.length) {
-        showToast("Pilih file backup JSON terlebih dahulu!");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          if (parsed.apkOrders && parsed.projects && parsed.expenses) {
-            appData = parsed;
-            saveLocalData();
-            showToast("Data hi.littlenami berhasil dipulihkan!");
-          } else {
-            showToast("Format JSON tidak valid!");
-          }
-        } catch (err) {
-          showToast("Gagal membaca file JSON!");
-        }
-      };
-      reader.readAsText(fileInput.files[0]);
-    }
-
-    function resetToDefaultData() {
-      appData = JSON.parse(JSON.stringify(defaultInitialData));
-      saveLocalData();
-      showToast("Data berhasil di-reset ke default!");
-    }
-
-    // ==========================================
-    // RENDER SEMUA MODUL
-    // ==========================================
-    function renderEverything() {
-      renderRadarBanner();
-      calculateGlobalFinancials();
-      renderApkCards();
-      renderProjectCards();
-      renderAllTransactions();
-      renderPiutangCards();
-      renderExpenseCards();
-      renderDailyRekap();
+    function showToast(msg) {
+      const toast = document.getElementById('appToast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2200);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('rekapDatePicker').value = '2026-11-10';
-      if (appData.projects.length > 0) {
-        loadNotaFromObject(appData.projects[0].unit, appData.projects[0].id);
-      }
-      renderEverything();
+      renderApp();
     });
   </script>
 </body>
 </html>
-```
