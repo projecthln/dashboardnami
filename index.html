@@ -47,7 +47,7 @@
       letter-spacing: -0.02em;
     }
 
-    /* APP SIDEBAR (DESKTOP) */
+    /* SIDEBAR DESKTOP */
     .app-sidebar {
       width: 250px;
       background: var(--surface);
@@ -177,7 +177,7 @@
       margin-bottom: 20px;
     }
 
-    /* RETRO CARDS */
+    /* METRICS */
     .grid-metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -247,8 +247,14 @@
     }
     .status-lunas { background: var(--green); color: var(--dark); }
     .status-dp { background: var(--yellow); color: var(--dark); }
-    .status-cicilan { background: var(--pink); color: var(--dark); }
-    .status-belum { background: var(--red); color: #fff; }
+    .status-garansi { background: var(--red); color: #fff; animation: pulse 1.5s infinite; }
+    .status-expired { background: #6E5E58; color: #fff; }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
 
     /* RADAR ALERT BOX */
     .radar-box {
@@ -282,7 +288,7 @@
       margin-bottom: 6px;
     }
 
-    /* CARDS FEED / LIST */
+    /* FEED & CARDS */
     .feed-container {
       display: flex;
       flex-direction: column;
@@ -328,6 +334,14 @@
       padding: 10px;
       border: 1.5px solid var(--border-color);
       border-radius: var(--radius-sm);
+      font-size: 11px;
+    }
+
+    .account-detail-box {
+      background: #FFF8E7;
+      border: 1.5px dashed var(--border-color);
+      padding: 8px 10px;
+      border-radius: 6px;
       font-size: 11px;
     }
 
@@ -424,7 +438,27 @@
       border-color: var(--red);
     }
 
-    /* REKAP & TABS VIEW */
+    /* PRESET BUTTONS */
+    .preset-btn-group {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      border: 1.5px solid var(--border-color);
+      background: var(--cream);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .preset-chip:active {
+      background: var(--yellow);
+    }
+
     .view-panel {
       display: none;
     }
@@ -471,7 +505,6 @@
       height: 18px;
     }
 
-    /* TOAST */
     .toast-box {
       position: fixed;
       bottom: 80px;
@@ -521,6 +554,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
         Overview
       </a>
+      <a class="nav-link" onclick="switchTab('nami-apk')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        Modul Nami APK 🍓
+      </a>
       <a class="nav-link" onclick="switchTab('transaksi')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Semua Transaksi
@@ -548,26 +585,28 @@
     </div>
   </aside>
 
-  <!-- MAIN VIEW -->
+  <!-- MAIN APP -->
   <main class="app-main">
 
-    <!-- TOP HEADER -->
     <header class="topbar">
       <div>
         <h1 id="pageTitle" style="font-size: 20px;">Overview & Rekap Bisnis</h1>
-        <p style="font-size: 11px; color: var(--dark-muted);">hi.littlenami — 4 Unit Terintegrasi dengan Profit Bersih On-the-Spot</p>
+        <p style="font-size: 11px; color: var(--dark-muted);">hi.littlenami — Toko Digital APK, Garansi, & Layanan Tugas/Desain</p>
       </div>
-      <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Catat Transaksi Baru</button>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-pink" onclick="openNewTrxModal('apk')">+ Order Nami APK</button>
+        <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Transaksi Umum</button>
+      </div>
     </header>
 
     <!-- RADAR PENGINGAT H-3 DUA JALUR -->
     <section class="radar-box" id="radarSection">
       <div class="radar-header">
         <div>
-          <strong style="font-size: 12px; color: var(--dark);">🔔 RADAR PENGINGAT H-3 (Tugas & Renewal)</strong>
-          <p style="font-size: 10px; color: var(--dark-muted);">Follow-up cepat via WhatsApp satu kali ketuk</p>
+          <strong style="font-size: 12px; color: var(--dark);">🔔 RADAR PENGINGAT H-3 & GARANSI AKTIF</strong>
+          <p style="font-size: 10px; color: var(--dark-muted);">Renewal APK pelanggan & deadline tugas klien</p>
         </div>
-        <span class="badge-status status-dp" id="radarCountBadge">2 Perlu Follow-up</span>
+        <span class="badge-status status-dp" id="radarCountBadge">0 Perlu Tindakan</span>
       </div>
       <div id="radarListContainer">
         <!-- Rendered via JS -->
@@ -576,13 +615,11 @@
 
     <!-- VIEW 1: OVERVIEW -->
     <section id="view-overview" class="view-panel active">
-      
-      <!-- 4 KARTU METRIK UTAMA -->
       <div class="grid-metrics">
         <div class="retro-card card-pink">
           <div class="card-label"><span>Omzet Kotor</span> <span>📑</span></div>
           <div class="card-value" id="valGrossOmzet">Rp 0</div>
-          <div class="card-subtext">Total seluruh nilai invoice</div>
+          <div class="card-subtext">Total seluruh nilai pesanan</div>
         </div>
 
         <div class="retro-card card-green">
@@ -600,7 +637,7 @@
         <div class="retro-card card-red">
           <div class="card-label"><span>Pengeluaran Kerja</span> <span>📉</span></div>
           <div class="card-value" id="valTotalExpense">Rp 0</div>
-          <div class="card-subtext">Biaya kuota, tools & mandiri</div>
+          <div class="card-subtext">Biaya kuota & operasional mandiri</div>
         </div>
       </div>
 
@@ -609,7 +646,7 @@
         <div style="font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:8px; color:var(--dark-muted);">Pecahan Kas Masuk Riil:</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
           <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
-            <div style="font-size:10px; font-weight:800;">BCA (3741234635)</div>
+            <div style="font-size:10px; font-weight:800;">BCA (3741234635 an Intan)</div>
             <div style="font-size:16px; font-weight:800; font-family:'Space Grotesk';" id="valCashBCA">Rp 0</div>
           </div>
           <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
@@ -619,9 +656,8 @@
         </div>
       </div>
 
-      <!-- LIST FEED TRANSAKSI -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3>Aktivitas Pesanan & Profit Bersih</h3>
+        <h3>Aktivitas Pesanan Terbaru</h3>
         <button class="btn btn-cream" onclick="switchTab('transaksi')">Lihat Semua</button>
       </div>
 
@@ -630,7 +666,30 @@
       </div>
     </section>
 
-    <!-- VIEW 2: SEMUA TRANSAKSI -->
+    <!-- VIEW 2: MODUL KHUSUS NAMI APK (RENEWAL, GARANSI, REFUND) -->
+    <section id="view-nami-apk" class="view-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+        <div>
+          <h3>Modul Nami APK 🍓</h3>
+          <p style="font-size:11px; color:var(--dark-muted);">Kelola detail akun, perpanjangan custom, klaim garansi, & kalkulator refund</p>
+        </div>
+        <button class="btn btn-pink" onclick="openNewTrxModal('apk')">+ Order Nami APK Baru</button>
+      </div>
+
+      <!-- FILTER STATUS KHUSUS APK -->
+      <div style="display:flex; gap:8px; margin-bottom:14px; overflow-x:auto; padding-bottom:4px;">
+        <button class="btn btn-cream" onclick="filterApkList('all')">Semua Akun</button>
+        <button class="btn btn-yellow" onclick="filterApkList('urgent')">Urgent Renewal H-3</button>
+        <button class="btn btn-red" onclick="filterApkList('warranty')">Dalam Garansi</button>
+        <button class="btn btn-green" onclick="filterApkList('active')">Aktif Aman</button>
+      </div>
+
+      <div class="feed-container" id="apkFeedList">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: SEMUA TRANSAKSI -->
     <section id="view-transaksi" class="view-panel">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
         <h3>Semua Transaksi & Pesanan</h3>
@@ -641,24 +700,24 @@
       </div>
     </section>
 
-    <!-- VIEW 3: PIUTANG & DP -->
+    <!-- VIEW 4: PIUTANG & DP -->
     <section id="view-piutang" class="view-panel">
       <div class="retro-card card-yellow" style="margin-bottom:16px;">
         <div class="card-label">Total Saldo Tertahan di Klien</div>
         <div class="card-value" id="valPiutangHeader">Rp 0</div>
-        <div class="card-subtext">Segera lakukan follow-up sebelum serah terima final</div>
+        <div class="card-subtext">Segera lakukan follow-up sebelum serah terima file final</div>
       </div>
       <div class="feed-container" id="piutangFeedList">
         <!-- Rendered via JS -->
       </div>
     </section>
 
-    <!-- VIEW 4: PENGELUARAN KERJA -->
+    <!-- VIEW 5: PENGELUARAN KERJA -->
     <section id="view-pengeluaran" class="view-panel">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <div>
           <h3>Pengeluaran Operasional & Kerja</h3>
-          <p style="font-size:11px; color:var(--dark-muted);">Biaya kuota, software, dan kebutuhan mandiri</p>
+          <p style="font-size:11px; color:var(--dark-muted);">Biaya kuota internet, software, dan kebutuhan mandiri</p>
         </div>
         <button class="btn btn-red" onclick="openNewExpenseModal()">+ Catat Pengeluaran</button>
       </div>
@@ -667,16 +726,16 @@
       </div>
     </section>
 
-    <!-- VIEW 5: REKAP & PROFIT -->
+    <!-- VIEW 6: REKAP & PROFIT -->
     <section id="view-rekap" class="view-panel">
       <div class="retro-card card-green" style="margin-bottom:16px;">
         <div class="card-label">Total Keuntungan Murni (Net Profit)</div>
         <div class="card-value" id="valNetRealProfit">Rp 0</div>
-        <div class="card-subtext">(Kas Masuk Riil - Modal Transaksi) - Pengeluaran Kerja</div>
+        <div class="card-subtext">Total Profit Bersih Orderan dikurangi Pengeluaran Kerja</div>
       </div>
 
       <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px;">
-        <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit Bersih per Unit:</h4>
+        <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit per Unit:</h4>
         <div id="unitProfitBreakdown">
           <!-- Rendered via JS -->
         </div>
@@ -691,6 +750,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
       Home
     </button>
+    <button class="mob-tab-btn" onclick="switchTab('nami-apk')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+      APK 🍓
+    </button>
     <button class="mob-tab-btn" onclick="switchTab('transaksi')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       Order
@@ -703,13 +766,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       Biaya
     </button>
-    <button class="mob-tab-btn" onclick="switchTab('rekap')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Rekap
-    </button>
   </nav>
 
-  <!-- MODAL: INPUT / EDIT TRANSAKSI BARU (DENGAN PROFIT ON-THE-SPOT) -->
+  <!-- MODAL: INPUT / EDIT TRANSAKSI -->
   <div class="modal-overlay" id="modalTrx">
     <div class="modal-window">
       <div class="modal-header">
@@ -721,7 +780,7 @@
 
         <div class="form-group">
           <label class="form-label">Pilih Unit Bisnis</label>
-          <select class="form-select" id="formTrxUnit">
+          <select class="form-select" id="formTrxUnit" onchange="toggleApkFields()">
             <option value="apk">Nami APK (Toko Akun Premium)</option>
             <option value="joktug">Joktug (Bantuan Tugas / Olah Data)</option>
             <option value="freelance">Freelance (Admin / Sosmed)</option>
@@ -740,8 +799,21 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Detail Layanan / Akun</label>
-          <input type="text" class="form-input" id="formTrxDetail" placeholder="Misal: Netflix UHD 1 Bulan / Bab 4 SPSS">
+          <label class="form-label">Detail Produk / Layanan</label>
+          <input type="text" class="form-input" id="formTrxDetail" placeholder="Misal: Netflix UHD 1 Bulan / Olah Data SPSS">
+        </div>
+
+        <!-- BLOK DETAIL AKUN KHUSUS APK -->
+        <div id="apkAccountDetailSection" style="background:#FFF9E6; border:2px dashed var(--border-color); padding:10px; border-radius:8px; margin-bottom:12px;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:6px; color:var(--dark);">Detail Alokasi Akun (Khusus APK):</div>
+          <div style="display:flex; gap:8px; margin-bottom:6px;">
+            <input type="text" class="form-input" id="formApkEmail" placeholder="Email / ID Akun">
+            <input type="text" class="form-input" id="formApkPass" placeholder="Password (opsional)">
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input type="text" class="form-input" id="formApkProfile" placeholder="Profil / PIN (Contoh: Profil 2, PIN 1234)">
+            <input type="text" class="form-input" id="formApkSupplier" placeholder="Nama Supplier / Bot">
+          </div>
         </div>
 
         <!-- KALKULASI MODAL & PROFIT ON-THE-SPOT -->
@@ -777,9 +849,18 @@
           </div>
         </div>
 
+        <!-- TANGGAL RENEWAL DENGAN PRESET CEPAT -->
         <div class="form-group">
-          <label class="form-label">Tanggal Tenggat / Expired Akun</label>
+          <label class="form-label">Masa Aktif / Tanggal Tenggat Renewal</label>
           <input type="date" class="form-input" id="formTrxDueDate">
+          <div class="preset-btn-group">
+            <span class="preset-chip" onclick="setPresetDays(7)">+7 Hari</span>
+            <span class="preset-chip" onclick="setPresetDays(14)">+14 Hari</span>
+            <span class="preset-chip" onclick="setPresetDays(30)">+30 Hari (1 Bln)</span>
+            <span class="preset-chip" onclick="setPresetDays(90)">+3 Bulan</span>
+            <span class="preset-chip" onclick="setPresetDays(365)">+1 Tahun</span>
+            <span class="preset-chip" onclick="setLifetime()">Lifetime</span>
+          </div>
         </div>
 
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
@@ -790,7 +871,96 @@
     </div>
   </div>
 
-  <!-- MODAL: CATAT PENGELUARAN KERJA -->
+  <!-- MODAL: KLAIM GARANSI & PERGANTIAN AKUN (MULTI-CLAIM) -->
+  <div class="modal-overlay" id="modalWarranty">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modalWarrantyTitle">🛡️ Klaim Garansi Akun APK</h3>
+        <button class="btn btn-cream" onclick="closeModal('modalWarranty')">✕</button>
+      </div>
+      <div>
+        <input type="hidden" id="warrantyTrxId">
+        <p style="font-size:12px; color:var(--dark-muted); margin-bottom:12px;">
+          Masa aktif akun klien saat ini otomatis dibekukan (pause) agar klien tidak rugi hari selama perbaikan.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Status Garansi Saat Ini</label>
+          <div style="font-size:13px; font-weight:800; color:var(--red);" id="warrantyCurrentStatus">Klaim Garansi #1 (Paused)</div>
+        </div>
+
+        <div style="background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px; margin-bottom:14px;">
+          <label class="form-label">Berikan Akun Pengganti Baru (Replace):</label>
+          <div class="form-group">
+            <input type="text" class="form-input" id="warrantyNewEmail" placeholder="Email / ID Pengganti Baru">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" id="warrantyNewPass" placeholder="Password Baru">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" id="warrantyNewProfile" placeholder="Profil & PIN Baru (contoh: Profil 1, PIN 4321)">
+          </div>
+          <button class="btn btn-green" style="width:100%; justify-content:center;" onclick="submitWarrantyReplace()">
+            ✅ Kirim Akun Baru & Lanjutkan Durasi
+          </button>
+        </div>
+
+        <div style="border-top:2px dashed var(--border-color); padding-top:12px;">
+          <label class="form-label">Jika Supplier Gagal / Minta Batal:</label>
+          <button class="btn btn-red" style="width:100%; justify-content:center;" onclick="openRefundFromWarranty()">
+            💵 Buka Kalkulator Refund Prorata
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: KALKULATOR REFUND STANDAR CALCULATOREFUND.SITE -->
+  <div class="modal-overlay" id="modalRefund">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3>💵 Kalkulator Refund Prorata</h3>
+        <button class="btn btn-cream" onclick="closeModal('modalRefund')">✕</button>
+      </div>
+      <div>
+        <input type="hidden" id="refundTrxId">
+        
+        <div class="form-group">
+          <label class="form-label">Harga Beli Awal Klien (Rp)</label>
+          <input type="number" class="form-input" id="refundBuyPrice" readonly>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Total Durasi (Hari)</label>
+            <input type="number" class="form-input" id="refundTotalDays" value="30" oninput="calculateProrataRefund()">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Sisa Hari Belum Terpakai</label>
+            <input type="number" class="form-input" id="refundRemainingDays" value="15" oninput="calculateProrataRefund()">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Potongan Biaya Admin / Fee (Rp)</label>
+          <input type="number" class="form-input" id="refundFee" value="0" oninput="calculateProrataRefund()">
+        </div>
+
+        <div style="background:#FFF9E6; border:2px dashed var(--border-color); padding:12px; border-radius:8px; margin:14px 0;">
+          <div style="font-size:11px; font-weight:800; text-transform:uppercase;">Nominal Pengembalian Dana:</div>
+          <div style="font-family:'Space Grotesk'; font-size:24px; font-weight:700; color:var(--red);" id="refundFinalAmount">Rp 0</div>
+          <div style="font-size:10px; color:var(--dark-muted);">Rumus: (Sisa Hari / Total Hari) × Harga Beli - Fee</div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:8px;">
+          <button class="btn btn-cream" onclick="copyRefundTextWA()">📋 Salin Teks Refund WA</button>
+          <button class="btn btn-red" onclick="executeRefund()">Konfirmasi Refund Kas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PENGELUARAN KERJA -->
   <div class="modal-overlay" id="modalExpense">
     <div class="modal-window">
       <div class="modal-header">
@@ -799,17 +969,17 @@
       </div>
       <div>
         <div class="form-group">
-          <label class="form-label">Keterangan Pengeluaran</label>
-          <input type="text" class="form-input" id="formExpDesc" placeholder="Misal: Paket Kuota Internet / Cek Turnitin">
+          <label class="form-label">Keterangan Biaya</label>
+          <input type="text" class="form-input" id="formExpDesc" placeholder="Misal: Kuota Internet / Turnitin / Replace Supplier">
         </div>
         <div class="form-group">
           <label class="form-label">Nominal (Rp)</label>
           <input type="number" class="form-input" id="formExpAmount" placeholder="100000">
         </div>
         <div class="form-group">
-          <label class="form-label">Kategori / Unit</label>
+          <label class="form-label">Unit Terkait</label>
           <select class="form-select" id="formExpUnit">
-            <option value="Umum">Operasional Bersama / Mandiri</option>
+            <option value="Umum">Operasional Mandiri</option>
             <option value="apk">Nami APK</option>
             <option value="joktug">Joktug</option>
             <option value="freelance">Freelance</option>
@@ -819,117 +989,159 @@
         <div class="form-group">
           <label class="form-label">Metode Bayar</label>
           <select class="form-select" id="formExpMethod">
-            <option value="BCA">BCA</option>
+            <option value="BCA">BCA (3741234635)</option>
             <option value="QRIS">QRIS</option>
           </select>
         </div>
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
           <button class="btn btn-cream" onclick="closeModal('modalExpense')">Batal</button>
-          <button class="btn btn-red" onclick="saveExpense()">Simpan Biaya</button>
+          <button class="btn btn-red" onclick="saveExpense()">Simpan Pengeluaran</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: KONFIRMASI HAPUS KUSTOM INTERNAL -->
+  <!-- MODAL KONFIRMASI HAPUS -->
   <div class="modal-overlay" id="modalConfirmDelete">
-    <div class="modal-window" style="max-width:380px; text-align:center;">
+    <div class="modal-window" style="max-width:360px; text-align:center;">
       <h3 style="margin-bottom:8px;">Hapus Data Ini?</h3>
       <p style="font-size:12px; color:var(--dark-muted); margin-bottom:16px;" id="deleteConfirmText">Tindakan ini tidak bisa dibatalkan.</p>
       <div style="display:flex; justify-content:center; gap:10px;">
         <button class="btn btn-cream" onclick="closeModal('modalConfirmDelete')">Batal</button>
-        <button class="btn btn-red" id="btnConfirmDeleteExec">Ya, Hapus Permanen</button>
+        <button class="btn btn-red" id="btnConfirmDeleteExec">Ya, Hapus</button>
       </div>
     </div>
   </div>
 
-  <!-- TOAST -->
   <div class="toast-box" id="appToast">Notifikasi</div>
 
   <script>
-    // DATA TRANSAKSI DUMMY DENGAN MODAL & PROFIT BERSIH ON-THE-SPOT
+    // DATA TRANSAKSI LENGKAP DENGAN FIELD APK, GARANSI, & RENEWAL
     let transactions = [
       {
-        id: "TRX-001",
-        date: "2026-11-10",
-        client: "Baverly Florist",
-        phone: "081234567890",
-        unit: "studio",
-        unitName: "Nami Studio",
-        detail: "Branding Kit & Web Catalog",
-        price: 3000000,
-        cost: 350000, // Modal domain & asset
-        profit: 2650000,
-        paid: 1500000,
-        method: "BCA",
-        status: "DP Diterima",
-        dueDate: "2026-11-13" // H-3!
-      },
-      {
-        id: "TRX-002",
-        date: "2026-11-10",
+        id: "APK-001",
+        date: "2026-11-05",
         client: "Dinda Permata",
-        phone: "085698741230",
+        phone: "081234567890",
         unit: "apk",
         unitName: "Nami APK",
         detail: "Canva Pro 1 Tahun Edu",
         price: 120000,
-        cost: 45000, // Modal supplier
+        cost: 45000,
         profit: 75000,
         paid: 120000,
         method: "QRIS",
         status: "Lunas",
-        dueDate: "2026-11-12" // H-2 Renewal!
+        startDate: "2026-11-05",
+        dueDate: "2026-11-12", // Sisa 2 hari (H-2)
+        totalDurationDays: 365,
+        accountEmail: "dinda.canva@nami.id",
+        accountPass: "nami2026",
+        accountProfile: "Team Edu Slot 1",
+        supplier: "Supplier Canva Fast",
+        warrantyCount: 0,
+        warrantyStatus: "Normal"
+      },
+      {
+        id: "APK-002",
+        date: "2026-11-01",
+        client: "Rian Bagus",
+        phone: "085698741230",
+        unit: "apk",
+        unitName: "Nami APK",
+        detail: "Netflix UHD 1 Bulan (Shared)",
+        price: 45000,
+        cost: 28000,
+        profit: 17000,
+        paid: 45000,
+        method: "BCA",
+        status: "Klaim Garansi #1",
+        startDate: "2026-11-01",
+        dueDate: "2026-12-01",
+        totalDurationDays: 30,
+        accountEmail: "stream.nami01@gmail.com",
+        accountPass: "netflix999",
+        accountProfile: "Profil 3 - PIN 1122",
+        supplier: "Kang Netflix Bot",
+        warrantyCount: 1,
+        warrantyStatus: "Paused",
+        warrantyPauseDate: "2026-11-10",
+        remainingDaysAtPause: 21
       },
       {
         id: "TRX-003",
-        date: "2026-11-09",
+        date: "2026-11-08",
         client: "Kevin Aldiansyah",
         phone: "081399887766",
         unit: "joktug",
         unitName: "Joktug",
         detail: "Analisis Data SPSS & Bab 4",
         price: 450000,
-        cost: 20000, // Biaya tool cek
+        cost: 20000,
         profit: 430000,
         paid: 200000,
         method: "QRIS",
         status: "DP Diterima",
-        dueDate: "2026-11-20"
+        dueDate: "2026-11-13" // H-3 Deadline
       },
       {
         id: "TRX-004",
-        date: "2026-11-08",
-        client: "Lumière Rental",
+        date: "2026-11-06",
+        client: "Baverly Florist",
         phone: "082155443322",
-        unit: "freelance",
-        unitName: "Freelance",
-        detail: "Admin WA & Konten Sosmed Nov",
-        price: 1800000,
-        cost: 0, // Tanpa modal langsung
-        profit: 1800000,
-        paid: 1800000,
+        unit: "studio",
+        unitName: "Nami Studio",
+        detail: "Branding Kit & Web Catalog",
+        price: 3000000,
+        cost: 350000,
+        profit: 2650000,
+        paid: 1500000,
         method: "BCA",
-        status: "Lunas",
-        dueDate: "2026-11-30"
+        status: "DP Diterima",
+        dueDate: "2026-11-28"
       }
     ];
 
-    // DATA PENGELUARAN MANDIRI / KERJA
     let expenses = [
-      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" },
-      { id: "EXP-002", date: "2026-11-08", desc: "Restock Saldo Supplier APK", amount: 200000, unit: "apk", method: "BCA" }
+      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" }
     ];
 
     let pendingDeleteType = null;
     let pendingDeleteId = null;
+    let currentApkFilter = 'all';
 
-    // FORMAT RUPIAH INTEGER BULAT (BEBAS DESIMAL PERAK)
     function formatRupiah(num) {
       return 'Rp ' + Math.round(Number(num) || 0).toLocaleString('id-ID');
     }
 
-    // HITUNG LIVE PROFIT SAAT KETIK MODAL & HARGA JUAL
+    function cleanPhoneNumber(phone) {
+      if (!phone) return "";
+      let clean = phone.replace(/[^0-9]/g, '');
+      if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+      return clean;
+    }
+
+    function toggleApkFields() {
+      const unit = document.getElementById('formTrxUnit').value;
+      const sec = document.getElementById('apkAccountDetailSection');
+      if (unit === 'apk') {
+        sec.style.display = 'block';
+      } else {
+        sec.style.display = 'none';
+      }
+    }
+
+    // PRESET DAYS HANDLER
+    function setPresetDays(days) {
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      document.getElementById('formTrxDueDate').value = d.toISOString().split('T')[0];
+    }
+
+    function setLifetime() {
+      document.getElementById('formTrxDueDate').value = "2099-12-31";
+    }
+
     function calculateLiveProfit() {
       const price = Math.round(Number(document.getElementById('formTrxPrice').value) || 0);
       const cost = Math.round(Number(document.getElementById('formTrxCost').value) || 0);
@@ -941,20 +1153,10 @@
       if (profit < 0) {
         badge.style.background = '#FFEBEE';
         badge.style.color = '#C62828';
-        badge.style.borderColor = '#C62828';
       } else {
         badge.style.background = '#E8F5E9';
         badge.style.color = '#2E7D32';
-        badge.style.borderColor = '#2E7D32';
       }
-    }
-
-    // FORMAT NOMOR WA INTERNASIONAL
-    function cleanPhoneNumber(phone) {
-      if (!phone) return "";
-      let clean = phone.replace(/[^0-9]/g, '');
-      if (clean.startsWith('0')) clean = '62' + clean.slice(1);
-      return clean;
     }
 
     // RENDER UTAMA
@@ -964,60 +1166,66 @@
       let totalPiutang = 0;
       let totalCashBCA = 0;
       let totalCashQRIS = 0;
-      let totalRealCash = 0;
 
       const overviewList = document.getElementById('overviewFeedList');
       const allList = document.getElementById('allTrxFeedList');
+      const apkList = document.getElementById('apkFeedList');
       const piutangList = document.getElementById('piutangFeedList');
       const radarList = document.getElementById('radarListContainer');
 
       overviewList.innerHTML = '';
       allList.innerHTML = '';
+      apkList.innerHTML = '';
       piutangList.innerHTML = '';
       radarList.innerHTML = '';
 
       let radarCount = 0;
-      const today = new Date("2026-11-10"); // Standar tanggal sesi
+      const today = new Date("2026-11-10");
 
       transactions.forEach((t) => {
         const sisa = Math.max(0, t.price - t.paid);
         totalGross += t.price;
         totalProfit += t.profit;
         totalPiutang += sisa;
-        totalRealCash += t.paid;
 
         if (t.method === 'BCA') totalCashBCA += t.paid;
         if (t.method === 'QRIS') totalCashQRIS += t.paid;
 
-        // Cek Radar H-3
+        let diffDays = 999;
         if (t.dueDate) {
           const due = new Date(t.dueDate);
-          const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
-          
-          if (diffDays <= 3 && t.status !== 'Selesai Lunas') {
-            radarCount++;
-            const waPhone = cleanPhoneNumber(t.phone);
-            const isApk = t.unit === 'apk';
-            const waMsg = isApk 
-              ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Masa aktif langganan ${t.detail} kamu di hi.littlenami sisa ${diffDays} hari lagi. Mau perpanjang via BCA 3741234635 / QRIS? Terima kasih! 🍓`)
-              : encodeURIComponent(`Halo Kak ${t.client}! ✨ Update progres tugas ${t.detail} dari hi.littlenami menjelang deadline tanggal ${t.dueDate}. Sisa tagihan: ${formatRupiah(sisa)}. Terima kasih! 🍓`);
-
-            radarList.innerHTML += `
-              <div class="radar-item">
-                <div>
-                  <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
-                  <strong>${t.client}</strong> — ${t.detail}
-                  <span style="color:var(--red); font-weight:800; font-size:11px;">(Sisa ${diffDays} Hari!)</span>
-                </div>
-                <a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="btn btn-green" style="padding:4px 8px; font-size:10px;">
-                  📲 Chat WA Klien
-                </a>
-              </div>
-            `;
-          }
+          diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
         }
 
-        // Card HTML
+        // Radar Alert (H-3 atau Garansi)
+        if (t.warrantyStatus === 'Paused' || (diffDays <= 3 && t.status !== 'Lunas Expired')) {
+          radarCount++;
+          const waPhone = cleanPhoneNumber(t.phone);
+          const isWarranty = t.warrantyStatus === 'Paused';
+          const isApk = t.unit === 'apk';
+          
+          let alertLabel = isWarranty ? `🚨 KLAIM GARANSI #${t.warrantyCount}` : `⚠️ H-${diffDays} ${isApk ? 'RENEWAL' : 'DEADLINE'}`;
+          let waMsg = isWarranty 
+            ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Kami sedang proses klaim akun ${t.detail} kamu ke supplier ya. Durasi otomatis kami freeze biar gak rugi hari. Terima kasih atas kesabarannya! 🍓`)
+            : encodeURIComponent(`Halo Kak ${t.client}! ✨ Pengingat ${t.detail} tersisa ${diffDays} hari lagi. Perpanjangan/pelunasan bisa via BCA 3741234635 an Intan / QRIS ya. Terima kasih! 🍓`);
+
+          radarList.innerHTML += `
+            <div class="radar-item">
+              <div>
+                <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
+                <strong>${t.client}</strong> — ${t.detail}
+                <span style="color:var(--red); font-weight:800; font-size:11px;">(${alertLabel})</span>
+              </div>
+              <div style="display:flex; gap:6px;">
+                ${isWarranty ? `<button class="btn btn-yellow" style="padding:4px 8px; font-size:10px;" onclick="openWarrantyModal('${t.id}')">🛡️ Selesaikan Garansi</button>` : ''}
+                <a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="btn btn-green" style="padding:4px 8px; font-size:10px;">📲 Chat WA</a>
+              </div>
+            </div>
+          `;
+        }
+
+        // Template Kartu Transaksi
+        const isApkUnit = t.unit === 'apk';
         const cardHtml = `
           <div class="trx-item-card">
             <div class="trx-item-header">
@@ -1026,22 +1234,34 @@
                 <strong style="font-size:14px; margin-left:4px;">${t.client}</strong>
                 <div style="font-size:11px; color:var(--dark-muted);">${t.detail}</div>
               </div>
-              <span class="badge-status ${t.status === 'Lunas' ? 'status-lunas' : 'status-dp'}">${t.status}</span>
+              <span class="badge-status ${t.warrantyStatus === 'Paused' ? 'status-garansi' : (t.status === 'Lunas' ? 'status-lunas' : 'status-dp')}">
+                ${t.warrantyStatus === 'Paused' ? `🛡️ Garansi #${t.warrantyCount} (Paused)` : t.status}
+              </span>
             </div>
 
-            <!-- DETAIL HARGA & PROFIT BERSIH ON-THE-SPOT -->
+            ${isApkUnit ? `
+              <div class="account-detail-box">
+                <div><strong>Email/ID:</strong> ${t.accountEmail || '-'} | <strong>Pass:</strong> ${t.accountPass || '-'}</div>
+                <div><strong>Profil/PIN:</strong> ${t.accountProfile || '-'} | <strong>Supplier:</strong> ${t.supplier || '-'}</div>
+              </div>
+            ` : ''}
+
             <div class="trx-meta-grid">
-              <div>Harga Jual: <strong>${formatRupiah(t.price)}</strong></div>
-              <div>Modal (HPP): <strong>${formatRupiah(t.cost)}</strong></div>
-              <div>Profit Bersih: <span style="color:#2E7D32; font-weight:800;">+${formatRupiah(t.profit)}</span></div>
+              <div>Harga: <strong>${formatRupiah(t.price)}</strong></div>
+              <div>Modal: <strong>${formatRupiah(t.cost)}</strong></div>
+              <div>Profit: <strong style="color:#2E7D32;">+${formatRupiah(t.profit)}</strong></div>
               <div>Kas Masuk: <strong>${formatRupiah(t.paid)}</strong> (${t.method})</div>
-              <div>Sisa Tagihan: <strong style="color:var(--red);">${formatRupiah(sisa)}</strong></div>
-              <div>Tenggat/Exp: <strong>${t.dueDate || '-'}</strong></div>
+              <div>Sisa: <strong style="color:var(--red);">${formatRupiah(sisa)}</strong></div>
+              <div>Tenggat/Renewal: <strong>${t.dueDate === '2099-12-31' ? 'Lifetime' : (t.dueDate || '-')}</strong></div>
             </div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-              <div style="display:flex; gap:6px;">
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
                 ${sisa > 0 ? `<button class="btn btn-yellow" onclick="quickPay('${t.id}')">Pelunasan</button>` : ''}
+                ${isApkUnit ? `
+                  <button class="btn ${t.warrantyStatus === 'Paused' ? 'btn-red' : 'btn-yellow'}" onclick="openWarrantyModal('${t.id}')">🛡️ Garansi</button>
+                  <button class="btn btn-pink" onclick="quickRenewApk('${t.id}')">🔄 Perpanjang</button>
+                ` : ''}
                 <button class="btn btn-cream" onclick="openEditTrxModal('${t.id}')">✏️ Edit</button>
                 <button class="btn btn-red" onclick="promptDelete('trx', '${t.id}', '${t.client}')">🗑️ Hapus</button>
               </div>
@@ -1052,15 +1272,23 @@
 
         allList.innerHTML += cardHtml;
         if (sisa > 0) piutangList.innerHTML += cardHtml;
+
+        // Modul Khusus APK Tab
+        if (isApkUnit) {
+          let showInApk = true;
+          if (currentApkFilter === 'urgent' && diffDays > 3) showInApk = false;
+          if (currentApkFilter === 'warranty' && t.warrantyStatus !== 'Paused') showInApk = false;
+          if (currentApkFilter === 'active' && (t.warrantyStatus === 'Paused' || diffDays <= 3)) showInApk = false;
+
+          if (showInApk) apkList.innerHTML += cardHtml;
+        }
       });
 
-      // Overview ambil 3 kartu teratas
       overviewList.innerHTML = allList.innerHTML.split('</div>\n          </div>').slice(0, 3).join('</div>\n          </div>');
 
-      // Update Radar Count
-      document.getElementById('radarCountBadge').innerText = `${radarCount} Perlu Follow-up`;
+      document.getElementById('radarCountBadge').innerText = `${radarCount} Perlu Tindakan`;
       if (radarCount === 0) {
-        radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Tidak ada tagihan atau tugas yang mepet deadline H-3 ✨</div>`;
+        radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Semua aman! Tidak ada akun bermasalah atau H-3 renewal ✨</div>`;
       }
 
       // Render Pengeluaran
@@ -1085,7 +1313,6 @@
         `;
       });
 
-      // Set Metrics Header
       document.getElementById('valGrossOmzet').innerText = formatRupiah(totalGross);
       document.getElementById('valTotalProfit').innerText = formatRupiah(totalProfit);
       document.getElementById('valTotalPiutang').innerText = formatRupiah(totalPiutang);
@@ -1094,11 +1321,9 @@
       document.getElementById('valCashBCA').innerText = formatRupiah(totalCashBCA);
       document.getElementById('valCashQRIS').innerText = formatRupiah(totalCashQRIS);
 
-      // Profit Murni Bersih di Tab Rekap: (Kas Riil Diterima - Total Modal Terpakai) - Total Biaya Kerja
       const realNetProfit = totalProfit - totalExpense;
       document.getElementById('valNetRealProfit').innerText = formatRupiah(realNetProfit);
 
-      // Breakdown Profit Unit
       const unitProfits = { apk: 0, joktug: 0, freelance: 0, studio: 0 };
       transactions.forEach(t => { unitProfits[t.unit] += t.profit; });
       document.getElementById('unitProfitBreakdown').innerHTML = `
@@ -1111,10 +1336,129 @@
       `;
     }
 
-    // FORM MODAL HANDLER
-    function openNewTrxModal() {
+    // MODAL GARANSI (MULTI-CLAIM LOGIC)
+    function openWarrantyModal(id) {
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+
+      document.getElementById('warrantyTrxId').value = t.id;
+      document.getElementById('modalWarrantyTitle').innerText = `🛡️ Garansi: ${t.client} (${t.detail})`;
+
+      if (t.warrantyStatus !== 'Paused') {
+        t.warrantyCount = (t.warrantyCount || 0) + 1;
+        t.warrantyStatus = 'Paused';
+        t.warrantyPauseDate = new Date().toISOString().split('T')[0];
+
+        // Hitung sisa hari tersisa saat akun rusak
+        const due = new Date(t.dueDate);
+        const now = new Date();
+        t.remainingDaysAtPause = Math.max(1, Math.ceil((due - now) / (1000 * 60 * 60 * 24)));
+        showToast(`Durasi akun ${t.client} berhasil di-pause (${t.remainingDaysAtPause} hari tersisa).`);
+      }
+
+      document.getElementById('warrantyCurrentStatus').innerText = `Klaim Ke-${t.warrantyCount} (Durasi Dibekukan: Sisa ${t.remainingDaysAtPause || 0} Hari)`;
+      document.getElementById('warrantyNewEmail').value = "";
+      document.getElementById('warrantyNewPass').value = "";
+      document.getElementById('warrantyNewProfile').value = "";
+
+      document.getElementById('modalWarranty').classList.add('active');
+      renderApp();
+    }
+
+    function submitWarrantyReplace() {
+      const id = document.getElementById('warrantyTrxId').value;
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+
+      const newEmail = document.getElementById('warrantyNewEmail').value || t.accountEmail;
+      const newPass = document.getElementById('warrantyNewPass').value || t.accountPass;
+      const newProf = document.getElementById('warrantyNewProfile').value || t.accountProfile;
+
+      // Unfreeze: Tanggal expired baru = hari ini + sisa hari tersisa
+      const d = new Date();
+      d.setDate(d.getDate() + (t.remainingDaysAtPause || 30));
+      t.dueDate = d.toISOString().split('T')[0];
+
+      t.accountEmail = newEmail;
+      t.accountPass = newPass;
+      t.accountProfile = newProf;
+      t.warrantyStatus = "Normal";
+
+      closeModal('modalWarranty');
+      renderApp();
+      showToast(`Akun baru aktif! Tanggal renewal diperpanjang otomatis s/d ${t.dueDate}.`);
+    }
+
+    // MODAL REFUND PRORATA (STANDAR CALCULATOREFUND.SITE)
+    function openRefundFromWarranty() {
+      const id = document.getElementById('warrantyTrxId').value;
+      closeModal('modalWarranty');
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+
+      document.getElementById('refundTrxId').value = t.id;
+      document.getElementById('refundBuyPrice').value = t.price;
+      document.getElementById('refundTotalDays').value = t.totalDurationDays || 30;
+      document.getElementById('refundRemainingDays').value = t.remainingDaysAtPause || 15;
+      document.getElementById('refundFee').value = 0;
+
+      calculateProrataRefund();
+      document.getElementById('modalRefund').classList.add('active');
+    }
+
+    function calculateProrataRefund() {
+      const price = Number(document.getElementById('refundBuyPrice').value) || 0;
+      const totalDays = Number(document.getElementById('refundTotalDays').value) || 1;
+      const remDays = Number(document.getElementById('refundRemainingDays').value) || 0;
+      const fee = Number(document.getElementById('refundFee').value) || 0;
+
+      const refund = Math.max(0, Math.round((remDays / totalDays) * price - fee));
+      document.getElementById('refundFinalAmount').innerText = formatRupiah(refund);
+    }
+
+    function copyRefundTextWA() {
+      const id = document.getElementById('refundTrxId').value;
+      const t = transactions.find(x => x.id === id);
+      const refund = document.getElementById('refundFinalAmount').innerText;
+      const remDays = document.getElementById('refundRemainingDays').value;
+      const totalDays = document.getElementById('refundTotalDays').value;
+
+      const text = `Rincian Refund hi.littlenami 🍓\nProduk: ${t.detail}\nHarga: ${formatRupiah(t.price)}\nDurasi: ${remDays} dari ${totalDays} hari belum terpakai\nTotal Pengembalian: ${refund}\nMetode: BCA / QRIS\nTerima kasih atas pengertiannya kak! ✨`;
+      navigator.clipboard.writeText(text);
+      showToast("Teks refund tersalin ke clipboard!");
+    }
+
+    function executeRefund() {
+      const id = document.getElementById('refundTrxId').value;
+      const t = transactions.find(x => x.id === id);
+      const price = Number(document.getElementById('refundBuyPrice').value) || 0;
+      const totalDays = Number(document.getElementById('refundTotalDays').value) || 1;
+      const remDays = Number(document.getElementById('refundRemainingDays').value) || 0;
+      const fee = Number(document.getElementById('refundFee').value) || 0;
+      const refund = Math.max(0, Math.round((remDays / totalDays) * price - fee));
+
+      t.status = "Dibatalkan / Refund";
+      t.warrantyStatus = "Refunded";
+
+      expenses.unshift({
+        id: `EXP-REF-${Date.now().toString().slice(-4)}`,
+        date: new Date().toISOString().split('T')[0],
+        desc: `Refund Client ${t.client} (${t.detail})`,
+        amount: refund,
+        unit: "apk",
+        method: t.method
+      });
+
+      closeModal('modalRefund');
+      renderApp();
+      showToast(`Refund ${formatRupiah(refund)} berhasil dicatat ke pengeluaran kas!`);
+    }
+
+    // FORM TRANSAKSI HANDLER
+    function openNewTrxModal(unitType = 'apk') {
       document.getElementById('editTrxId').value = "";
-      document.getElementById('modalTrxTitle').innerText = "+ Catat Transaksi Baru";
+      document.getElementById('modalTrxTitle').innerText = unitType === 'apk' ? "+ Catat Order Nami APK 🍓" : "+ Catat Transaksi Baru";
+      document.getElementById('formTrxUnit').value = unitType;
       document.getElementById('formTrxClient').value = "";
       document.getElementById('formTrxPhone').value = "";
       document.getElementById('formTrxDetail').value = "";
@@ -1122,6 +1466,12 @@
       document.getElementById('formTrxCost').value = "";
       document.getElementById('formTrxPaid').value = "";
       document.getElementById('formTrxDueDate').value = "";
+      document.getElementById('formApkEmail').value = "";
+      document.getElementById('formApkPass').value = "";
+      document.getElementById('formApkProfile').value = "";
+      document.getElementById('formApkSupplier').value = "";
+
+      toggleApkFields();
       calculateLiveProfit();
       document.getElementById('modalTrx').classList.add('active');
     }
@@ -1141,6 +1491,13 @@
       document.getElementById('formTrxPaid').value = t.paid;
       document.getElementById('formTrxMethod').value = t.method;
       document.getElementById('formTrxDueDate').value = t.dueDate || "";
+
+      document.getElementById('formApkEmail').value = t.accountEmail || "";
+      document.getElementById('formApkPass').value = t.accountPass || "";
+      document.getElementById('formApkProfile').value = t.accountProfile || "";
+      document.getElementById('formApkSupplier').value = t.supplier || "";
+
+      toggleApkFields();
       calculateLiveProfit();
       document.getElementById('modalTrx').classList.add('active');
     }
@@ -1157,6 +1514,11 @@
       const method = document.getElementById('formTrxMethod').value;
       const dueDate = document.getElementById('formTrxDueDate').value;
       const profit = price - cost;
+
+      const email = document.getElementById('formApkEmail').value;
+      const pass = document.getElementById('formApkPass').value;
+      const prof = document.getElementById('formApkProfile').value;
+      const supp = document.getElementById('formApkSupplier').value;
 
       if (price <= 0) {
         alert("Harga jual wajib diisi!");
@@ -1181,13 +1543,17 @@
           item.method = method;
           item.dueDate = dueDate;
           item.status = status;
-          showToast(`Order ${editId} berhasil diperbarui!`);
+          item.accountEmail = email;
+          item.accountPass = pass;
+          item.accountProfile = prof;
+          item.supplier = supp;
+          showToast(`Data ${editId} diperbarui!`);
         }
       } else {
-        const newId = `TRX-00${transactions.length + 1}`;
+        const newId = `${unit.toUpperCase()}-00${transactions.length + 1}`;
         transactions.unshift({
           id: newId,
-          date: "2026-11-10",
+          date: new Date().toISOString().split('T')[0],
           client: client,
           phone: phone,
           unit: unit,
@@ -1199,16 +1565,58 @@
           paid: paid,
           method: method,
           dueDate: dueDate,
-          status: status
+          status: status,
+          startDate: new Date().toISOString().split('T')[0],
+          totalDurationDays: 30,
+          accountEmail: email,
+          accountPass: pass,
+          accountProfile: prof,
+          supplier: supp,
+          warrantyCount: 0,
+          warrantyStatus: "Normal"
         });
-        showToast(`Transaksi baru ${newId} dicatat!`);
+        showToast(`Pesanan ${newId} dicatat!`);
       }
 
       closeModal('modalTrx');
       renderApp();
     }
 
-    // PENGELUARAN MODAL
+    function quickRenewApk(id) {
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+      
+      const newCost = prompt(`Perpanjang ${t.client} (${t.detail}). Masukkan modal supplier hari ini:`, t.cost);
+      if (newCost === null) return;
+
+      const d = new Date(t.dueDate && t.dueDate !== '2099-12-31' ? t.dueDate : new Date());
+      d.setDate(d.getDate() + 30);
+      t.dueDate = d.toISOString().split('T')[0];
+      t.cost = Math.round(Number(newCost) || t.cost);
+      t.profit = t.price - t.cost;
+      t.status = "Lunas";
+      t.warrantyStatus = "Normal";
+
+      renderApp();
+      showToast(`Akun ${t.client} diperpanjang +30 hari s/d ${t.dueDate}!`);
+    }
+
+    function quickPay(id) {
+      const t = transactions.find(x => x.id === id);
+      if (t) {
+        t.paid = t.price;
+        t.status = "Lunas";
+        showToast(`Pesanan ${t.client} berhasil dilunasi!`);
+        renderApp();
+      }
+    }
+
+    function filterApkList(type) {
+      currentApkFilter = type;
+      renderApp();
+    }
+
+    // PENGELUARAN
     function openNewExpenseModal() {
       document.getElementById('formExpDesc').value = "";
       document.getElementById('formExpAmount').value = "";
@@ -1228,7 +1636,7 @@
 
       expenses.unshift({
         id: `EXP-00${expenses.length + 1}`,
-        date: "2026-11-10",
+        date: new Date().toISOString().split('T')[0],
         desc: desc,
         amount: amount,
         unit: unit,
@@ -1237,10 +1645,10 @@
 
       closeModal('modalExpense');
       renderApp();
-      showToast("Pengeluaran kerja berhasil disimpan!");
+      showToast("Pengeluaran kerja disimpan!");
     }
 
-    // MODAL HAPUS KUSTOM INTERNAL
+    // MODAL HAPUS
     function promptDelete(type, id, name) {
       pendingDeleteType = type;
       pendingDeleteId = id;
@@ -1260,18 +1668,6 @@
       renderApp();
     });
 
-    // PELUNASAN CEPAT
-    function quickPay(id) {
-      const t = transactions.find(x => x.id === id);
-      if (t) {
-        t.paid = t.price;
-        t.status = "Lunas";
-        showToast(`Pesanan ${t.client} berhasil dilunasi!`);
-        renderApp();
-      }
-    }
-
-    // TABS
     function switchTab(viewId) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1282,6 +1678,7 @@
 
       const titles = {
         overview: "Overview & Rekap Bisnis",
+        'nami-apk': "Modul Khusus Nami APK 🍓",
         transaksi: "Semua Transaksi & Pesanan",
         piutang: "Manajemen Piutang & DP",
         pengeluaran: "Catatan Biaya Kerja",
