@@ -144,7 +144,7 @@
       background: var(--cream-light);
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
     }
 
     .user-avatar {
@@ -568,11 +568,14 @@
     </nav>
 
     <div class="sidebar-user">
-      <div class="user-avatar">I</div>
-      <div>
-        <div style="font-size:12px; font-weight:800;">Intan Nurul Huda</div>
-        <div style="font-size:10px; color:var(--dark-muted);">BCA: 3741234635</div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="user-avatar">I</div>
+        <div>
+          <div style="font-size:12px; font-weight:800;">Intan Nurul Huda</div>
+          <div style="font-size:10px; color:var(--dark-muted);">BCA: 3741234635</div>
+        </div>
       </div>
+      <button class="btn btn-cream" style="padding:4px 6px; font-size:10px;" onclick="openDbModal()" title="Pengaturan Database">⚙️</button>
     </div>
   </aside>
 
@@ -584,7 +587,8 @@
         <h1 id="pageTitle" style="font-size: 20px;">Overview & Rekap Bisnis</h1>
         <p style="font-size: 11px; color: var(--dark-muted);">hi.littlenami — Toko Digital APK, Garansi, & Layanan Tugas/Desain</p>
       </div>
-      <div style="display:flex; gap:8px;">
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button class="btn btn-cream" onclick="openDbModal()" id="dbStatusBtn">⚙️ Konek DB</button>
         <button class="btn btn-pink" onclick="openNewTrxModal('apk')">+ Order Nami APK</button>
         <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Transaksi Umum</button>
       </div>
@@ -800,7 +804,42 @@
     </button>
   </nav>
 
-  <!-- MODAL: INPUT / EDIT TRANSAKSI (TANGGAL ORDER & PEMISAHAN EXPIRED VS RENEWAL) -->
+  <!-- MODAL: KONEKSI DATABASE SUPABASE LANGSUNG DARI WEB -->
+  <div class="modal-overlay" id="modalSupabaseConfig">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3>⚙️ Sambungkan Supabase Database</h3>
+        <button class="btn btn-cream" onclick="closeModal('modalSupabaseConfig')">✕</button>
+      </div>
+      <div>
+        <p style="font-size:12px; color:var(--dark-muted); margin-bottom:14px;">
+          Salin URL & Public Anon Key dari Project Settings Supabase kamu, lalu tempel di sini. Data akan tersimpan aman di HP kamu.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Project URL (Supabase)</label>
+          <input type="text" class="form-input" id="cfgSupabaseUrl" placeholder="https://xyzcompany.supabase.co">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Anon / Public API Key</label>
+          <textarea class="form-input" id="cfgSupabaseKey" rows="3" placeholder="eyJhbGciOi..."></textarea>
+        </div>
+
+        <div style="background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px; margin-bottom:14px;">
+          <div style="font-size:11px; font-weight:800; margin-bottom:2px;">Status Koneksi:</div>
+          <div id="cfgStatusIndicator" style="font-size:12px; font-weight:700; color:var(--red);">🔴 Belum Terhubung (Mode Penyimpanan Lokal HP)</div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:8px;">
+          <button class="btn btn-cream" onclick="disconnectSupabase()">Hapus Kunci</button>
+          <button class="btn btn-green" onclick="saveSupabaseConfig()">💾 Simpan & Sambungkan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: INPUT / EDIT TRANSAKSI -->
   <div class="modal-overlay" id="modalTrx">
     <div class="modal-window">
       <div class="modal-header">
@@ -810,7 +849,6 @@
       <div>
         <input type="hidden" id="editTrxId">
 
-        <!-- TANGGAL ORDER FLEKSIBEL (BISA BACKDATE) -->
         <div class="form-group">
           <label class="form-label">Tanggal Order Masuk (Bisa Diubah jika Lupa Catat)</label>
           <input type="date" class="form-input" id="formTrxDate">
@@ -841,7 +879,7 @@
           <input type="text" class="form-input" id="formTrxDetail" placeholder="Misal: Netflix UHD 1 Bulan / Olah Data SPSS">
         </div>
 
-        <!-- BLOK DETAIL AKUN KHUSUS APK -->
+        <!-- DETAIL AKUN APK -->
         <div id="apkAccountDetailSection" style="background:#FFF9E6; border:2px dashed var(--border-color); padding:10px; border-radius:8px; margin-bottom:12px;">
           <div style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:6px; color:var(--dark);">Detail Alokasi Akun (Khusus APK):</div>
           <div style="display:flex; gap:8px; margin-bottom:6px;">
@@ -854,7 +892,7 @@
           </div>
         </div>
 
-        <!-- KALKULASI MODAL & PROFIT ON-THE-SPOT -->
+        <!-- KALKULASI MODAL & PROFIT -->
         <div style="background:var(--cream-light); border:2px dashed var(--border-color); padding:12px; border-radius:8px; margin-bottom:12px;">
           <div style="display:flex; gap:10px;">
             <div class="form-group" style="flex:1;">
@@ -887,7 +925,7 @@
           </div>
         </div>
 
-        <!-- TANGGAL EXPIRED (DURASI ABIS) VS TANGGAL RENEWAL (FOLLOW-UP) -->
+        <!-- TANGGAL EXPIRED VS RENEWAL -->
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1;">
             <label class="form-label">Tenggat Durasi Habis (Expired)</label>
@@ -916,7 +954,7 @@
     </div>
   </div>
 
-  <!-- MODAL: KLAIM GARANSI & PERGANTIAN AKUN -->
+  <!-- MODAL: KLAIM GARANSI -->
   <div class="modal-overlay" id="modalWarranty">
     <div class="modal-window">
       <div class="modal-header">
@@ -960,7 +998,7 @@
     </div>
   </div>
 
-  <!-- MODAL: KALKULATOR REFUND PRORATA -->
+  <!-- MODAL: KALKULATOR REFUND -->
   <div class="modal-overlay" id="modalRefund">
     <div class="modal-window">
       <div class="modal-header">
@@ -1065,96 +1103,76 @@
   <div class="toast-box" id="appToast">Notifikasi</div>
 
   <script>
-    // MASUKKAN KREDENSIAL SUPABASE ANDA DI SINI
-    const SUPABASE_URL = ""; 
-    const SUPABASE_ANON_KEY = "";
     let supabase = null;
-
-    if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
-
-    // STATE TRANSAKSI
-    let transactions = [
-      {
-        id: "APK-001",
-        date: "2026-11-05",
-        client: "Dinda Permata",
-        phone: "081234567890",
-        unit: "apk",
-        unitName: "Nami APK",
-        detail: "Canva Pro 1 Tahun Edu",
-        price: 120000,
-        cost: 45000,
-        profit: 75000,
-        paid: 120000,
-        method: "QRIS",
-        status: "Lunas",
-        startDate: "2026-11-05",
-        dueDate: "2026-11-15", // Expired akun
-        renewalDate: "2026-11-12", // Follow-up renewal H-3
-        totalDurationDays: 365,
-        accountEmail: "dinda.canva@nami.id",
-        accountPass: "nami2026",
-        accountProfile: "Team Edu Slot 1",
-        supplier: "Supplier Canva Fast",
-        warrantyCount: 0,
-        warrantyStatus: "Normal"
-      },
-      {
-        id: "APK-002",
-        date: "2026-11-01",
-        client: "Rian Bagus",
-        phone: "085698741230",
-        unit: "apk",
-        unitName: "Nami APK",
-        detail: "Netflix UHD 1 Bulan (Shared)",
-        price: 45000,
-        cost: 28000,
-        profit: 17000,
-        paid: 45000,
-        method: "BCA",
-        status: "Klaim Garansi #1",
-        startDate: "2026-11-01",
-        dueDate: "2026-12-01",
-        renewalDate: "2026-11-28",
-        totalDurationDays: 30,
-        accountEmail: "stream.nami01@gmail.com",
-        accountPass: "netflix999",
-        accountProfile: "Profil 3 - PIN 1122",
-        supplier: "Kang Netflix Bot",
-        warrantyCount: 1,
-        warrantyStatus: "Paused",
-        warrantyPauseDate: "2026-11-10",
-        remainingDaysAtPause: 21
-      },
-      {
-        id: "TRX-003",
-        date: "2026-11-08",
-        client: "Kevin Aldiansyah",
-        phone: "081399887766",
-        unit: "joktug",
-        unitName: "Joktug",
-        detail: "Analisis Data SPSS & Bab 4",
-        price: 450000,
-        cost: 20000,
-        profit: 430000,
-        paid: 200000,
-        method: "QRIS",
-        status: "DP Diterima",
-        dueDate: "2026-11-14",
-        renewalDate: "2026-11-11" // H-3 Deadline
-      }
-    ];
-
-    let expenses = [
-      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" },
-      { id: "EXP-002", date: "2026-11-10", desc: "Beli Akun Supplier Netflix", amount: 28000, unit: "apk", method: "BCA" }
-    ];
+    let transactions = [];
+    let expenses = [];
 
     let pendingDeleteType = null;
     let pendingDeleteId = null;
     let currentApkFilter = 'all';
+
+    // INISIALISASI SUPABASE DARI LOCALSTORAGE
+    function initSupabase() {
+      const savedUrl = localStorage.getItem('nami_supabase_url');
+      const savedKey = localStorage.getItem('nami_supabase_key');
+
+      const btn = document.getElementById('dbStatusBtn');
+      const indicator = document.getElementById('cfgStatusIndicator');
+
+      if (savedUrl && savedKey && window.supabase) {
+        try {
+          supabase = window.supabase.createClient(savedUrl, savedKey);
+          if (btn) btn.innerHTML = "🟢 Supabase Konek";
+          if (indicator) {
+            indicator.innerText = "🟢 Terhubung ke Cloud Supabase!";
+            indicator.style.color = "#2E7D32";
+          }
+        } catch (e) {
+          console.error("Gagal inisialisasi Supabase:", e);
+          if (btn) btn.innerHTML = "🔴 DB Eror";
+        }
+      } else {
+        supabase = null;
+        if (btn) btn.innerHTML = "⚙️ Konek DB";
+        if (indicator) {
+          indicator.innerText = "🔴 Belum Terhubung (Mode Penyimpanan Lokal HP)";
+          indicator.style.color = "var(--red)";
+        }
+      }
+    }
+
+    function openDbModal() {
+      document.getElementById('cfgSupabaseUrl').value = localStorage.getItem('nami_supabase_url') || "";
+      document.getElementById('cfgSupabaseKey').value = localStorage.getItem('nami_supabase_key') || "";
+      initSupabase();
+      document.getElementById('modalSupabaseConfig').classList.add('active');
+    }
+
+    async function saveSupabaseConfig() {
+      const url = document.getElementById('cfgSupabaseUrl').value.trim();
+      const key = document.getElementById('cfgSupabaseKey').value.trim();
+
+      if (!url || !key) {
+        alert("Mohon isi URL dan Anon Key Supabase kamu!");
+        return;
+      }
+
+      localStorage.setItem('nami_supabase_url', url);
+      localStorage.setItem('nami_supabase_key', key);
+
+      initSupabase();
+      closeModal('modalSupabaseConfig');
+      showToast("Kunci Supabase disimpan! Memuat data cloud...");
+      await fetchSupabaseData();
+    }
+
+    function disconnectSupabase() {
+      localStorage.removeItem('nami_supabase_url');
+      localStorage.removeItem('nami_supabase_key');
+      initSupabase();
+      showToast("Koneksi Supabase diputus. Beralih ke penyimpanan lokal.");
+      renderApp();
+    }
 
     function formatRupiah(num) {
       return 'Rp ' + Math.round(Number(num) || 0).toLocaleString('id-ID');
@@ -1177,7 +1195,6 @@
       }
     }
 
-    // OTOMATIS HITUNG RENEWAL H-3 DARI EXPIRED JIKA RENEWAL BELUM DIISI
     function autoSetRenewalDate() {
       const dueVal = document.getElementById('formTrxDueDate').value;
       if (!dueVal || dueVal === '2099-12-31') return;
@@ -1218,57 +1235,68 @@
       }
     }
 
-    // AMBIL DATA DARI SUPABASE JIKA TERHUBUNG
+    // AMBIL DATA DARI SUPABASE (ATAU LOCAL STORAGE)
     async function fetchSupabaseData() {
-      if (!supabase) {
-        renderApp();
-        return;
-      }
-      try {
-        const { data: trxData, error: trxErr } = await supabase.from('transactions').select('*').order('created_at', { ascending: false });
-        if (!trxErr && trxData) {
-          transactions = trxData.map(t => ({
-            id: t.id,
-            date: t.date,
-            client: t.client,
-            phone: t.phone,
-            unit: t.unit,
-            unitName: t.unit_name,
-            detail: t.detail,
-            price: Number(t.price),
-            cost: Number(t.cost),
-            profit: Number(t.profit),
-            paid: Number(t.paid),
-            method: t.method,
-            status: t.status,
-            dueDate: t.due_date,
-            renewalDate: t.renewal_date || t.due_date,
-            totalDurationDays: t.total_duration_days,
-            accountEmail: t.account_email,
-            accountPass: t.account_pass,
-            accountProfile: t.account_profile,
-            supplier: t.supplier,
-            warrantyCount: t.warranty_count,
-            warrantyStatus: t.warranty_status,
-            remainingDaysAtPause: t.remaining_days_at_pause
-          }));
-        }
+      if (supabase) {
+        try {
+          const { data: trxData, error: trxErr } = await supabase.from('transactions').select('*').order('date', { ascending: false });
+          if (!trxErr && trxData) {
+            transactions = trxData.map(t => ({
+              id: t.id,
+              date: t.date,
+              client: t.client,
+              phone: t.phone,
+              unit: t.unit,
+              unitName: t.unit_name,
+              detail: t.detail,
+              price: Number(t.price),
+              cost: Number(t.cost),
+              profit: Number(t.profit),
+              paid: Number(t.paid),
+              method: t.method,
+              status: t.status,
+              dueDate: t.due_date,
+              renewalDate: t.renewal_date || t.due_date,
+              totalDurationDays: t.total_duration_days,
+              accountEmail: t.account_email,
+              accountPass: t.account_pass,
+              accountProfile: t.account_profile,
+              supplier: t.supplier,
+              warrantyCount: t.warranty_count,
+              warrantyStatus: t.warranty_status,
+              remainingDaysAtPause: t.remaining_days_at_pause
+            }));
+          }
 
-        const { data: expData, error: expErr } = await supabase.from('expenses').select('*').order('created_at', { ascending: false });
-        if (!expErr && expData) {
-          expenses = expData.map(e => ({
-            id: e.id,
-            date: e.date,
-            desc: e.description,
-            amount: Number(e.amount),
-            unit: e.unit,
-            method: e.method
-          }));
+          const { data: expData, error: expErr } = await supabase.from('expenses').select('*').order('date', { ascending: false });
+          if (!expErr && expData) {
+            expenses = expData.map(e => ({
+              id: e.id,
+              date: e.date,
+              desc: e.description,
+              amount: Number(e.amount),
+              unit: e.unit,
+              method: e.method
+            }));
+          }
+        } catch (err) {
+          console.warn("Supabase fetch failed, fallback to local:", err);
         }
-      } catch (err) {
-        console.warn("Offline/Local mode:", err);
+      } else {
+        // Fallback local memory jika belum konek
+        const localTrx = localStorage.getItem('nami_local_trx');
+        const localExp = localStorage.getItem('nami_local_exp');
+        if (localTrx) transactions = JSON.parse(localTrx);
+        if (localExp) expenses = JSON.parse(localExp);
       }
       renderApp();
+    }
+
+    function syncLocalStorage() {
+      if (!supabase) {
+        localStorage.setItem('nami_local_trx', JSON.stringify(transactions));
+        localStorage.setItem('nami_local_exp', JSON.stringify(expenses));
+      }
     }
 
     // RENDER UTAMA
@@ -1292,7 +1320,7 @@
       radarList.innerHTML = '';
 
       let radarCount = 0;
-      const today = new Date("2026-11-10");
+      const today = new Date();
 
       transactions.forEach((t) => {
         const sisa = Math.max(0, t.price - t.paid);
@@ -1303,7 +1331,6 @@
         if (t.method === 'BCA') totalCashBCA += t.paid;
         if (t.method === 'QRIS') totalCashQRIS += t.paid;
 
-        // Cek Radar Renewal (Mengacu pada tanggal renewal follow-up)
         let diffRenewalDays = 999;
         const refDate = t.renewalDate || t.dueDate;
         if (refDate && refDate !== '2099-12-31') {
@@ -1448,11 +1475,10 @@
       renderDailyRecap();
     }
 
-    // HITUNG & TAMPILKAN PROFIT KOTOR & BERSIH PER HARI (REKAP HARIAN)
     function renderDailyRecap() {
       let selectedDate = document.getElementById('rekapFilterDate').value;
       if (!selectedDate) {
-        selectedDate = "2026-11-10"; // Default hari ini
+        selectedDate = new Date().toISOString().split('T')[0];
         document.getElementById('rekapFilterDate').value = selectedDate;
       }
 
@@ -1464,7 +1490,6 @@
       const logList = document.getElementById('dailyTrxLogList');
       logList.innerHTML = '';
 
-      // Hitung dari transaksi yang ordernya terjadi pada tanggal ini
       transactions.forEach(t => {
         if (t.date === selectedDate) {
           dGross += t.price;
@@ -1486,7 +1511,6 @@
         }
       });
 
-      // Hitung pengeluaran kerja yang terjadi pada tanggal ini
       expenses.forEach(e => {
         if (e.date === selectedDate) {
           dExpense += e.amount;
@@ -1506,8 +1530,8 @@
         logList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:12px;">Tidak ada transaksi atau pengeluaran pada tanggal ${selectedDate}.</div>`;
       }
 
-      const dGrossProfit = dGross - dCost; // Profit Kotor Hari Ini (Harga Jual - Modal)
-      const dNetProfit = dCashIn - dCost - dExpense; // Profit Bersih Riil Hari Ini
+      const dGrossProfit = dGross - dCost;
+      const dNetProfit = dCashIn - dCost - dExpense;
 
       document.getElementById('dailyGross').innerText = formatRupiah(dGross);
       document.getElementById('dailyCost').innerText = formatRupiah(dCost + dExpense);
@@ -1515,11 +1539,10 @@
       document.getElementById('dailyNetProfit').innerText = formatRupiah(dNetProfit);
     }
 
-    // FORM TRANSAKSI DENGAN FITUR BACKDATE & SEPARASI TANGGAL
     function openNewTrxModal(unitType = 'apk') {
       document.getElementById('editTrxId').value = "";
       document.getElementById('modalTrxTitle').innerText = unitType === 'apk' ? "+ Catat Order Nami APK 🍓" : "+ Catat Transaksi Baru";
-      document.getElementById('formTrxDate').value = new Date().toISOString().split('T')[0]; // Default hari ini tapi bisa diubah
+      document.getElementById('formTrxDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('formTrxUnit').value = unitType;
       document.getElementById('formTrxClient').value = "";
       document.getElementById('formTrxPhone').value = "";
@@ -1610,7 +1633,6 @@
         paid: paid,
         method: method,
         due_date: dueDate,
-        renewal_date: renewalDate,
         status: status,
         account_email: email,
         account_pass: pass,
@@ -1678,11 +1700,11 @@
         showToast(`Pesanan ${trxId} tanggal ${orderDate} berhasil dicatat!`);
       }
 
+      syncLocalStorage();
       closeModal('modalTrx');
       renderApp();
     }
 
-    // MODAL GARANSI (MULTI-CLAIM LOGIC)
     function openWarrantyModal(id) {
       const t = transactions.find(x => x.id === id);
       if (!t) return;
@@ -1723,7 +1745,6 @@
       d.setDate(d.getDate() + (t.remainingDaysAtPause || 30));
       t.dueDate = d.toISOString().split('T')[0];
 
-      // Reset renewal follow-up ke H-3 sebelum expired baru
       const r = new Date(t.dueDate);
       r.setDate(r.getDate() - 3);
       t.renewalDate = r.toISOString().split('T')[0];
@@ -1736,7 +1757,6 @@
       if (supabase) {
         await supabase.from('transactions').update({
           due_date: t.dueDate,
-          renewal_date: t.renewalDate,
           account_email: t.accountEmail,
           account_pass: t.accountPass,
           account_profile: t.accountProfile,
@@ -1744,12 +1764,12 @@
         }).eq('id', t.id);
       }
 
+      syncLocalStorage();
       closeModal('modalWarranty');
       renderApp();
-      showToast(`Akun baru aktif! Expired diperpanjang ke ${t.dueDate} & Renewal ke ${t.renewalDate}.`);
+      showToast(`Akun baru aktif! Expired diperpanjang ke ${t.dueDate}.`);
     }
 
-    // MODAL REFUND PRORATA
     function openRefundFromWarranty() {
       const id = document.getElementById('warrantyTrxId').value;
       closeModal('modalWarranty');
@@ -1823,6 +1843,7 @@
         method: expPayload.method
       });
 
+      syncLocalStorage();
       closeModal('modalRefund');
       renderApp();
       showToast(`Refund ${formatRupiah(refund)} berhasil dicatat ke pengeluaran!`);
@@ -1839,7 +1860,6 @@
       d.setDate(d.getDate() + 30);
       t.dueDate = d.toISOString().split('T')[0];
 
-      // Renewal otomatis H-3 sebelum expired baru
       const r = new Date(t.dueDate);
       r.setDate(r.getDate() - 3);
       t.renewalDate = r.toISOString().split('T')[0];
@@ -1852,7 +1872,6 @@
       if (supabase) {
         supabase.from('transactions').update({
           due_date: t.dueDate,
-          renewal_date: t.renewalDate,
           cost: t.cost,
           profit: t.profit,
           status: "Lunas",
@@ -1860,8 +1879,9 @@
         }).eq('id', t.id);
       }
 
+      syncLocalStorage();
       renderApp();
-      showToast(`Akun ${t.client} diperpanjang s/d Expired: ${t.dueDate} (Renewal: ${t.renewalDate})!`);
+      showToast(`Akun ${t.client} diperpanjang s/d Expired: ${t.dueDate}!`);
     }
 
     function quickPay(id) {
@@ -1870,6 +1890,7 @@
         t.paid = t.price;
         t.status = "Lunas";
         if (supabase) supabase.from('transactions').update({ paid: t.price, status: "Lunas" }).eq('id', t.id);
+        syncLocalStorage();
         showToast(`Pesanan ${t.client} berhasil dilunasi!`);
         renderApp();
       }
@@ -1880,7 +1901,6 @@
       renderApp();
     }
 
-    // FORM PENGELUARAN
     function openNewExpenseModal() {
       document.getElementById('formExpDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('formExpDesc').value = "";
@@ -1908,13 +1928,13 @@
       }
 
       expenses.unshift({ id: expId, date: expDate, desc: desc, amount: amount, unit: unit, method: method });
+      syncLocalStorage();
 
       closeModal('modalExpense');
       renderApp();
       showToast("Pengeluaran kerja disimpan!");
     }
 
-    // MODAL HAPUS
     function promptDelete(type, id, name) {
       pendingDeleteType = type;
       pendingDeleteId = id;
@@ -1932,6 +1952,7 @@
         expenses = expenses.filter(e => e.id !== pendingDeleteId);
         showToast("Pengeluaran berhasil dihapus.");
       }
+      syncLocalStorage();
       closeModal('modalConfirmDelete');
       renderApp();
     });
@@ -1968,6 +1989,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      initSupabase();
       fetchSupabaseData();
     });
   </script>
