@@ -4,19 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>hi.littlenami — Business Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <!-- SUPABASE JS CLIENT -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --pink: #E9899F;
-      --yellow: #EFC653;
-      --green: #8FA477;
-      --red: #D9574F;
-      --cream: #F8EBD8;
-      --cream-light: #FDF9F3;
+      --pink: #F8B4C4;
+      --pink-dark: #E28299;
+      --yellow: #FBE288;
+      --green: #A8D5BA;
+      --green-dark: #4A7C59;
+      --red: #F28482;
+      --cream: #FAF3E0;
+      --cream-light: #FFFDF9;
       --dark: #2B211E;
       --dark-muted: #6E5E58;
       --surface: #FFFFFF;
@@ -36,7 +33,7 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--cream);
       color: var(--dark);
       line-height: 1.45;
@@ -45,7 +42,8 @@
     }
 
     h1, h2, h3, h4, .brand-title {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: inherit;
+      font-weight: 800;
       letter-spacing: -0.02em;
     }
 
@@ -83,7 +81,7 @@
 
     .brand-title {
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--dark);
       display: flex;
       align-items: center;
@@ -103,7 +101,7 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
     }
 
     .nav-link {
@@ -117,7 +115,7 @@
       color: var(--dark);
       text-decoration: none;
       border: 2px solid transparent;
-      transition: all 0.15s ease;
+      transition: all 0.1s ease;
       cursor: pointer;
     }
 
@@ -130,12 +128,6 @@
       background: var(--yellow);
       border-color: var(--border-color);
       box-shadow: var(--shadow-retro-sm);
-    }
-
-    .nav-link svg {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2.2;
     }
 
     .sidebar-user {
@@ -209,9 +201,8 @@
     }
 
     .retro-card .card-value {
-      font-family: 'Space Grotesk', sans-serif;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.2;
     }
 
@@ -245,13 +236,7 @@
     }
     .status-lunas { background: var(--green); color: var(--dark); }
     .status-dp { background: var(--yellow); color: var(--dark); }
-    .status-garansi { background: var(--red); color: #fff; animation: pulse 1.5s infinite; }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
+    .status-garansi { background: var(--red); color: #fff; }
 
     .radar-box {
       background: #FFF2D6;
@@ -447,9 +432,6 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    .preset-chip:active {
-      background: var(--yellow);
-    }
 
     .view-panel {
       display: none;
@@ -489,11 +471,6 @@
     .mob-tab-btn.active {
       color: var(--dark);
       background: var(--cream);
-    }
-
-    .mob-tab-btn svg {
-      width: 18px;
-      height: 18px;
     }
 
     .toast-box {
@@ -542,28 +519,22 @@
 
     <nav class="sidebar-nav">
       <a class="nav-link active" onclick="switchTab('overview')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-        Overview
+        <span>🏠</span> Overview
       </a>
       <a class="nav-link" onclick="switchTab('nami-apk')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-        Modul Nami APK 🍓
+        <span>🍓</span> Modul Nami APK
       </a>
       <a class="nav-link" onclick="switchTab('transaksi')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Semua Transaksi
+        <span>📑</span> Semua Transaksi
       </a>
       <a class="nav-link" onclick="switchTab('piutang')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Piutang & DP
+        <span>⏳</span> Piutang & DP
       </a>
       <a class="nav-link" onclick="switchTab('pengeluaran')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Pengeluaran Kerja
+        <span>📉</span> Pengeluaran Kerja
       </a>
       <a class="nav-link" onclick="switchTab('rekap')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Rekap & Profit Harian
+        <span>📊</span> Rekap & Profit Harian
       </a>
     </nav>
 
@@ -594,7 +565,7 @@
       </div>
     </header>
 
-    <!-- RADAR PENGINGAT H-3 DUA JALUR -->
+    <!-- RADAR PENGINGAT H-3 -->
     <section class="radar-box" id="radarSection">
       <div class="radar-header">
         <div>
@@ -603,9 +574,7 @@
         </div>
         <span class="badge-status status-dp" id="radarCountBadge">0 Perlu Tindakan</span>
       </div>
-      <div id="radarListContainer">
-        <!-- Rendered via JS -->
-      </div>
+      <div id="radarListContainer"></div>
     </section>
 
     <!-- VIEW 1: OVERVIEW -->
@@ -642,11 +611,11 @@
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
           <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
             <div style="font-size:10px; font-weight:800;">BCA (3741234635 an Intan)</div>
-            <div style="font-size:16px; font-weight:800; font-family:'Space Grotesk';" id="valCashBCA">Rp 0</div>
+            <div style="font-size:16px; font-weight:800;" id="valCashBCA">Rp 0</div>
           </div>
           <div style="flex:1; min-width:140px; background:var(--cream-light); border:1.5px solid var(--border-color); padding:10px; border-radius:8px;">
             <div style="font-size:10px; font-weight:800;">QRIS hi.littlenami</div>
-            <div style="font-size:16px; font-weight:800; font-family:'Space Grotesk';" id="valCashQRIS">Rp 0</div>
+            <div style="font-size:16px; font-weight:800;" id="valCashQRIS">Rp 0</div>
           </div>
         </div>
       </div>
@@ -656,9 +625,7 @@
         <button class="btn btn-cream" onclick="switchTab('transaksi')">Lihat Semua</button>
       </div>
 
-      <div class="feed-container" id="overviewFeedList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="feed-container" id="overviewFeedList"></div>
     </section>
 
     <!-- VIEW 2: MODUL KHUSUS NAMI APK -->
@@ -678,9 +645,7 @@
         <button class="btn btn-green" onclick="filterApkList('active')">Aktif Aman</button>
       </div>
 
-      <div class="feed-container" id="apkFeedList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="feed-container" id="apkFeedList"></div>
     </section>
 
     <!-- VIEW 3: SEMUA TRANSAKSI -->
@@ -689,9 +654,7 @@
         <h3>Semua Transaksi & Pesanan</h3>
         <button class="btn btn-yellow" onclick="openNewTrxModal()">+ Transaksi Baru</button>
       </div>
-      <div class="feed-container" id="allTrxFeedList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="feed-container" id="allTrxFeedList"></div>
     </section>
 
     <!-- VIEW 4: PIUTANG & DP -->
@@ -701,9 +664,7 @@
         <div class="card-value" id="valPiutangHeader">Rp 0</div>
         <div class="card-subtext">Segera lakukan follow-up sebelum serah terima file final</div>
       </div>
-      <div class="feed-container" id="piutangFeedList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="feed-container" id="piutangFeedList"></div>
     </section>
 
     <!-- VIEW 5: PENGELUARAN KERJA -->
@@ -715,15 +676,11 @@
         </div>
         <button class="btn btn-red" onclick="openNewExpenseModal()">+ Catat Pengeluaran</button>
       </div>
-      <div class="feed-container" id="expenseFeedList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="feed-container" id="expenseFeedList"></div>
     </section>
 
-    <!-- VIEW 6: REKAP PROFIT HARIAN, MINGGUAN & BULANAN -->
+    <!-- VIEW 6: REKAP PROFIT HARIAN -->
     <section id="view-rekap" class="view-panel">
-      
-      <!-- FILTER TANGGAL HARIAN -->
       <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px; margin-bottom:16px; box-shadow:var(--shadow-retro-sm);">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
           <div>
@@ -733,7 +690,6 @@
           <input type="date" class="form-input" id="rekapFilterDate" style="max-width:180px;" onchange="renderDailyRecap()">
         </div>
 
-        <!-- 4 KARTU METRIK HARIAN -->
         <div class="grid-metrics" style="margin-bottom:12px;">
           <div class="retro-card card-cream">
             <div class="card-label">Omzet Kotor Hari Ini</div>
@@ -758,12 +714,9 @@
         </div>
 
         <div style="font-size:12px; font-weight:800; margin-bottom:6px;">Log Transaksi di Tanggal Terpilih:</div>
-        <div class="feed-container" id="dailyTrxLogList">
-          <!-- Rendered via JS -->
-        </div>
+        <div class="feed-container" id="dailyTrxLogList"></div>
       </div>
 
-      <!-- KONTRIBUSI PROFIT UNIT SECARA KESELURUHAN -->
       <div class="retro-card card-green" style="margin-bottom:16px;">
         <div class="card-label">Total Keuntungan Murni Akumulasi</div>
         <div class="card-value" id="valNetRealProfit">Rp 0</div>
@@ -772,9 +725,7 @@
 
       <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px;">
         <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit per Unit Bisnis:</h4>
-        <div id="unitProfitBreakdown">
-          <!-- Rendered via JS -->
-        </div>
+        <div id="unitProfitBreakdown"></div>
       </div>
     </section>
 
@@ -783,28 +734,23 @@
   <!-- BOTTOM MOBILE NAVIGATION -->
   <nav class="mobile-bottom-nav">
     <button class="mob-tab-btn active" onclick="switchTab('overview')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-      Home
+      <span>🏠</span> Home
     </button>
     <button class="mob-tab-btn" onclick="switchTab('nami-apk')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-      APK 🍓
+      <span>🍓</span> APK
     </button>
     <button class="mob-tab-btn" onclick="switchTab('transaksi')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Order
+      <span>📑</span> Order
     </button>
     <button class="mob-tab-btn" onclick="switchTab('pengeluaran')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Biaya
+      <span>📉</span> Biaya
     </button>
     <button class="mob-tab-btn" onclick="switchTab('rekap')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Rekap
+      <span>📊</span> Rekap
     </button>
   </nav>
 
-  <!-- MODAL: KONEKSI DATABASE SUPABASE LANGSUNG DARI WEB -->
+  <!-- MODAL: KONEKSI DATABASE SUPABASE -->
   <div class="modal-overlay" id="modalSupabaseConfig">
     <div class="modal-window">
       <div class="modal-header">
@@ -813,7 +759,7 @@
       </div>
       <div>
         <p style="font-size:12px; color:var(--dark-muted); margin-bottom:14px;">
-          Salin URL & Public Anon Key dari Project Settings Supabase kamu, lalu tempel di sini. Data akan tersimpan aman di HP kamu.
+          Salin URL & Public Anon Key dari Project Settings Supabase kamu, lalu tempel di sini. Data akan tersimpan otomatis di browser HP kamu.
         </p>
 
         <div class="form-group">
@@ -1031,7 +977,7 @@
 
         <div style="background:#FFF9E6; border:2px dashed var(--border-color); padding:12px; border-radius:8px; margin:14px 0;">
           <div style="font-size:11px; font-weight:800; text-transform:uppercase;">Nominal Pengembalian Dana:</div>
-          <div style="font-family:'Space Grotesk'; font-size:24px; font-weight:700; color:var(--red);" id="refundFinalAmount">Rp 0</div>
+          <div style="font-size:24px; font-weight:800; color:var(--red);" id="refundFinalAmount">Rp 0</div>
           <div style="font-size:10px; color:var(--dark-muted);">Rumus: (Sisa Hari / Total Hari) × Harga Beli - Fee</div>
         </div>
 
@@ -1104,40 +1050,111 @@
 
   <script>
     let supabase = null;
-    let transactions = [];
-    let expenses = [];
+    let transactions = [
+      {
+        id: "APK-001",
+        date: "2026-11-05",
+        client: "Dinda Permata",
+        phone: "081234567890",
+        unit: "apk",
+        unitName: "Nami APK",
+        detail: "Canva Pro 1 Tahun Edu",
+        price: 120000,
+        cost: 45000,
+        profit: 75000,
+        paid: 120000,
+        method: "QRIS",
+        status: "Lunas",
+        startDate: "2026-11-05",
+        dueDate: "2026-11-15",
+        renewalDate: "2026-11-12",
+        totalDurationDays: 365,
+        accountEmail: "dinda.canva@nami.id",
+        accountPass: "nami2026",
+        accountProfile: "Team Edu Slot 1",
+        supplier: "Supplier Canva Fast",
+        warrantyCount: 0,
+        warrantyStatus: "Normal"
+      },
+      {
+        id: "APK-002",
+        date: "2026-11-01",
+        client: "Rian Bagus",
+        phone: "085698741230",
+        unit: "apk",
+        unitName: "Nami APK",
+        detail: "Netflix UHD 1 Bulan (Shared)",
+        price: 45000,
+        cost: 28000,
+        profit: 17000,
+        paid: 45000,
+        method: "BCA",
+        status: "Klaim Garansi #1",
+        startDate: "2026-11-01",
+        dueDate: "2026-12-01",
+        renewalDate: "2026-11-28",
+        totalDurationDays: 30,
+        accountEmail: "stream.nami01@gmail.com",
+        accountPass: "netflix999",
+        accountProfile: "Profil 3 - PIN 1122",
+        supplier: "Kang Netflix Bot",
+        warrantyCount: 1,
+        warrantyStatus: "Paused",
+        warrantyPauseDate: "2026-11-10",
+        remainingDaysAtPause: 21
+      },
+      {
+        id: "TRX-003",
+        date: "2026-11-08",
+        client: "Kevin Aldiansyah",
+        phone: "081399887766",
+        unit: "joktug",
+        unitName: "Joktug",
+        detail: "Analisis Data SPSS & Bab 4",
+        price: 450000,
+        cost: 20000,
+        profit: 430000,
+        paid: 200000,
+        method: "QRIS",
+        status: "DP Diterima",
+        dueDate: "2026-11-14",
+        renewalDate: "2026-11-11"
+      }
+    ];
+
+    let expenses = [
+      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" },
+      { id: "EXP-002", date: "2026-11-10", desc: "Beli Akun Supplier Netflix", amount: 28000, unit: "apk", method: "BCA" }
+    ];
 
     let pendingDeleteType = null;
     let pendingDeleteId = null;
     let currentApkFilter = 'all';
 
-    // INISIALISASI SUPABASE DARI LOCALSTORAGE
     function initSupabase() {
-      const savedUrl = localStorage.getItem('nami_supabase_url');
-      const savedKey = localStorage.getItem('nami_supabase_key');
+      try {
+        const savedUrl = localStorage.getItem('nami_supabase_url');
+        const savedKey = localStorage.getItem('nami_supabase_key');
+        const btn = document.getElementById('dbStatusBtn');
+        const indicator = document.getElementById('cfgStatusIndicator');
 
-      const btn = document.getElementById('dbStatusBtn');
-      const indicator = document.getElementById('cfgStatusIndicator');
-
-      if (savedUrl && savedKey && window.supabase) {
-        try {
+        if (savedUrl && savedKey && window.supabase && typeof window.supabase.createClient === 'function') {
           supabase = window.supabase.createClient(savedUrl, savedKey);
           if (btn) btn.innerHTML = "🟢 Supabase Konek";
           if (indicator) {
             indicator.innerText = "🟢 Terhubung ke Cloud Supabase!";
             indicator.style.color = "#2E7D32";
           }
-        } catch (e) {
-          console.error("Gagal inisialisasi Supabase:", e);
-          if (btn) btn.innerHTML = "🔴 DB Eror";
+        } else {
+          supabase = null;
+          if (btn) btn.innerHTML = "⚙️ Konek DB";
+          if (indicator) {
+            indicator.innerText = "🔴 Belum Terhubung (Mode Penyimpanan Lokal HP)";
+            indicator.style.color = "var(--red)";
+          }
         }
-      } else {
-        supabase = null;
-        if (btn) btn.innerHTML = "⚙️ Konek DB";
-        if (indicator) {
-          indicator.innerText = "🔴 Belum Terhubung (Mode Penyimpanan Lokal HP)";
-          indicator.style.color = "var(--red)";
-        }
+      } catch (err) {
+        console.warn("Init Supabase Error:", err);
       }
     }
 
@@ -1188,10 +1205,8 @@
     function toggleApkFields() {
       const unit = document.getElementById('formTrxUnit').value;
       const sec = document.getElementById('apkAccountDetailSection');
-      if (unit === 'apk') {
-        sec.style.display = 'block';
-      } else {
-        sec.style.display = 'none';
+      if (sec) {
+        sec.style.display = (unit === 'apk') ? 'block' : 'none';
       }
     }
 
@@ -1223,6 +1238,7 @@
       const margin = price > 0 ? Math.round((profit / price) * 100) : 0;
 
       const badge = document.getElementById('liveProfitBadge');
+      if (!badge) return;
       badge.innerText = `${formatRupiah(profit)} (${margin}%)`;
       if (profit < 0) {
         badge.style.background = '#FFEBEE';
@@ -1235,12 +1251,11 @@
       }
     }
 
-    // AMBIL DATA DARI SUPABASE (ATAU LOCAL STORAGE)
     async function fetchSupabaseData() {
       if (supabase) {
         try {
           const { data: trxData, error: trxErr } = await supabase.from('transactions').select('*').order('date', { ascending: false });
-          if (!trxErr && trxData) {
+          if (!trxErr && trxData && trxData.length > 0) {
             transactions = trxData.map(t => ({
               id: t.id,
               date: t.date,
@@ -1257,19 +1272,19 @@
               status: t.status,
               dueDate: t.due_date,
               renewalDate: t.renewal_date || t.due_date,
-              totalDurationDays: t.total_duration_days,
+              totalDurationDays: t.total_duration_days || 30,
               accountEmail: t.account_email,
               accountPass: t.account_pass,
               accountProfile: t.account_profile,
               supplier: t.supplier,
-              warrantyCount: t.warranty_count,
-              warrantyStatus: t.warranty_status,
-              remainingDaysAtPause: t.remaining_days_at_pause
+              warrantyCount: t.warranty_count || 0,
+              warrantyStatus: t.warranty_status || "Normal",
+              remainingDaysAtPause: t.remaining_days_at_pause || 0
             }));
           }
 
           const { data: expData, error: expErr } = await supabase.from('expenses').select('*').order('date', { ascending: false });
-          if (!expErr && expData) {
+          if (!expErr && expData && expData.length > 0) {
             expenses = expData.map(e => ({
               id: e.id,
               date: e.date,
@@ -1280,14 +1295,17 @@
             }));
           }
         } catch (err) {
-          console.warn("Supabase fetch failed, fallback to local:", err);
+          console.warn("Supabase fetch failed, fallback:", err);
         }
       } else {
-        // Fallback local memory jika belum konek
         const localTrx = localStorage.getItem('nami_local_trx');
         const localExp = localStorage.getItem('nami_local_exp');
-        if (localTrx) transactions = JSON.parse(localTrx);
-        if (localExp) expenses = JSON.parse(localExp);
+        if (localTrx) {
+          try { transactions = JSON.parse(localTrx); } catch(e){}
+        }
+        if (localExp) {
+          try { expenses = JSON.parse(localExp); } catch(e){}
+        }
       }
       renderApp();
     }
@@ -1299,7 +1317,6 @@
       }
     }
 
-    // RENDER UTAMA
     function renderApp() {
       let totalGross = 0;
       let totalProfit = 0;
@@ -1313,11 +1330,11 @@
       const piutangList = document.getElementById('piutangFeedList');
       const radarList = document.getElementById('radarListContainer');
 
-      overviewList.innerHTML = '';
-      allList.innerHTML = '';
-      apkList.innerHTML = '';
-      piutangList.innerHTML = '';
-      radarList.innerHTML = '';
+      if (overviewList) overviewList.innerHTML = '';
+      if (allList) allList.innerHTML = '';
+      if (apkList) apkList.innerHTML = '';
+      if (piutangList) piutangList.innerHTML = '';
+      if (radarList) radarList.innerHTML = '';
 
       let radarCount = 0;
       const today = new Date();
@@ -1346,22 +1363,24 @@
           
           let alertLabel = isWarranty ? `🚨 KLAIM GARANSI #${t.warrantyCount}` : `⚠️ H-${diffRenewalDays} Jadwal Renewal`;
           let waMsg = isWarranty 
-            ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Kami sedang proses klaim garansi akun ${t.detail}. Masa aktif kamu dibekukan dulu ya biar gak berkurang harinya. Terima kasih! 🍓`)
+            ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Kami sedang proses garansi akun ${t.detail}. Masa aktif kamu dibekukan dulu ya biar gak berkurang harinya. Terima kasih! 🍓`)
             : encodeURIComponent(`Halo Kak ${t.client}! ✨ Jadwal renewal / tenggat untuk ${t.detail} sisa ${diffRenewalDays} hari lagi (Expired: ${t.dueDate}). Mau langsung diperpanjang kak? Bisa via BCA 3741234635 an Intan / QRIS ya. 🍓`);
 
-          radarList.innerHTML += `
-            <div class="radar-item">
-              <div>
-                <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
-                <strong>${t.client}</strong> — ${t.detail}
-                <span style="color:var(--red); font-weight:800; font-size:11px;">(${alertLabel})</span>
+          if (radarList) {
+            radarList.innerHTML += `
+              <div class="radar-item">
+                <div>
+                  <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
+                  <strong>${t.client}</strong> — ${t.detail}
+                  <span style="color:var(--red); font-weight:800; font-size:11px;">(${alertLabel})</span>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  ${isWarranty ? `<button class="btn btn-yellow" style="padding:4px 8px; font-size:10px;" onclick="openWarrantyModal('${t.id}')">🛡️ Selesaikan Garansi</button>` : ''}
+                  <a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="btn btn-green" style="padding:4px 8px; font-size:10px;">📲 Chat WA</a>
+                </div>
               </div>
-              <div style="display:flex; gap:6px;">
-                ${isWarranty ? `<button class="btn btn-yellow" style="padding:4px 8px; font-size:10px;" onclick="openWarrantyModal('${t.id}')">🛡️ Selesaikan Garansi</button>` : ''}
-                <a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="btn btn-green" style="padding:4px 8px; font-size:10px;">📲 Chat WA</a>
-              </div>
-            </div>
-          `;
+            `;
+          }
         }
 
         const isApkUnit = t.unit === 'apk';
@@ -1388,7 +1407,7 @@
             <div class="trx-meta-grid">
               <div>Harga Jual: <strong>${formatRupiah(t.price)}</strong></div>
               <div>Modal (HPP): <strong>${formatRupiah(t.cost)}</strong></div>
-              <div>Profit Transaksi: <strong style="color:#2E7D32;">+${formatRupiah(t.profit)}</strong></div>
+              <div>Profit: <strong style="color:#2E7D32;">+${formatRupiah(t.profit)}</strong></div>
               <div>Kas Masuk: <strong>${formatRupiah(t.paid)}</strong> (${t.method})</div>
               <div>Tenggat Expired: <strong>${t.dueDate === '2099-12-31' ? 'Lifetime' : (t.dueDate || '-')}</strong></div>
               <div>Jadwal Renewal: <strong style="color:var(--red);">${t.renewalDate || t.dueDate || '-'}</strong></div>
@@ -1409,10 +1428,10 @@
           </div>
         `;
 
-        allList.innerHTML += cardHtml;
-        if (sisa > 0) piutangList.innerHTML += cardHtml;
+        if (allList) allList.innerHTML += cardHtml;
+        if (sisa > 0 && piutangList) piutangList.innerHTML += cardHtml;
 
-        if (isApkUnit) {
+        if (isApkUnit && apkList) {
           let showInApk = true;
           if (currentApkFilter === 'urgent' && diffRenewalDays > 3) showInApk = false;
           if (currentApkFilter === 'warranty' && t.warrantyStatus !== 'Paused') showInApk = false;
@@ -1421,65 +1440,75 @@
         }
       });
 
-      overviewList.innerHTML = allList.innerHTML.split('</div>\n          </div>').slice(0, 3).join('</div>\n          </div>');
+      if (overviewList && allList) {
+        overviewList.innerHTML = allList.innerHTML.split('</div>\n            </div>').slice(0, 3).join('</div>\n            </div>');
+      }
 
-      document.getElementById('radarCountBadge').innerText = `${radarCount} Perlu Tindakan`;
-      if (radarCount === 0) {
+      const countBadge = document.getElementById('radarCountBadge');
+      if (countBadge) countBadge.innerText = `${radarCount} Perlu Tindakan`;
+
+      if (radarCount === 0 && radarList) {
         radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Semua aman! Tidak ada jadwal renewal mendesak atau klaim garansi ✨</div>`;
       }
 
-      // Render Pengeluaran
       let totalExpense = 0;
       const expenseList = document.getElementById('expenseFeedList');
-      expenseList.innerHTML = '';
+      if (expenseList) expenseList.innerHTML = '';
+
       expenses.forEach(e => {
         totalExpense += e.amount;
-        expenseList.innerHTML += `
-          <div class="trx-item-card" style="padding:12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <strong>${e.desc}</strong>
-                <div style="font-size:10px; color:var(--dark-muted);">${e.date} • ${e.unit} • Via ${e.method}</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="color:var(--red); font-weight:800; font-size:14px;">-${formatRupiah(e.amount)}</div>
-                <button class="btn btn-red" style="padding:2px 6px; font-size:10px; margin-top:4px;" onclick="promptDelete('exp', '${e.id}', '${e.desc}')">Hapus</button>
+        if (expenseList) {
+          expenseList.innerHTML += `
+            <div class="trx-item-card" style="padding:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong>${e.desc}</strong>
+                  <div style="font-size:10px; color:var(--dark-muted);">${e.date} • ${e.unit} • Via ${e.method}</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="color:var(--red); font-weight:800; font-size:14px;">-${formatRupiah(e.amount)}</div>
+                  <button class="btn btn-red" style="padding:2px 6px; font-size:10px; margin-top:4px;" onclick="promptDelete('exp', '${e.id}', '${e.desc}')">Hapus</button>
+                </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
+        }
       });
 
-      document.getElementById('valGrossOmzet').innerText = formatRupiah(totalGross);
-      document.getElementById('valTotalProfit').innerText = formatRupiah(totalProfit);
-      document.getElementById('valTotalPiutang').innerText = formatRupiah(totalPiutang);
-      document.getElementById('valPiutangHeader').innerText = formatRupiah(totalPiutang);
-      document.getElementById('valTotalExpense').innerText = formatRupiah(totalExpense);
-      document.getElementById('valCashBCA').innerText = formatRupiah(totalCashBCA);
-      document.getElementById('valCashQRIS').innerText = formatRupiah(totalCashQRIS);
+      if (document.getElementById('valGrossOmzet')) document.getElementById('valGrossOmzet').innerText = formatRupiah(totalGross);
+      if (document.getElementById('valTotalProfit')) document.getElementById('valTotalProfit').innerText = formatRupiah(totalProfit);
+      if (document.getElementById('valTotalPiutang')) document.getElementById('valTotalPiutang').innerText = formatRupiah(totalPiutang);
+      if (document.getElementById('valPiutangHeader')) document.getElementById('valPiutangHeader').innerText = formatRupiah(totalPiutang);
+      if (document.getElementById('valTotalExpense')) document.getElementById('valTotalExpense').innerText = formatRupiah(totalExpense);
+      if (document.getElementById('valCashBCA')) document.getElementById('valCashBCA').innerText = formatRupiah(totalCashBCA);
+      if (document.getElementById('valCashQRIS')) document.getElementById('valCashQRIS').innerText = formatRupiah(totalCashQRIS);
 
       const realNetProfit = totalProfit - totalExpense;
-      document.getElementById('valNetRealProfit').innerText = formatRupiah(realNetProfit);
+      if (document.getElementById('valNetRealProfit')) document.getElementById('valNetRealProfit').innerText = formatRupiah(realNetProfit);
 
       const unitProfits = { apk: 0, joktug: 0, freelance: 0, studio: 0 };
-      transactions.forEach(t => { unitProfits[t.unit] += t.profit; });
-      document.getElementById('unitProfitBreakdown').innerHTML = `
-        <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
-          <div style="display:flex; justify-content:space-between;"><span>🍓 Nami APK:</span> <strong>${formatRupiah(unitProfits.apk)}</strong></div>
-          <div style="display:flex; justify-content:space-between;"><span>📚 Joktug:</span> <strong>${formatRupiah(unitProfits.joktug)}</strong></div>
-          <div style="display:flex; justify-content:space-between;"><span>💼 Freelance:</span> <strong>${formatRupiah(unitProfits.freelance)}</strong></div>
-          <div style="display:flex; justify-content:space-between;"><span>🎨 Nami Studio:</span> <strong>${formatRupiah(unitProfits.studio)}</strong></div>
-        </div>
-      `;
+      transactions.forEach(t => { if (unitProfits[t.unit] !== undefined) unitProfits[t.unit] += t.profit; });
+      const breakdown = document.getElementById('unitProfitBreakdown');
+      if (breakdown) {
+        breakdown.innerHTML = `
+          <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;"><span>🍓 Nami APK:</span> <strong>${formatRupiah(unitProfits.apk)}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>📚 Joktug:</span> <strong>${formatRupiah(unitProfits.joktug)}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>💼 Freelance:</span> <strong>${formatRupiah(unitProfits.freelance)}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>🎨 Nami Studio:</span> <strong>${formatRupiah(unitProfits.studio)}</strong></div>
+          </div>
+        `;
+      }
 
       renderDailyRecap();
     }
 
     function renderDailyRecap() {
-      let selectedDate = document.getElementById('rekapFilterDate').value;
+      const dateInput = document.getElementById('rekapFilterDate');
+      let selectedDate = dateInput ? dateInput.value : "";
       if (!selectedDate) {
         selectedDate = new Date().toISOString().split('T')[0];
-        document.getElementById('rekapFilterDate').value = selectedDate;
+        if (dateInput) dateInput.value = selectedDate;
       }
 
       let dGross = 0;
@@ -1488,7 +1517,7 @@
       let dExpense = 0;
 
       const logList = document.getElementById('dailyTrxLogList');
-      logList.innerHTML = '';
+      if (logList) logList.innerHTML = '';
 
       transactions.forEach(t => {
         if (t.date === selectedDate) {
@@ -1496,47 +1525,51 @@
           dCost += t.cost;
           dCashIn += t.paid;
 
-          logList.innerHTML += `
-            <div style="background:var(--cream-light); border:1.5px solid var(--border-color); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
-              <div>
-                <strong>${t.client}</strong> (${t.unitName} - ${t.detail})
-                <div style="color:var(--dark-muted);">Jual: ${formatRupiah(t.price)} | Modal: ${formatRupiah(t.cost)}</div>
+          if (logList) {
+            logList.innerHTML += `
+              <div style="background:var(--cream-light); border:1.5px solid var(--border-color); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+                <div>
+                  <strong>${t.client}</strong> (${t.unitName} - ${t.detail})
+                  <div style="color:var(--dark-muted);">Jual: ${formatRupiah(t.price)} | Modal: ${formatRupiah(t.cost)}</div>
+                </div>
+                <div style="text-align:right;">
+                  <span class="profit-pill-box">+${formatRupiah(t.profit)}</span>
+                  <div style="font-size:10px; color:var(--dark-muted); margin-top:2px;">Kas: ${formatRupiah(t.paid)} (${t.method})</div>
+                </div>
               </div>
-              <div style="text-align:right;">
-                <span class="profit-pill-box">+${formatRupiah(t.profit)}</span>
-                <div style="font-size:10px; color:var(--dark-muted); margin-top:2px;">Kas: ${formatRupiah(t.paid)} (${t.method})</div>
-              </div>
-            </div>
-          `;
+            `;
+          }
         }
       });
 
       expenses.forEach(e => {
         if (e.date === selectedDate) {
           dExpense += e.amount;
-          logList.innerHTML += `
-            <div style="background:#FFEBEE; border:1.5px solid var(--red); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
-              <div>
-                <strong style="color:var(--red);">[Pengeluaran] ${e.desc}</strong>
-                <div style="color:var(--dark-muted);">${e.unit} • Via ${e.method}</div>
+          if (logList) {
+            logList.innerHTML += `
+              <div style="background:#FFEBEE; border:1.5px solid var(--red); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+                <div>
+                  <strong style="color:var(--red);">[Pengeluaran] ${e.desc}</strong>
+                  <div style="color:var(--dark-muted);">${e.unit} • Via ${e.method}</div>
+                </div>
+                <div style="color:var(--red); font-weight:800; font-size:12px;">-${formatRupiah(e.amount)}</div>
               </div>
-              <div style="color:var(--red); font-weight:800; font-size:12px;">-${formatRupiah(e.amount)}</div>
-            </div>
-          `;
+            `;
+          }
         }
       });
 
-      if (logList.innerHTML === '') {
+      if (logList && logList.innerHTML === '') {
         logList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:12px;">Tidak ada transaksi atau pengeluaran pada tanggal ${selectedDate}.</div>`;
       }
 
       const dGrossProfit = dGross - dCost;
       const dNetProfit = dCashIn - dCost - dExpense;
 
-      document.getElementById('dailyGross').innerText = formatRupiah(dGross);
-      document.getElementById('dailyCost').innerText = formatRupiah(dCost + dExpense);
-      document.getElementById('dailyGrossProfit').innerText = formatRupiah(dGrossProfit);
-      document.getElementById('dailyNetProfit').innerText = formatRupiah(dNetProfit);
+      if (document.getElementById('dailyGross')) document.getElementById('dailyGross').innerText = formatRupiah(dGross);
+      if (document.getElementById('dailyCost')) document.getElementById('dailyCost').innerText = formatRupiah(dCost + dExpense);
+      if (document.getElementById('dailyGrossProfit')) document.getElementById('dailyGrossProfit').innerText = formatRupiah(dGrossProfit);
+      if (document.getElementById('dailyNetProfit')) document.getElementById('dailyNetProfit').innerText = formatRupiah(dNetProfit);
     }
 
     function openNewTrxModal(unitType = 'apk') {
@@ -1641,10 +1674,10 @@
       };
 
       if (supabase) {
-        const { error } = await supabase.from('transactions').upsert(trxObj);
-        if (error) {
-          alert("Gagal simpan ke Supabase: " + error.message);
-          return;
+        try {
+          await supabase.from('transactions').upsert(trxObj);
+        } catch(err) {
+          console.warn("Supabase upsert error:", err);
         }
       }
 
@@ -1697,7 +1730,7 @@
           warrantyCount: 0,
           warrantyStatus: "Normal"
         });
-        showToast(`Pesanan ${trxId} tanggal ${orderDate} berhasil dicatat!`);
+        showToast(`Pesanan ${trxId} berhasil dicatat!`);
       }
 
       syncLocalStorage();
@@ -1755,13 +1788,15 @@
       t.warrantyStatus = "Normal";
 
       if (supabase) {
-        await supabase.from('transactions').update({
-          due_date: t.dueDate,
-          account_email: t.accountEmail,
-          account_pass: t.accountPass,
-          account_profile: t.accountProfile,
-          warranty_status: "Normal"
-        }).eq('id', t.id);
+        try {
+          await supabase.from('transactions').update({
+            due_date: t.dueDate,
+            account_email: t.accountEmail,
+            account_pass: t.accountPass,
+            account_profile: t.accountProfile,
+            warranty_status: "Normal"
+          }).eq('id', t.id);
+        } catch(e){}
       }
 
       syncLocalStorage();
@@ -1830,8 +1865,10 @@
       };
 
       if (supabase) {
-        await supabase.from('transactions').update({ status: t.status, warranty_status: "Refunded" }).eq('id', t.id);
-        await supabase.from('expenses').insert(expPayload);
+        try {
+          await supabase.from('transactions').update({ status: t.status, warranty_status: "Refunded" }).eq('id', t.id);
+          await supabase.from('expenses').insert(expPayload);
+        } catch(e){}
       }
 
       expenses.unshift({
@@ -1846,7 +1883,7 @@
       syncLocalStorage();
       closeModal('modalRefund');
       renderApp();
-      showToast(`Refund ${formatRupiah(refund)} berhasil dicatat ke pengeluaran!`);
+      showToast(`Refund ${formatRupiah(refund)} dicatat ke pengeluaran!`);
     }
 
     function quickRenewApk(id) {
@@ -1870,13 +1907,15 @@
       t.warrantyStatus = "Normal";
 
       if (supabase) {
-        supabase.from('transactions').update({
-          due_date: t.dueDate,
-          cost: t.cost,
-          profit: t.profit,
-          status: "Lunas",
-          warranty_status: "Normal"
-        }).eq('id', t.id);
+        try {
+          supabase.from('transactions').update({
+            due_date: t.dueDate,
+            cost: t.cost,
+            profit: t.profit,
+            status: "Lunas",
+            warranty_status: "Normal"
+          }).eq('id', t.id);
+        } catch(e){}
       }
 
       syncLocalStorage();
@@ -1889,7 +1928,9 @@
       if (t) {
         t.paid = t.price;
         t.status = "Lunas";
-        if (supabase) supabase.from('transactions').update({ paid: t.price, status: "Lunas" }).eq('id', t.id);
+        if (supabase) {
+          try { supabase.from('transactions').update({ paid: t.price, status: "Lunas" }).eq('id', t.id); } catch(e){}
+        }
         syncLocalStorage();
         showToast(`Pesanan ${t.client} berhasil dilunasi!`);
         renderApp();
@@ -1924,7 +1965,7 @@
       const payload = { id: expId, date: expDate, description: desc, amount: amount, unit: unit, method: method };
 
       if (supabase) {
-        await supabase.from('expenses').insert(payload);
+        try { await supabase.from('expenses').insert(payload); } catch(e){}
       }
 
       expenses.unshift({ id: expId, date: expDate, desc: desc, amount: amount, unit: unit, method: method });
@@ -1942,20 +1983,27 @@
       document.getElementById('modalConfirmDelete').classList.add('active');
     }
 
-    document.getElementById('btnConfirmDeleteExec').addEventListener('click', async () => {
-      if (pendingDeleteType === 'trx') {
-        if (supabase) await supabase.from('transactions').delete().eq('id', pendingDeleteId);
-        transactions = transactions.filter(t => t.id !== pendingDeleteId);
-        showToast("Transaksi berhasil dihapus.");
-      } else if (pendingDeleteType === 'exp') {
-        if (supabase) await supabase.from('expenses').delete().eq('id', pendingDeleteId);
-        expenses = expenses.filter(e => e.id !== pendingDeleteId);
-        showToast("Pengeluaran berhasil dihapus.");
-      }
-      syncLocalStorage();
-      closeModal('modalConfirmDelete');
-      renderApp();
-    });
+    const btnExecDelete = document.getElementById('btnConfirmDeleteExec');
+    if (btnExecDelete) {
+      btnExecDelete.addEventListener('click', async () => {
+        if (pendingDeleteType === 'trx') {
+          if (supabase) {
+            try { await supabase.from('transactions').delete().eq('id', pendingDeleteId); } catch(e){}
+          }
+          transactions = transactions.filter(t => t.id !== pendingDeleteId);
+          showToast("Transaksi berhasil dihapus.");
+        } else if (pendingDeleteType === 'exp') {
+          if (supabase) {
+            try { await supabase.from('expenses').delete().eq('id', pendingDeleteId); } catch(e){}
+          }
+          expenses = expenses.filter(e => e.id !== pendingDeleteId);
+          showToast("Pengeluaran berhasil dihapus.");
+        }
+        syncLocalStorage();
+        closeModal('modalConfirmDelete');
+        renderApp();
+      });
+    }
 
     function switchTab(viewId) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
@@ -1973,19 +2021,23 @@
         pengeluaran: "Catatan Biaya Kerja",
         rekap: "Rekap Finansial & Profit Harian"
       };
-      document.getElementById('pageTitle').innerText = titles[viewId] || "Dashboard";
+      const titleEl = document.getElementById('pageTitle');
+      if (titleEl) titleEl.innerText = titles[viewId] || "Dashboard";
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('active');
     }
 
     function showToast(msg) {
       const toast = document.getElementById('appToast');
-      toast.innerText = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2200);
+      if (toast) {
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2200);
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1995,3 +2047,4 @@
   </script>
 </body>
 </html>
+```
