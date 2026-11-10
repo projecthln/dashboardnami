@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <!-- SUPABASE JS CLIENT -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --pink: #E9899F;
@@ -47,7 +49,6 @@
       letter-spacing: -0.02em;
     }
 
-    /* SIDEBAR DESKTOP */
     .app-sidebar {
       width: 250px;
       background: var(--surface);
@@ -158,7 +159,6 @@
       font-weight: 800;
     }
 
-    /* MAIN CONTENT */
     .app-main {
       flex: 1;
       margin-left: 250px;
@@ -177,7 +177,6 @@
       margin-bottom: 20px;
     }
 
-    /* METRICS */
     .grid-metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -222,7 +221,6 @@
       margin-top: 4px;
     }
 
-    /* BADGES */
     .badge-unit {
       display: inline-block;
       padding: 3px 8px;
@@ -248,7 +246,6 @@
     .status-lunas { background: var(--green); color: var(--dark); }
     .status-dp { background: var(--yellow); color: var(--dark); }
     .status-garansi { background: var(--red); color: #fff; animation: pulse 1.5s infinite; }
-    .status-expired { background: #6E5E58; color: #fff; }
 
     @keyframes pulse {
       0% { opacity: 1; }
@@ -256,7 +253,6 @@
       100% { opacity: 1; }
     }
 
-    /* RADAR ALERT BOX */
     .radar-box {
       background: #FFF2D6;
       border: 2.5px solid var(--border-color);
@@ -288,7 +284,6 @@
       margin-bottom: 6px;
     }
 
-    /* FEED & CARDS */
     .feed-container {
       display: flex;
       flex-direction: column;
@@ -345,7 +340,6 @@
       font-size: 11px;
     }
 
-    /* BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -372,7 +366,6 @@
     .btn-red { background: var(--red); color: #fff; }
     .btn-cream { background: var(--cream); color: var(--dark); }
 
-    /* FORM & MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -438,7 +431,6 @@
       border-color: var(--red);
     }
 
-    /* PRESET BUTTONS */
     .preset-btn-group {
       display: flex;
       gap: 6px;
@@ -466,7 +458,6 @@
       display: block;
     }
 
-    /* MOBILE NAV */
     .mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -572,7 +563,7 @@
       </a>
       <a class="nav-link" onclick="switchTab('rekap')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Rekap & Profit
+        Rekap & Profit Harian
       </a>
     </nav>
 
@@ -603,8 +594,8 @@
     <section class="radar-box" id="radarSection">
       <div class="radar-header">
         <div>
-          <strong style="font-size: 12px; color: var(--dark);">🔔 RADAR PENGINGAT H-3 & GARANSI AKTIF</strong>
-          <p style="font-size: 10px; color: var(--dark-muted);">Renewal APK pelanggan & deadline tugas klien</p>
+          <strong style="font-size: 12px; color: var(--dark);">🔔 RADAR PENGINGAT RENEWAL & DEADLINE (H-3)</strong>
+          <p style="font-size: 10px; color: var(--dark-muted);">Pelanggan perlu ditagih perpanjangan akun atau deadline tugas</p>
         </div>
         <span class="badge-status status-dp" id="radarCountBadge">0 Perlu Tindakan</span>
       </div>
@@ -666,17 +657,16 @@
       </div>
     </section>
 
-    <!-- VIEW 2: MODUL KHUSUS NAMI APK (RENEWAL, GARANSI, REFUND) -->
+    <!-- VIEW 2: MODUL KHUSUS NAMI APK -->
     <section id="view-nami-apk" class="view-panel">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
         <div>
           <h3>Modul Nami APK 🍓</h3>
-          <p style="font-size:11px; color:var(--dark-muted);">Kelola detail akun, perpanjangan custom, klaim garansi, & kalkulator refund</p>
+          <p style="font-size:11px; color:var(--dark-muted);">Kelola detail akun, perpanjangan, klaim garansi, & kalkulator refund</p>
         </div>
         <button class="btn btn-pink" onclick="openNewTrxModal('apk')">+ Order Nami APK Baru</button>
       </div>
 
-      <!-- FILTER STATUS KHUSUS APK -->
       <div style="display:flex; gap:8px; margin-bottom:14px; overflow-x:auto; padding-bottom:4px;">
         <button class="btn btn-cream" onclick="filterApkList('all')">Semua Akun</button>
         <button class="btn btn-yellow" onclick="filterApkList('urgent')">Urgent Renewal H-3</button>
@@ -726,16 +716,58 @@
       </div>
     </section>
 
-    <!-- VIEW 6: REKAP & PROFIT -->
+    <!-- VIEW 6: REKAP PROFIT HARIAN, MINGGUAN & BULANAN -->
     <section id="view-rekap" class="view-panel">
+      
+      <!-- FILTER TANGGAL HARIAN -->
+      <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px; margin-bottom:16px; box-shadow:var(--shadow-retro-sm);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <div>
+            <h3 style="font-size:16px;">🗓️ Rekapitulasi Finansial Harian</h3>
+            <p style="font-size:11px; color:var(--dark-muted);">Pilih tanggal untuk melihat profit kotor & profit bersih hari tersebut</p>
+          </div>
+          <input type="date" class="form-input" id="rekapFilterDate" style="max-width:180px;" onchange="renderDailyRecap()">
+        </div>
+
+        <!-- 4 KARTU METRIK HARIAN -->
+        <div class="grid-metrics" style="margin-bottom:12px;">
+          <div class="retro-card card-cream">
+            <div class="card-label">Omzet Kotor Hari Ini</div>
+            <div class="card-value" id="dailyGross">Rp 0</div>
+            <div class="card-subtext">Total transaksi tercatat</div>
+          </div>
+          <div class="retro-card card-yellow">
+            <div class="card-label">Modal / HPP Hari Ini</div>
+            <div class="card-value" id="dailyCost">Rp 0</div>
+            <div class="card-subtext">Modal supplier order hari ini</div>
+          </div>
+          <div class="retro-card card-pink">
+            <div class="card-label">Profit Kotor Hari Ini</div>
+            <div class="card-value" id="dailyGrossProfit">Rp 0</div>
+            <div class="card-subtext">Harga Jual - Modal (HPP)</div>
+          </div>
+          <div class="retro-card card-green">
+            <div class="card-label">Profit Bersih Riil Hari Ini</div>
+            <div class="card-value" id="dailyNetProfit">Rp 0</div>
+            <div class="card-subtext">Kas Masuk - Pengeluaran/Modal</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px; font-weight:800; margin-bottom:6px;">Log Transaksi di Tanggal Terpilih:</div>
+        <div class="feed-container" id="dailyTrxLogList">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- KONTRIBUSI PROFIT UNIT SECARA KESELURUHAN -->
       <div class="retro-card card-green" style="margin-bottom:16px;">
-        <div class="card-label">Total Keuntungan Murni (Net Profit)</div>
+        <div class="card-label">Total Keuntungan Murni Akumulasi</div>
         <div class="card-value" id="valNetRealProfit">Rp 0</div>
-        <div class="card-subtext">Total Profit Bersih Orderan dikurangi Pengeluaran Kerja</div>
+        <div class="card-subtext">Total Profit Bersih Semua Orderan dikurangi Seluruh Biaya Kerja</div>
       </div>
 
       <div style="background:var(--surface); border:2.5px solid var(--border-color); border-radius:var(--radius-md); padding:16px;">
-        <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit per Unit:</h4>
+        <h4 style="margin-bottom:10px;">Rekap Kontribusi Profit per Unit Bisnis:</h4>
         <div id="unitProfitBreakdown">
           <!-- Rendered via JS -->
         </div>
@@ -758,17 +790,17 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       Order
     </button>
-    <button class="mob-tab-btn" onclick="switchTab('piutang')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Piutang
-    </button>
     <button class="mob-tab-btn" onclick="switchTab('pengeluaran')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       Biaya
     </button>
+    <button class="mob-tab-btn" onclick="switchTab('rekap')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Rekap
+    </button>
   </nav>
 
-  <!-- MODAL: INPUT / EDIT TRANSAKSI -->
+  <!-- MODAL: INPUT / EDIT TRANSAKSI (TANGGAL ORDER & PEMISAHAN EXPIRED VS RENEWAL) -->
   <div class="modal-overlay" id="modalTrx">
     <div class="modal-window">
       <div class="modal-header">
@@ -777,6 +809,12 @@
       </div>
       <div>
         <input type="hidden" id="editTrxId">
+
+        <!-- TANGGAL ORDER FLEKSIBEL (BISA BACKDATE) -->
+        <div class="form-group">
+          <label class="form-label">Tanggal Order Masuk (Bisa Diubah jika Lupa Catat)</label>
+          <input type="date" class="form-input" id="formTrxDate">
+        </div>
 
         <div class="form-group">
           <label class="form-label">Pilih Unit Bisnis</label>
@@ -830,7 +868,7 @@
           </div>
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-            <span style="font-size:11px; font-weight:700;">Estimasi Profit Bersih:</span>
+            <span style="font-size:11px; font-weight:700;">Estimasi Profit Kotor (Jual - Modal):</span>
             <div class="profit-pill-box" id="liveProfitBadge">Rp 0 (0%)</div>
           </div>
         </div>
@@ -849,18 +887,25 @@
           </div>
         </div>
 
-        <!-- TANGGAL RENEWAL DENGAN PRESET CEPAT -->
-        <div class="form-group">
-          <label class="form-label">Masa Aktif / Tanggal Tenggat Renewal</label>
-          <input type="date" class="form-input" id="formTrxDueDate">
-          <div class="preset-btn-group">
-            <span class="preset-chip" onclick="setPresetDays(7)">+7 Hari</span>
-            <span class="preset-chip" onclick="setPresetDays(14)">+14 Hari</span>
-            <span class="preset-chip" onclick="setPresetDays(30)">+30 Hari (1 Bln)</span>
-            <span class="preset-chip" onclick="setPresetDays(90)">+3 Bulan</span>
-            <span class="preset-chip" onclick="setPresetDays(365)">+1 Tahun</span>
-            <span class="preset-chip" onclick="setLifetime()">Lifetime</span>
+        <!-- TANGGAL EXPIRED (DURASI ABIS) VS TANGGAL RENEWAL (FOLLOW-UP) -->
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Tenggat Durasi Habis (Expired)</label>
+            <input type="date" class="form-input" id="formTrxDueDate" onchange="autoSetRenewalDate()">
           </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Jadwal Renewal (Follow-up)</label>
+            <input type="date" class="form-input" id="formTrxRenewalDate">
+          </div>
+        </div>
+
+        <div class="preset-btn-group" style="margin-bottom:12px;">
+          <span class="preset-chip" onclick="setPresetDays(7)">+7 Hari</span>
+          <span class="preset-chip" onclick="setPresetDays(14)">+14 Hari</span>
+          <span class="preset-chip" onclick="setPresetDays(30)">+30 Hari (1 Bln)</span>
+          <span class="preset-chip" onclick="setPresetDays(90)">+3 Bulan</span>
+          <span class="preset-chip" onclick="setPresetDays(365)">+1 Tahun</span>
+          <span class="preset-chip" onclick="setLifetime()">Lifetime</span>
         </div>
 
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
@@ -871,7 +916,7 @@
     </div>
   </div>
 
-  <!-- MODAL: KLAIM GARANSI & PERGANTIAN AKUN (MULTI-CLAIM) -->
+  <!-- MODAL: KLAIM GARANSI & PERGANTIAN AKUN -->
   <div class="modal-overlay" id="modalWarranty">
     <div class="modal-window">
       <div class="modal-header">
@@ -881,7 +926,7 @@
       <div>
         <input type="hidden" id="warrantyTrxId">
         <p style="font-size:12px; color:var(--dark-muted); margin-bottom:12px;">
-          Masa aktif akun klien saat ini otomatis dibekukan (pause) agar klien tidak rugi hari selama perbaikan.
+          Masa aktif akun klien saat ini otomatis dibekukan (pause) agar klien tidak rugi hari selama proses klaim.
         </p>
 
         <div class="form-group">
@@ -898,7 +943,7 @@
             <input type="text" class="form-input" id="warrantyNewPass" placeholder="Password Baru">
           </div>
           <div class="form-group">
-            <input type="text" class="form-input" id="warrantyNewProfile" placeholder="Profil & PIN Baru (contoh: Profil 1, PIN 4321)">
+            <input type="text" class="form-input" id="warrantyNewProfile" placeholder="Profil & PIN Baru">
           </div>
           <button class="btn btn-green" style="width:100%; justify-content:center;" onclick="submitWarrantyReplace()">
             ✅ Kirim Akun Baru & Lanjutkan Durasi
@@ -915,7 +960,7 @@
     </div>
   </div>
 
-  <!-- MODAL: KALKULATOR REFUND STANDAR CALCULATOREFUND.SITE -->
+  <!-- MODAL: KALKULATOR REFUND PRORATA -->
   <div class="modal-overlay" id="modalRefund">
     <div class="modal-window">
       <div class="modal-header">
@@ -969,6 +1014,10 @@
       </div>
       <div>
         <div class="form-group">
+          <label class="form-label">Tanggal Pengeluaran</label>
+          <input type="date" class="form-input" id="formExpDate">
+        </div>
+        <div class="form-group">
           <label class="form-label">Keterangan Biaya</label>
           <input type="text" class="form-input" id="formExpDesc" placeholder="Misal: Kuota Internet / Turnitin / Replace Supplier">
         </div>
@@ -1016,7 +1065,16 @@
   <div class="toast-box" id="appToast">Notifikasi</div>
 
   <script>
-    // DATA TRANSAKSI LENGKAP DENGAN FIELD APK, GARANSI, & RENEWAL
+    // MASUKKAN KREDENSIAL SUPABASE ANDA DI SINI
+    const SUPABASE_URL = ""; 
+    const SUPABASE_ANON_KEY = "";
+    let supabase = null;
+
+    if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
+      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    // STATE TRANSAKSI
     let transactions = [
       {
         id: "APK-001",
@@ -1033,7 +1091,8 @@
         method: "QRIS",
         status: "Lunas",
         startDate: "2026-11-05",
-        dueDate: "2026-11-12", // Sisa 2 hari (H-2)
+        dueDate: "2026-11-15", // Expired akun
+        renewalDate: "2026-11-12", // Follow-up renewal H-3
         totalDurationDays: 365,
         accountEmail: "dinda.canva@nami.id",
         accountPass: "nami2026",
@@ -1058,6 +1117,7 @@
         status: "Klaim Garansi #1",
         startDate: "2026-11-01",
         dueDate: "2026-12-01",
+        renewalDate: "2026-11-28",
         totalDurationDays: 30,
         accountEmail: "stream.nami01@gmail.com",
         accountPass: "netflix999",
@@ -1082,28 +1142,14 @@
         paid: 200000,
         method: "QRIS",
         status: "DP Diterima",
-        dueDate: "2026-11-13" // H-3 Deadline
-      },
-      {
-        id: "TRX-004",
-        date: "2026-11-06",
-        client: "Baverly Florist",
-        phone: "082155443322",
-        unit: "studio",
-        unitName: "Nami Studio",
-        detail: "Branding Kit & Web Catalog",
-        price: 3000000,
-        cost: 350000,
-        profit: 2650000,
-        paid: 1500000,
-        method: "BCA",
-        status: "DP Diterima",
-        dueDate: "2026-11-28"
+        dueDate: "2026-11-14",
+        renewalDate: "2026-11-11" // H-3 Deadline
       }
     ];
 
     let expenses = [
-      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" }
+      { id: "EXP-001", date: "2026-11-09", desc: "Paket Kuota Kerja Kosan", amount: 150000, unit: "Umum", method: "BCA" },
+      { id: "EXP-002", date: "2026-11-10", desc: "Beli Akun Supplier Netflix", amount: 28000, unit: "apk", method: "BCA" }
     ];
 
     let pendingDeleteType = null;
@@ -1131,15 +1177,26 @@
       }
     }
 
-    // PRESET DAYS HANDLER
+    // OTOMATIS HITUNG RENEWAL H-3 DARI EXPIRED JIKA RENEWAL BELUM DIISI
+    function autoSetRenewalDate() {
+      const dueVal = document.getElementById('formTrxDueDate').value;
+      if (!dueVal || dueVal === '2099-12-31') return;
+      const d = new Date(dueVal);
+      d.setDate(d.getDate() - 3);
+      document.getElementById('formTrxRenewalDate').value = d.toISOString().split('T')[0];
+    }
+
     function setPresetDays(days) {
-      const d = new Date();
+      const orderDateVal = document.getElementById('formTrxDate').value || new Date().toISOString().split('T')[0];
+      const d = new Date(orderDateVal);
       d.setDate(d.getDate() + days);
       document.getElementById('formTrxDueDate').value = d.toISOString().split('T')[0];
+      autoSetRenewalDate();
     }
 
     function setLifetime() {
       document.getElementById('formTrxDueDate').value = "2099-12-31";
+      document.getElementById('formTrxRenewalDate').value = "";
     }
 
     function calculateLiveProfit() {
@@ -1153,10 +1210,65 @@
       if (profit < 0) {
         badge.style.background = '#FFEBEE';
         badge.style.color = '#C62828';
+        badge.style.borderColor = '#C62828';
       } else {
         badge.style.background = '#E8F5E9';
         badge.style.color = '#2E7D32';
+        badge.style.borderColor = '#2E7D32';
       }
+    }
+
+    // AMBIL DATA DARI SUPABASE JIKA TERHUBUNG
+    async function fetchSupabaseData() {
+      if (!supabase) {
+        renderApp();
+        return;
+      }
+      try {
+        const { data: trxData, error: trxErr } = await supabase.from('transactions').select('*').order('created_at', { ascending: false });
+        if (!trxErr && trxData) {
+          transactions = trxData.map(t => ({
+            id: t.id,
+            date: t.date,
+            client: t.client,
+            phone: t.phone,
+            unit: t.unit,
+            unitName: t.unit_name,
+            detail: t.detail,
+            price: Number(t.price),
+            cost: Number(t.cost),
+            profit: Number(t.profit),
+            paid: Number(t.paid),
+            method: t.method,
+            status: t.status,
+            dueDate: t.due_date,
+            renewalDate: t.renewal_date || t.due_date,
+            totalDurationDays: t.total_duration_days,
+            accountEmail: t.account_email,
+            accountPass: t.account_pass,
+            accountProfile: t.account_profile,
+            supplier: t.supplier,
+            warrantyCount: t.warranty_count,
+            warrantyStatus: t.warranty_status,
+            remainingDaysAtPause: t.remaining_days_at_pause
+          }));
+        }
+
+        const { data: expData, error: expErr } = await supabase.from('expenses').select('*').order('created_at', { ascending: false });
+        if (!expErr && expData) {
+          expenses = expData.map(e => ({
+            id: e.id,
+            date: e.date,
+            desc: e.description,
+            amount: Number(e.amount),
+            unit: e.unit,
+            method: e.method
+          }));
+        }
+      } catch (err) {
+        console.warn("Offline/Local mode:", err);
+      }
+      renderApp();
     }
 
     // RENDER UTAMA
@@ -1191,23 +1303,24 @@
         if (t.method === 'BCA') totalCashBCA += t.paid;
         if (t.method === 'QRIS') totalCashQRIS += t.paid;
 
-        let diffDays = 999;
-        if (t.dueDate) {
-          const due = new Date(t.dueDate);
-          diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+        // Cek Radar Renewal (Mengacu pada tanggal renewal follow-up)
+        let diffRenewalDays = 999;
+        const refDate = t.renewalDate || t.dueDate;
+        if (refDate && refDate !== '2099-12-31') {
+          const rDate = new Date(refDate);
+          diffRenewalDays = Math.ceil((rDate - today) / (1000 * 60 * 60 * 24));
         }
 
-        // Radar Alert (H-3 atau Garansi)
-        if (t.warrantyStatus === 'Paused' || (diffDays <= 3 && t.status !== 'Lunas Expired')) {
+        if (t.warrantyStatus === 'Paused' || (diffRenewalDays <= 3 && t.status !== 'Lunas Expired')) {
           radarCount++;
           const waPhone = cleanPhoneNumber(t.phone);
           const isWarranty = t.warrantyStatus === 'Paused';
           const isApk = t.unit === 'apk';
           
-          let alertLabel = isWarranty ? `🚨 KLAIM GARANSI #${t.warrantyCount}` : `⚠️ H-${diffDays} ${isApk ? 'RENEWAL' : 'DEADLINE'}`;
+          let alertLabel = isWarranty ? `🚨 KLAIM GARANSI #${t.warrantyCount}` : `⚠️ H-${diffRenewalDays} Jadwal Renewal`;
           let waMsg = isWarranty 
-            ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Kami sedang proses klaim akun ${t.detail} kamu ke supplier ya. Durasi otomatis kami freeze biar gak rugi hari. Terima kasih atas kesabarannya! 🍓`)
-            : encodeURIComponent(`Halo Kak ${t.client}! ✨ Pengingat ${t.detail} tersisa ${diffDays} hari lagi. Perpanjangan/pelunasan bisa via BCA 3741234635 an Intan / QRIS ya. Terima kasih! 🍓`);
+            ? encodeURIComponent(`Halo Kak ${t.client}! ✨ Kami sedang proses klaim garansi akun ${t.detail}. Masa aktif kamu dibekukan dulu ya biar gak berkurang harinya. Terima kasih! 🍓`)
+            : encodeURIComponent(`Halo Kak ${t.client}! ✨ Jadwal renewal / tenggat untuk ${t.detail} sisa ${diffRenewalDays} hari lagi (Expired: ${t.dueDate}). Mau langsung diperpanjang kak? Bisa via BCA 3741234635 an Intan / QRIS ya. 🍓`);
 
           radarList.innerHTML += `
             <div class="radar-item">
@@ -1224,7 +1337,6 @@
           `;
         }
 
-        // Template Kartu Transaksi
         const isApkUnit = t.unit === 'apk';
         const cardHtml = `
           <div class="trx-item-card">
@@ -1232,7 +1344,7 @@
               <div>
                 <span class="badge-unit badge-${t.unit}">${t.unitName}</span>
                 <strong style="font-size:14px; margin-left:4px;">${t.client}</strong>
-                <div style="font-size:11px; color:var(--dark-muted);">${t.detail}</div>
+                <div style="font-size:11px; color:var(--dark-muted);">${t.detail} • Order: <strong>${t.date}</strong></div>
               </div>
               <span class="badge-status ${t.warrantyStatus === 'Paused' ? 'status-garansi' : (t.status === 'Lunas' ? 'status-lunas' : 'status-dp')}">
                 ${t.warrantyStatus === 'Paused' ? `🛡️ Garansi #${t.warrantyCount} (Paused)` : t.status}
@@ -1247,12 +1359,12 @@
             ` : ''}
 
             <div class="trx-meta-grid">
-              <div>Harga: <strong>${formatRupiah(t.price)}</strong></div>
-              <div>Modal: <strong>${formatRupiah(t.cost)}</strong></div>
-              <div>Profit: <strong style="color:#2E7D32;">+${formatRupiah(t.profit)}</strong></div>
+              <div>Harga Jual: <strong>${formatRupiah(t.price)}</strong></div>
+              <div>Modal (HPP): <strong>${formatRupiah(t.cost)}</strong></div>
+              <div>Profit Transaksi: <strong style="color:#2E7D32;">+${formatRupiah(t.profit)}</strong></div>
               <div>Kas Masuk: <strong>${formatRupiah(t.paid)}</strong> (${t.method})</div>
-              <div>Sisa: <strong style="color:var(--red);">${formatRupiah(sisa)}</strong></div>
-              <div>Tenggat/Renewal: <strong>${t.dueDate === '2099-12-31' ? 'Lifetime' : (t.dueDate || '-')}</strong></div>
+              <div>Tenggat Expired: <strong>${t.dueDate === '2099-12-31' ? 'Lifetime' : (t.dueDate || '-')}</strong></div>
+              <div>Jadwal Renewal: <strong style="color:var(--red);">${t.renewalDate || t.dueDate || '-'}</strong></div>
             </div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
@@ -1273,13 +1385,11 @@
         allList.innerHTML += cardHtml;
         if (sisa > 0) piutangList.innerHTML += cardHtml;
 
-        // Modul Khusus APK Tab
         if (isApkUnit) {
           let showInApk = true;
-          if (currentApkFilter === 'urgent' && diffDays > 3) showInApk = false;
+          if (currentApkFilter === 'urgent' && diffRenewalDays > 3) showInApk = false;
           if (currentApkFilter === 'warranty' && t.warrantyStatus !== 'Paused') showInApk = false;
-          if (currentApkFilter === 'active' && (t.warrantyStatus === 'Paused' || diffDays <= 3)) showInApk = false;
-
+          if (currentApkFilter === 'active' && (t.warrantyStatus === 'Paused' || diffRenewalDays <= 3)) showInApk = false;
           if (showInApk) apkList.innerHTML += cardHtml;
         }
       });
@@ -1288,7 +1398,7 @@
 
       document.getElementById('radarCountBadge').innerText = `${radarCount} Perlu Tindakan`;
       if (radarCount === 0) {
-        radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Semua aman! Tidak ada akun bermasalah atau H-3 renewal ✨</div>`;
+        radarList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:6px;">Semua aman! Tidak ada jadwal renewal mendesak atau klaim garansi ✨</div>`;
       }
 
       // Render Pengeluaran
@@ -1334,6 +1444,242 @@
           <div style="display:flex; justify-content:space-between;"><span>🎨 Nami Studio:</span> <strong>${formatRupiah(unitProfits.studio)}</strong></div>
         </div>
       `;
+
+      renderDailyRecap();
+    }
+
+    // HITUNG & TAMPILKAN PROFIT KOTOR & BERSIH PER HARI (REKAP HARIAN)
+    function renderDailyRecap() {
+      let selectedDate = document.getElementById('rekapFilterDate').value;
+      if (!selectedDate) {
+        selectedDate = "2026-11-10"; // Default hari ini
+        document.getElementById('rekapFilterDate').value = selectedDate;
+      }
+
+      let dGross = 0;
+      let dCost = 0;
+      let dCashIn = 0;
+      let dExpense = 0;
+
+      const logList = document.getElementById('dailyTrxLogList');
+      logList.innerHTML = '';
+
+      // Hitung dari transaksi yang ordernya terjadi pada tanggal ini
+      transactions.forEach(t => {
+        if (t.date === selectedDate) {
+          dGross += t.price;
+          dCost += t.cost;
+          dCashIn += t.paid;
+
+          logList.innerHTML += `
+            <div style="background:var(--cream-light); border:1.5px solid var(--border-color); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+              <div>
+                <strong>${t.client}</strong> (${t.unitName} - ${t.detail})
+                <div style="color:var(--dark-muted);">Jual: ${formatRupiah(t.price)} | Modal: ${formatRupiah(t.cost)}</div>
+              </div>
+              <div style="text-align:right;">
+                <span class="profit-pill-box">+${formatRupiah(t.profit)}</span>
+                <div style="font-size:10px; color:var(--dark-muted); margin-top:2px;">Kas: ${formatRupiah(t.paid)} (${t.method})</div>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      // Hitung pengeluaran kerja yang terjadi pada tanggal ini
+      expenses.forEach(e => {
+        if (e.date === selectedDate) {
+          dExpense += e.amount;
+          logList.innerHTML += `
+            <div style="background:#FFEBEE; border:1.5px solid var(--red); padding:8px 12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+              <div>
+                <strong style="color:var(--red);">[Pengeluaran] ${e.desc}</strong>
+                <div style="color:var(--dark-muted);">${e.unit} • Via ${e.method}</div>
+              </div>
+              <div style="color:var(--red); font-weight:800; font-size:12px;">-${formatRupiah(e.amount)}</div>
+            </div>
+          `;
+        }
+      });
+
+      if (logList.innerHTML === '') {
+        logList.innerHTML = `<div style="font-size:11px; color:var(--dark-muted); text-align:center; padding:12px;">Tidak ada transaksi atau pengeluaran pada tanggal ${selectedDate}.</div>`;
+      }
+
+      const dGrossProfit = dGross - dCost; // Profit Kotor Hari Ini (Harga Jual - Modal)
+      const dNetProfit = dCashIn - dCost - dExpense; // Profit Bersih Riil Hari Ini
+
+      document.getElementById('dailyGross').innerText = formatRupiah(dGross);
+      document.getElementById('dailyCost').innerText = formatRupiah(dCost + dExpense);
+      document.getElementById('dailyGrossProfit').innerText = formatRupiah(dGrossProfit);
+      document.getElementById('dailyNetProfit').innerText = formatRupiah(dNetProfit);
+    }
+
+    // FORM TRANSAKSI DENGAN FITUR BACKDATE & SEPARASI TANGGAL
+    function openNewTrxModal(unitType = 'apk') {
+      document.getElementById('editTrxId').value = "";
+      document.getElementById('modalTrxTitle').innerText = unitType === 'apk' ? "+ Catat Order Nami APK 🍓" : "+ Catat Transaksi Baru";
+      document.getElementById('formTrxDate').value = new Date().toISOString().split('T')[0]; // Default hari ini tapi bisa diubah
+      document.getElementById('formTrxUnit').value = unitType;
+      document.getElementById('formTrxClient').value = "";
+      document.getElementById('formTrxPhone').value = "";
+      document.getElementById('formTrxDetail').value = "";
+      document.getElementById('formTrxPrice').value = "";
+      document.getElementById('formTrxCost').value = "";
+      document.getElementById('formTrxPaid').value = "";
+      document.getElementById('formTrxDueDate').value = "";
+      document.getElementById('formTrxRenewalDate').value = "";
+      document.getElementById('formApkEmail').value = "";
+      document.getElementById('formApkPass').value = "";
+      document.getElementById('formApkProfile').value = "";
+      document.getElementById('formApkSupplier').value = "";
+
+      toggleApkFields();
+      calculateLiveProfit();
+      document.getElementById('modalTrx').classList.add('active');
+    }
+
+    function openEditTrxModal(id) {
+      const t = transactions.find(x => x.id === id);
+      if (!t) return;
+
+      document.getElementById('editTrxId').value = t.id;
+      document.getElementById('modalTrxTitle').innerText = `✏️ Edit Transaksi (${t.id})`;
+      document.getElementById('formTrxDate').value = t.date || new Date().toISOString().split('T')[0];
+      document.getElementById('formTrxUnit').value = t.unit;
+      document.getElementById('formTrxClient').value = t.client;
+      document.getElementById('formTrxPhone').value = t.phone || "";
+      document.getElementById('formTrxDetail').value = t.detail;
+      document.getElementById('formTrxPrice').value = t.price;
+      document.getElementById('formTrxCost').value = t.cost;
+      document.getElementById('formTrxPaid').value = t.paid;
+      document.getElementById('formTrxMethod').value = t.method;
+      document.getElementById('formTrxDueDate').value = t.dueDate || "";
+      document.getElementById('formTrxRenewalDate').value = t.renewalDate || t.dueDate || "";
+
+      document.getElementById('formApkEmail').value = t.accountEmail || "";
+      document.getElementById('formApkPass').value = t.accountPass || "";
+      document.getElementById('formApkProfile').value = t.accountProfile || "";
+      document.getElementById('formApkSupplier').value = t.supplier || "";
+
+      toggleApkFields();
+      calculateLiveProfit();
+      document.getElementById('modalTrx').classList.add('active');
+    }
+
+    async function saveTransaction() {
+      const editId = document.getElementById('editTrxId').value;
+      const orderDate = document.getElementById('formTrxDate').value || new Date().toISOString().split('T')[0];
+      const unit = document.getElementById('formTrxUnit').value;
+      const client = document.getElementById('formTrxClient').value || "Klien Baru";
+      const phone = document.getElementById('formTrxPhone').value || "";
+      const detail = document.getElementById('formTrxDetail').value || "Layanan / Akun";
+      const price = Math.round(Number(document.getElementById('formTrxPrice').value) || 0);
+      const cost = Math.round(Number(document.getElementById('formTrxCost').value) || 0);
+      const paid = Math.round(Number(document.getElementById('formTrxPaid').value) || 0);
+      const method = document.getElementById('formTrxMethod').value;
+      const dueDate = document.getElementById('formTrxDueDate').value || null;
+      const renewalDate = document.getElementById('formTrxRenewalDate').value || dueDate;
+      const profit = price - cost;
+
+      const email = document.getElementById('formApkEmail').value;
+      const pass = document.getElementById('formApkPass').value;
+      const prof = document.getElementById('formApkProfile').value;
+      const supp = document.getElementById('formApkSupplier').value;
+
+      if (price <= 0) {
+        alert("Harga jual wajib diisi!");
+        return;
+      }
+
+      const unitMap = { apk: "Nami APK", joktug: "Joktug", freelance: "Freelance", studio: "Nami Studio" };
+      let status = paid >= price ? "Lunas" : (paid > 0 ? "DP Diterima" : "Belum Bayar");
+      const trxId = editId || `${unit.toUpperCase()}-${Date.now().toString().slice(-6)}`;
+
+      const trxObj = {
+        id: trxId,
+        date: orderDate,
+        client: client,
+        phone: phone,
+        unit: unit,
+        unit_name: unitMap[unit],
+        detail: detail,
+        price: price,
+        cost: cost,
+        profit: profit,
+        paid: paid,
+        method: method,
+        due_date: dueDate,
+        renewal_date: renewalDate,
+        status: status,
+        account_email: email,
+        account_pass: pass,
+        account_profile: prof,
+        supplier: supp
+      };
+
+      if (supabase) {
+        const { error } = await supabase.from('transactions').upsert(trxObj);
+        if (error) {
+          alert("Gagal simpan ke Supabase: " + error.message);
+          return;
+        }
+      }
+
+      if (editId) {
+        const item = transactions.find(x => x.id === editId);
+        if (item) {
+          item.date = orderDate;
+          item.unit = unit;
+          item.unitName = unitMap[unit];
+          item.client = client;
+          item.phone = phone;
+          item.detail = detail;
+          item.price = price;
+          item.cost = cost;
+          item.profit = profit;
+          item.paid = paid;
+          item.method = method;
+          item.dueDate = dueDate;
+          item.renewalDate = renewalDate;
+          item.status = status;
+          item.accountEmail = email;
+          item.accountPass = pass;
+          item.accountProfile = prof;
+          item.supplier = supp;
+          showToast(`Order ${editId} diperbarui!`);
+        }
+      } else {
+        transactions.unshift({
+          id: trxId,
+          date: orderDate,
+          client: client,
+          phone: phone,
+          unit: unit,
+          unitName: unitMap[unit],
+          detail: detail,
+          price: price,
+          cost: cost,
+          profit: profit,
+          paid: paid,
+          method: method,
+          dueDate: dueDate,
+          renewalDate: renewalDate,
+          status: status,
+          startDate: orderDate,
+          totalDurationDays: 30,
+          accountEmail: email,
+          accountPass: pass,
+          accountProfile: prof,
+          supplier: supp,
+          warrantyCount: 0,
+          warrantyStatus: "Normal"
+        });
+        showToast(`Pesanan ${trxId} tanggal ${orderDate} berhasil dicatat!`);
+      }
+
+      closeModal('modalTrx');
+      renderApp();
     }
 
     // MODAL GARANSI (MULTI-CLAIM LOGIC)
@@ -1349,11 +1695,10 @@
         t.warrantyStatus = 'Paused';
         t.warrantyPauseDate = new Date().toISOString().split('T')[0];
 
-        // Hitung sisa hari tersisa saat akun rusak
         const due = new Date(t.dueDate);
         const now = new Date();
         t.remainingDaysAtPause = Math.max(1, Math.ceil((due - now) / (1000 * 60 * 60 * 24)));
-        showToast(`Durasi akun ${t.client} berhasil di-pause (${t.remainingDaysAtPause} hari tersisa).`);
+        showToast(`Durasi akun ${t.client} dibekukan (Sisa ${t.remainingDaysAtPause} hari).`);
       }
 
       document.getElementById('warrantyCurrentStatus').innerText = `Klaim Ke-${t.warrantyCount} (Durasi Dibekukan: Sisa ${t.remainingDaysAtPause || 0} Hari)`;
@@ -1365,7 +1710,7 @@
       renderApp();
     }
 
-    function submitWarrantyReplace() {
+    async function submitWarrantyReplace() {
       const id = document.getElementById('warrantyTrxId').value;
       const t = transactions.find(x => x.id === id);
       if (!t) return;
@@ -1374,22 +1719,37 @@
       const newPass = document.getElementById('warrantyNewPass').value || t.accountPass;
       const newProf = document.getElementById('warrantyNewProfile').value || t.accountProfile;
 
-      // Unfreeze: Tanggal expired baru = hari ini + sisa hari tersisa
       const d = new Date();
       d.setDate(d.getDate() + (t.remainingDaysAtPause || 30));
       t.dueDate = d.toISOString().split('T')[0];
+
+      // Reset renewal follow-up ke H-3 sebelum expired baru
+      const r = new Date(t.dueDate);
+      r.setDate(r.getDate() - 3);
+      t.renewalDate = r.toISOString().split('T')[0];
 
       t.accountEmail = newEmail;
       t.accountPass = newPass;
       t.accountProfile = newProf;
       t.warrantyStatus = "Normal";
 
+      if (supabase) {
+        await supabase.from('transactions').update({
+          due_date: t.dueDate,
+          renewal_date: t.renewalDate,
+          account_email: t.accountEmail,
+          account_pass: t.accountPass,
+          account_profile: t.accountProfile,
+          warranty_status: "Normal"
+        }).eq('id', t.id);
+      }
+
       closeModal('modalWarranty');
       renderApp();
-      showToast(`Akun baru aktif! Tanggal renewal diperpanjang otomatis s/d ${t.dueDate}.`);
+      showToast(`Akun baru aktif! Expired diperpanjang ke ${t.dueDate} & Renewal ke ${t.renewalDate}.`);
     }
 
-    // MODAL REFUND PRORATA (STANDAR CALCULATOREFUND.SITE)
+    // MODAL REFUND PRORATA
     function openRefundFromWarranty() {
       const id = document.getElementById('warrantyTrxId').value;
       closeModal('modalWarranty');
@@ -1428,7 +1788,7 @@
       showToast("Teks refund tersalin ke clipboard!");
     }
 
-    function executeRefund() {
+    async function executeRefund() {
       const id = document.getElementById('refundTrxId').value;
       const t = transactions.find(x => x.id === id);
       const price = Number(document.getElementById('refundBuyPrice').value) || 0;
@@ -1440,165 +1800,68 @@
       t.status = "Dibatalkan / Refund";
       t.warrantyStatus = "Refunded";
 
-      expenses.unshift({
+      const expPayload = {
         id: `EXP-REF-${Date.now().toString().slice(-4)}`,
         date: new Date().toISOString().split('T')[0],
-        desc: `Refund Client ${t.client} (${t.detail})`,
+        description: `Refund Client ${t.client} (${t.detail})`,
         amount: refund,
         unit: "apk",
         method: t.method
+      };
+
+      if (supabase) {
+        await supabase.from('transactions').update({ status: t.status, warranty_status: "Refunded" }).eq('id', t.id);
+        await supabase.from('expenses').insert(expPayload);
+      }
+
+      expenses.unshift({
+        id: expPayload.id,
+        date: expPayload.date,
+        desc: expPayload.description,
+        amount: expPayload.amount,
+        unit: expPayload.unit,
+        method: expPayload.method
       });
 
       closeModal('modalRefund');
       renderApp();
-      showToast(`Refund ${formatRupiah(refund)} berhasil dicatat ke pengeluaran kas!`);
-    }
-
-    // FORM TRANSAKSI HANDLER
-    function openNewTrxModal(unitType = 'apk') {
-      document.getElementById('editTrxId').value = "";
-      document.getElementById('modalTrxTitle').innerText = unitType === 'apk' ? "+ Catat Order Nami APK 🍓" : "+ Catat Transaksi Baru";
-      document.getElementById('formTrxUnit').value = unitType;
-      document.getElementById('formTrxClient').value = "";
-      document.getElementById('formTrxPhone').value = "";
-      document.getElementById('formTrxDetail').value = "";
-      document.getElementById('formTrxPrice').value = "";
-      document.getElementById('formTrxCost').value = "";
-      document.getElementById('formTrxPaid').value = "";
-      document.getElementById('formTrxDueDate').value = "";
-      document.getElementById('formApkEmail').value = "";
-      document.getElementById('formApkPass').value = "";
-      document.getElementById('formApkProfile').value = "";
-      document.getElementById('formApkSupplier').value = "";
-
-      toggleApkFields();
-      calculateLiveProfit();
-      document.getElementById('modalTrx').classList.add('active');
-    }
-
-    function openEditTrxModal(id) {
-      const t = transactions.find(x => x.id === id);
-      if (!t) return;
-
-      document.getElementById('editTrxId').value = t.id;
-      document.getElementById('modalTrxTitle').innerText = `✏️ Edit Transaksi (${t.id})`;
-      document.getElementById('formTrxUnit').value = t.unit;
-      document.getElementById('formTrxClient').value = t.client;
-      document.getElementById('formTrxPhone').value = t.phone || "";
-      document.getElementById('formTrxDetail').value = t.detail;
-      document.getElementById('formTrxPrice').value = t.price;
-      document.getElementById('formTrxCost').value = t.cost;
-      document.getElementById('formTrxPaid').value = t.paid;
-      document.getElementById('formTrxMethod').value = t.method;
-      document.getElementById('formTrxDueDate').value = t.dueDate || "";
-
-      document.getElementById('formApkEmail').value = t.accountEmail || "";
-      document.getElementById('formApkPass').value = t.accountPass || "";
-      document.getElementById('formApkProfile').value = t.accountProfile || "";
-      document.getElementById('formApkSupplier').value = t.supplier || "";
-
-      toggleApkFields();
-      calculateLiveProfit();
-      document.getElementById('modalTrx').classList.add('active');
-    }
-
-    function saveTransaction() {
-      const editId = document.getElementById('editTrxId').value;
-      const unit = document.getElementById('formTrxUnit').value;
-      const client = document.getElementById('formTrxClient').value || "Klien Baru";
-      const phone = document.getElementById('formTrxPhone').value || "";
-      const detail = document.getElementById('formTrxDetail').value || "Layanan / Akun";
-      const price = Math.round(Number(document.getElementById('formTrxPrice').value) || 0);
-      const cost = Math.round(Number(document.getElementById('formTrxCost').value) || 0);
-      const paid = Math.round(Number(document.getElementById('formTrxPaid').value) || 0);
-      const method = document.getElementById('formTrxMethod').value;
-      const dueDate = document.getElementById('formTrxDueDate').value;
-      const profit = price - cost;
-
-      const email = document.getElementById('formApkEmail').value;
-      const pass = document.getElementById('formApkPass').value;
-      const prof = document.getElementById('formApkProfile').value;
-      const supp = document.getElementById('formApkSupplier').value;
-
-      if (price <= 0) {
-        alert("Harga jual wajib diisi!");
-        return;
-      }
-
-      const unitMap = { apk: "Nami APK", joktug: "Joktug", freelance: "Freelance", studio: "Nami Studio" };
-      let status = paid >= price ? "Lunas" : (paid > 0 ? "DP Diterima" : "Belum Bayar");
-
-      if (editId) {
-        const item = transactions.find(x => x.id === editId);
-        if (item) {
-          item.unit = unit;
-          item.unitName = unitMap[unit];
-          item.client = client;
-          item.phone = phone;
-          item.detail = detail;
-          item.price = price;
-          item.cost = cost;
-          item.profit = profit;
-          item.paid = paid;
-          item.method = method;
-          item.dueDate = dueDate;
-          item.status = status;
-          item.accountEmail = email;
-          item.accountPass = pass;
-          item.accountProfile = prof;
-          item.supplier = supp;
-          showToast(`Data ${editId} diperbarui!`);
-        }
-      } else {
-        const newId = `${unit.toUpperCase()}-00${transactions.length + 1}`;
-        transactions.unshift({
-          id: newId,
-          date: new Date().toISOString().split('T')[0],
-          client: client,
-          phone: phone,
-          unit: unit,
-          unitName: unitMap[unit],
-          detail: detail,
-          price: price,
-          cost: cost,
-          profit: profit,
-          paid: paid,
-          method: method,
-          dueDate: dueDate,
-          status: status,
-          startDate: new Date().toISOString().split('T')[0],
-          totalDurationDays: 30,
-          accountEmail: email,
-          accountPass: pass,
-          accountProfile: prof,
-          supplier: supp,
-          warrantyCount: 0,
-          warrantyStatus: "Normal"
-        });
-        showToast(`Pesanan ${newId} dicatat!`);
-      }
-
-      closeModal('modalTrx');
-      renderApp();
+      showToast(`Refund ${formatRupiah(refund)} berhasil dicatat ke pengeluaran!`);
     }
 
     function quickRenewApk(id) {
       const t = transactions.find(x => x.id === id);
       if (!t) return;
       
-      const newCost = prompt(`Perpanjang ${t.client} (${t.detail}). Masukkan modal supplier hari ini:`, t.cost);
+      const newCost = prompt(`Perpanjang ${t.client} (${t.detail}). Masukkan modal supplier baru:`, t.cost);
       if (newCost === null) return;
 
       const d = new Date(t.dueDate && t.dueDate !== '2099-12-31' ? t.dueDate : new Date());
       d.setDate(d.getDate() + 30);
       t.dueDate = d.toISOString().split('T')[0];
+
+      // Renewal otomatis H-3 sebelum expired baru
+      const r = new Date(t.dueDate);
+      r.setDate(r.getDate() - 3);
+      t.renewalDate = r.toISOString().split('T')[0];
+
       t.cost = Math.round(Number(newCost) || t.cost);
       t.profit = t.price - t.cost;
       t.status = "Lunas";
       t.warrantyStatus = "Normal";
 
+      if (supabase) {
+        supabase.from('transactions').update({
+          due_date: t.dueDate,
+          renewal_date: t.renewalDate,
+          cost: t.cost,
+          profit: t.profit,
+          status: "Lunas",
+          warranty_status: "Normal"
+        }).eq('id', t.id);
+      }
+
       renderApp();
-      showToast(`Akun ${t.client} diperpanjang +30 hari s/d ${t.dueDate}!`);
+      showToast(`Akun ${t.client} diperpanjang s/d Expired: ${t.dueDate} (Renewal: ${t.renewalDate})!`);
     }
 
     function quickPay(id) {
@@ -1606,6 +1869,7 @@
       if (t) {
         t.paid = t.price;
         t.status = "Lunas";
+        if (supabase) supabase.from('transactions').update({ paid: t.price, status: "Lunas" }).eq('id', t.id);
         showToast(`Pesanan ${t.client} berhasil dilunasi!`);
         renderApp();
       }
@@ -1616,14 +1880,16 @@
       renderApp();
     }
 
-    // PENGELUARAN
+    // FORM PENGELUARAN
     function openNewExpenseModal() {
+      document.getElementById('formExpDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('formExpDesc').value = "";
       document.getElementById('formExpAmount').value = "";
       document.getElementById('modalExpense').classList.add('active');
     }
 
-    function saveExpense() {
+    async function saveExpense() {
+      const expDate = document.getElementById('formExpDate').value || new Date().toISOString().split('T')[0];
       const desc = document.getElementById('formExpDesc').value || "Pengeluaran";
       const amount = Math.round(Number(document.getElementById('formExpAmount').value) || 0);
       const unit = document.getElementById('formExpUnit').value;
@@ -1634,14 +1900,14 @@
         return;
       }
 
-      expenses.unshift({
-        id: `EXP-00${expenses.length + 1}`,
-        date: new Date().toISOString().split('T')[0],
-        desc: desc,
-        amount: amount,
-        unit: unit,
-        method: method
-      });
+      const expId = `EXP-00${expenses.length + 1}`;
+      const payload = { id: expId, date: expDate, description: desc, amount: amount, unit: unit, method: method };
+
+      if (supabase) {
+        await supabase.from('expenses').insert(payload);
+      }
+
+      expenses.unshift({ id: expId, date: expDate, desc: desc, amount: amount, unit: unit, method: method });
 
       closeModal('modalExpense');
       renderApp();
@@ -1656,11 +1922,13 @@
       document.getElementById('modalConfirmDelete').classList.add('active');
     }
 
-    document.getElementById('btnConfirmDeleteExec').addEventListener('click', () => {
+    document.getElementById('btnConfirmDeleteExec').addEventListener('click', async () => {
       if (pendingDeleteType === 'trx') {
+        if (supabase) await supabase.from('transactions').delete().eq('id', pendingDeleteId);
         transactions = transactions.filter(t => t.id !== pendingDeleteId);
         showToast("Transaksi berhasil dihapus.");
       } else if (pendingDeleteType === 'exp') {
+        if (supabase) await supabase.from('expenses').delete().eq('id', pendingDeleteId);
         expenses = expenses.filter(e => e.id !== pendingDeleteId);
         showToast("Pengeluaran berhasil dihapus.");
       }
@@ -1682,7 +1950,7 @@
         transaksi: "Semua Transaksi & Pesanan",
         piutang: "Manajemen Piutang & DP",
         pengeluaran: "Catatan Biaya Kerja",
-        rekap: "Rekap Laba Bersih Murni"
+        rekap: "Rekap Finansial & Profit Harian"
       };
       document.getElementById('pageTitle').innerText = titles[viewId] || "Dashboard";
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1700,7 +1968,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      renderApp();
+      fetchSupabaseData();
     });
   </script>
 </body>
